@@ -1,5 +1,7 @@
 window.StashApp.register('stalzone', {
   meta: {
+    theme: 'stalzone',
+    showHazardBar: true,
     eyebrow: "📦 Stash // Pense-bête personnel",
     title: "Notes de <span>R3dn0</span>",
     sub: "Classements, récaps et recommandations glanés aux frontières de la Zone. Pas une vérité absolue, juste ce que j'ai noté pour m'y retrouver. Les onglets évolueront au fil de mes sessions.",

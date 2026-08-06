@@ -6,67 +6,13 @@
 <title>Stash — Pense-bête de R3dn0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
-<style>
-  .topics{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
-    gap:14px;
-    margin-top:30px;
-  }
-  .topiccard{
-    background:var(--panel-2);
-    border:1px solid var(--line);
-    padding:20px 20px 18px 20px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    text-decoration:none;
-    transition:border-color .15s ease, transform .15s ease;
-    position:relative;
-  }
-  a.topiccard:hover{border-color:var(--toxic-dim); transform:translateY(-2px);}
-  .topiccard .t-label{
-    font-family:'Oswald', sans-serif;
-    text-transform:uppercase;
-    letter-spacing:.05em;
-    font-weight:600;
-    font-size:16px;
-    color:var(--amber);
-  }
-  .topiccard .t-desc{
-    font-size:12.5px;
-    line-height:1.6;
-    color:var(--muted);
-    flex:1;
-  }
-  .topiccard .t-meta{
-    font-size:10.5px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--grey);
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .topiccard .t-meta .dot{
-    width:6px;height:6px;
-    border-radius:50%;
-    display:inline-block;
-  }
-  .topiccard.soon{
-    border-style:dashed;
-    border-color:var(--line-soft);
-    cursor:default;
-  }
-  .topiccard.soon .t-label{color:var(--grey);}
-</style>
+<link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/home.css">
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <div class="hazard-bar"></div>
     <div class="eyebrow">📦 Stash // Pense-bête personnel</div>
     <h1>Notes de <span>R3dn0</span></h1>
     <div class="sub">Tous mes pense-bête réunis au même endroit, accessibles de n'importe où. Chaque thème a sa propre page, son propre contenu et sa propre façon de s'afficher.</div>
@@ -78,7 +24,7 @@
       <a class="topiccard" href="./stalzone.html">
         <div class="t-label">Stalzone</div>
         <div class="t-desc">Classements d'armures, armes, artéfacts, conseils de progression et méthodes de money making pour Stalzone / Stalcraft.</div>
-        <div class="t-meta"><span class="dot" style="background:var(--toxic)"></span> en ligne</div>
+        <div class="t-meta"><span class="dot" style="background:var(--accent)"></span> en ligne</div>
       </a>
 
       <div class="topiccard soon">

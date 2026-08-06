@@ -31,8 +31,9 @@
   };
 
   function buildHeader(cfg, root) {
+    const deco = cfg.meta.showHazardBar ? '<div class="hazard-bar"></div>' : '';
     root.querySelector('#header').innerHTML = `
-      <div class="hazard-bar"></div>
+      ${deco}
       <div class="eyebrow">${cfg.meta.eyebrow}</div>
       <h1>${cfg.meta.title}</h1>
       <div class="sub">${cfg.meta.sub}</div>

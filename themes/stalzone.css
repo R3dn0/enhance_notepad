@@ -358,16 +358,3 @@
     .card{grid-template-columns:36px 1fr;}
     .card.tagged{grid-template-columns:60px 1fr;}
   }
-.backlink{
-  margin:18px 0 0 0;
-}
-.backlink a{
-  font-family:'JetBrains Mono', monospace;
-  font-size:11px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--muted);
-  text-decoration:none;
-  transition:color .15s ease;
-}
-.backlink a:hover{color:var(--toxic);}

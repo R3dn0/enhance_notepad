@@ -61,9 +61,10 @@
   function render(cfg, state, root) {
     if (typeof cfg.render === 'function') {
       cfg.render(state, root, cfg);
-      return;
+    } else {
+      renderTopic(cfg, state, root);
     }
-    renderTopic(cfg, state, root);
+    openExternalLinksInNewTab(root.querySelector('#main'));
   }
 
   function defaultCardHTML(it, tagLabels) {
@@ -156,5 +157,17 @@
       legend.innerHTML = legends[state.tab].map(l => `<span><i style="color:${l.color}"></i>${l.label}</span>`).join('');
       main.appendChild(legend);
     }
+
+    openExternalLinksInNewTab(main);
+  }
+
+  function openExternalLinksInNewTab(container) {
+    container.querySelectorAll('a[href^="http"]').forEach(a => {
+      a.target = '_blank';
+      a.rel = (a.rel ? a.rel.split(/\s+/) : []).filter(Boolean);
+      if (!a.rel.includes('noopener')) a.rel.push('noopener');
+      if (!a.rel.includes('noreferrer')) a.rel.push('noreferrer');
+      a.rel = a.rel.join(' ');
+    });
   }
 })();

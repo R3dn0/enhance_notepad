@@ -1,0 +1,25 @@
+{
+  "name": "enhance_notepad",
+  "version": "1.0.0",
+  "description": "Pense-bête personnel accessible de partout",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i src/app.css -o assets/app.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/R3dn0/enhance_notepad.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/R3dn0/enhance_notepad/issues"
+  },
+  "homepage": "https://github.com/R3dn0/enhance_notepad#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

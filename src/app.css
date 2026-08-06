@@ -1,0 +1,244 @@
+@import "tailwindcss";
+
+@source "../index.html";
+@source "../stalzone.html";
+@source "../assets/app.js";
+@source "../data/**/*.js";
+
+@theme {
+  --font-sans: 'Oswald', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-bg: #0f0f12;
+  --color-panel: #16161a;
+  --color-panel-2: #1c1c21;
+  --color-line: #2a2a31;
+  --color-line-soft: #212128;
+  --color-text: #e8e7e4;
+  --color-muted: #9d9b96;
+  --color-faint: #74726d;
+  --color-accent: #a3b2c4;
+  --color-accent-strong: #7e8ca0;
+  --color-warn: #a35a50;
+}
+
+body {
+  @apply bg-bg text-text font-mono min-h-screen;
+  padding: 0 0 80px 0;
+}
+
+.wrap {
+  @apply max-w-[980px] mx-auto px-5;
+}
+
+header {
+  @apply pt-10 pb-6 border-b border-line;
+}
+
+.eyebrow {
+  @apply flex items-center gap-2.5 mb-2.5 font-mono text-[11px] uppercase text-accent;
+  letter-spacing: .22em;
+}
+.eyebrow::before {
+  content: "";
+  @apply inline-block w-[7px] h-[7px] bg-accent;
+}
+
+h1 {
+  @apply font-sans font-bold text-text uppercase leading-[1.05];
+  font-size: clamp(30px, 5vw, 46px);
+  letter-spacing: .02em;
+  margin: 0 0 8px 0;
+}
+h1 span {
+  @apply text-accent;
+}
+
+.sub {
+  @apply text-muted text-[13.5px] leading-relaxed;
+  max-width: 560px;
+}
+
+.maintabs {
+  @apply flex flex-wrap mt-7 border border-line bg-panel;
+  width: fit-content;
+}
+.maintab {
+  @apply font-sans font-semibold uppercase text-[13.5px] text-muted bg-transparent border-none py-[13px] px-5 cursor-pointer;
+  letter-spacing: .08em;
+  transition: color .15s ease, background .15s ease;
+}
+.maintab:not(:last-child) {
+  @apply border-r border-line;
+}
+.maintab:hover {
+  @apply text-text;
+}
+.maintab.active {
+  @apply text-bg bg-text;
+}
+
+.filterbar {
+  @apply flex flex-wrap gap-2 mt-6 mb-2;
+}
+.pill {
+  @apply font-mono text-[12px] uppercase text-muted bg-panel border border-line px-3.5 py-2 cursor-pointer;
+  letter-spacing: .03em;
+  transition: all .15s ease;
+}
+.pill:hover {
+  @apply text-text;
+  border-color: var(--color-accent-strong);
+}
+.pill.active {
+  @apply text-bg bg-text font-semibold;
+  border-color: var(--color-text);
+}
+
+main {
+  @apply pt-5;
+}
+
+.category {
+  @apply mt-11;
+}
+.category-head {
+  @apply flex items-baseline gap-3 mb-1;
+}
+.category-head h2 {
+  @apply font-sans uppercase text-[22px] text-text m-0;
+  letter-spacing: .03em;
+}
+.category-head .count {
+  @apply text-[11px] text-muted;
+  letter-spacing: .05em;
+}
+.category-rule {
+  @apply h-px;
+  margin: 10px 0 22px 0;
+  background: linear-gradient(to right, var(--color-line) 0%, transparent 100%);
+}
+
+.subcat {
+  @apply mb-[30px] pl-[18px];
+  border-left: 2px solid var(--color-line-soft);
+}
+.subcat h3 {
+  @apply font-sans uppercase text-[15px] text-text mb-2;
+  letter-spacing: .05em;
+}
+.recap {
+  @apply text-[12.5px] leading-relaxed text-muted bg-panel mb-3.5 px-[13px] py-2.5;
+  border: 1px dashed var(--color-line);
+}
+.recap b {
+  @apply font-semibold text-text;
+}
+.recap a {
+  @apply text-accent underline;
+  text-underline-offset: 3px;
+}
+
+.cards {
+  @apply flex flex-col gap-2;
+}
+.card {
+  @apply grid grid-cols-[44px_1fr] gap-3.5 items-start bg-panel-2 border border-line px-3.5 py-3;
+}
+.card.tagged {
+  @apply grid-cols-[78px_1fr];
+}
+.card.warn {
+  @apply border-warn;
+}
+
+.tier {
+  @apply flex items-center justify-center font-sans font-bold text-[15px] w-[34px] h-[34px] text-muted;
+  border: 1px solid currentColor;
+  background: rgba(255,255,255,0.02);
+}
+.badge {
+  @apply font-mono font-bold text-[9.5px] uppercase text-center text-muted px-1 py-[9px];
+  border: 1px solid currentColor;
+  background: rgba(255,255,255,0.02);
+  letter-spacing: .04em;
+  line-height: 1.3;
+}
+
+.card-body .name {
+  @apply font-sans font-semibold text-[14.5px] text-text mb-[3px];
+  letter-spacing: .02em;
+}
+.card-body .name .warn-tag {
+  @apply text-warn font-semibold uppercase text-[10.5px];
+  margin-left: 8px;
+  letter-spacing: .05em;
+}
+.card-body .desc {
+  @apply text-[12.5px] leading-relaxed text-muted;
+}
+
+.summary {
+  @apply mt-2.5 mb-11 bg-panel px-6 py-[22px];
+  border: 1px solid var(--color-line);
+}
+.summary .eyebrow {
+  @apply text-accent;
+}
+.summary .eyebrow::before {
+  @apply bg-accent;
+}
+.summary h3 {
+  @apply font-sans uppercase text-[16px] text-text mb-3;
+  margin-top: 6px;
+}
+.summary p {
+  @apply text-[12.8px] leading-relaxed text-text mb-2.5;
+}
+.summary p:last-child {
+  margin-bottom: 0;
+}
+.summary b {
+  @apply text-accent;
+}
+.summary a {
+  @apply text-muted underline;
+  text-underline-offset: 3px;
+}
+
+.legend {
+  @apply flex flex-wrap gap-3 mt-3.5 font-mono text-[10.5px] uppercase text-muted;
+  letter-spacing: .03em;
+}
+.legend span {
+  @apply inline-flex items-center gap-1.5;
+}
+.legend i {
+  @apply inline-block w-2 h-2;
+  border: 1px solid currentColor;
+}
+
+footer {
+  @apply mt-[50px] pt-[18px] border-t border-line font-mono text-[11px] text-muted;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.backlink {
+  @apply mt-[18px];
+}
+.backlink a {
+  @apply font-mono text-[11px] uppercase text-muted no-underline;
+  letter-spacing: .08em;
+  transition: color .15s ease;
+}
+.backlink a:hover {
+  @apply text-accent;
+}
+
+@media (max-width:600px){
+  .maintabs { width: 100%; }
+  .maintab { flex: 1 1 33%; padding: 12px 6px; font-size: 11px; }
+  .card { grid-template-columns: 36px 1fr; }
+  .card.tagged { grid-template-columns: 60px 1fr; }
+}

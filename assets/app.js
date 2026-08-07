@@ -164,17 +164,15 @@
       legend.innerHTML = legends[state.tab].map(l => `<span><i style="color:${l.color}"></i>${l.label}</span>`).join('');
       main.appendChild(legend);
     }
-
-    openExternalLinksInNewTab(main);
   }
 
   function openExternalLinksInNewTab(container) {
     container.querySelectorAll('a[href^="http"]').forEach(a => {
       a.target = '_blank';
-      a.rel = (a.rel ? a.rel.split(/\s+/) : []).filter(Boolean);
-      if (!a.rel.includes('noopener')) a.rel.push('noopener');
-      if (!a.rel.includes('noreferrer')) a.rel.push('noreferrer');
-      a.rel = a.rel.join(' ');
+      const rel = new Set(String(a.rel || '').split(/\s+/).filter(Boolean));
+      rel.add('noopener');
+      rel.add('noreferrer');
+      a.rel = Array.from(rel).join(' ');
     });
 
     container.querySelectorAll('.loadout-img img').forEach(img => {

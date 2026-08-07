@@ -4,7 +4,7 @@
   "description": "Pense-bête personnel accessible de partout",
   "private": true,
   "scripts": {
-    "build": "tailwindcss -i src/app.css -o assets/app.css --minify"
+    "build": "tailwindcss -i src/app.scss -o assets/app.css --minify && sass src/scss/_abi.scss themes/abi.css --no-source-map --style=compressed && sass src/scss/_stalzone.scss themes/stalzone.css --no-source-map --style=compressed"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/R3dn0/enhance_notepad#readme",
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.3",
+    "sass": "^1.102.0",
     "tailwindcss": "^4.3.3"
   }
 }

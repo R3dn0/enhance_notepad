@@ -125,7 +125,14 @@
 
       cat.subcats.forEach(sc => {
         if (typeof subcatHTML === 'function') {
-          section.appendChild(subcatHTML(sc, tagLabels));
+          const html = subcatHTML(sc, tagLabels);
+          if (typeof html === 'string') {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            while (tmp.firstChild) section.appendChild(tmp.firstChild);
+          } else {
+            section.appendChild(html);
+          }
           return;
         }
         const scEl = document.createElement('div');

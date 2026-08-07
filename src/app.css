@@ -2,6 +2,7 @@
 
 @source "../index.html";
 @source "../stalzone.html";
+@source "../abi.html";
 @source "../assets/app.js";
 @source "../data/**/*.js";
 
@@ -234,6 +235,43 @@ footer {
 }
 .backlink a:hover {
   @apply text-accent;
+}
+
+.theme-card {
+  @apply flex flex-col gap-2.5 p-5 no-underline transition-[border-color,transform] duration-150 hover:-translate-y-0.5;
+  background: var(--card-bg, var(--color-panel-2));
+  border: 1px solid var(--card-line, var(--color-line));
+}
+.theme-card:hover {
+  border-color: var(--card-accent, var(--color-accent-strong));
+}
+.theme-card .t-title {
+  color: var(--card-text, var(--color-text));
+}
+.theme-card .t-desc {
+  color: var(--card-muted, var(--color-muted));
+}
+.theme-card .t-status {
+  color: var(--card-accent, var(--color-accent));
+}
+.theme-card .t-dot {
+  background: var(--card-accent, var(--color-accent));
+  box-shadow: 0 0 6px var(--card-accent, var(--color-accent));
+}
+
+.theme-card[data-theme="stalzone"] {
+  --card-bg: #12140d;
+  --card-line: #2a2f1e;
+  --card-accent: #d9a520;
+  --card-text: #e7e4d3;
+  --card-muted: #8b8a76;
+}
+.theme-card[data-theme="abi"] {
+  --card-bg: #131509;
+  --card-line: #2b2f1d;
+  --card-accent: #93a84e;
+  --card-text: #e9e6d6;
+  --card-muted: #949582;
 }
 
 @media (max-width:600px){

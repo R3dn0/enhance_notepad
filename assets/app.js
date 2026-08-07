@@ -97,7 +97,7 @@
 
     const main = root.querySelector('#main');
     main.innerHTML = '';
-    const cats = d[state.tab].categories.filter(c => state.filter === 'all' ? c.id !== 'synthese' : c.id === state.filter);
+    const cats = d[state.tab].categories.filter(c => state.filter === 'all' ? c.id !== 'summary' : c.id === state.filter);
 
     cats.forEach(cat => {
       const itemCount = cat.subcats.reduce((n, sc) => n + sc.items.length, 0);
@@ -111,12 +111,12 @@
         <div class="category-rule"></div>
       `;
 
-      if (cat.id === 'synthese' && summaries[state.tab]) {
+      if (cat.id === 'summary' && summaries[state.tab]) {
         const s = summaries[state.tab];
         const box = document.createElement('div');
         box.className = 'summary';
         box.innerHTML = `
-          <div class="eyebrow">Priorités</div>
+          <div class="eyebrow">Priorities</div>
           <h3>${s.title}</h3>
           ${s.paragraphs.map(p => `<p>${p}</p>`).join('')}
         `;
@@ -145,7 +145,7 @@
               <div class="card${it.tag ? ' tagged' : ''}${it.warn ? ' warn' : ''}">
                 ${cardHTML(it, tagLabels)}
                 <div class="card-body">
-                  <div class="name">${it.name}${it.warn ? '<span class="warn-tag">⚠ attention</span>' : ''}</div>
+                  <div class="name">${it.name}${it.warn ? '<span class="warn-tag">⚠ caution</span>' : ''}</div>
                   <div class="desc">${it.desc}</div>
                 </div>
               </div>

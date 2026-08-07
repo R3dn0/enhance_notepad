@@ -266,20 +266,20 @@
     background:rgba(255,255,255,0.02);
     line-height:1.3;
   }
-  .badge.p-fiable{color:var(--toxic);}
-  .badge.p-risque{color:var(--red);}
-  .badge.p-chance{color:var(--amber); box-shadow:0 0 10px rgba(217,165,32,.25);}
-  .badge.p-lent{color:var(--grey);}
+  .badge.p-reliable{color:var(--toxic);}
+  .badge.p-risky{color:var(--red);}
+  .badge.p-luck{color:var(--amber); box-shadow:0 0 10px rgba(217,165,32,.25);}
+  .badge.p-slow{color:var(--grey);}
   .badge.p-rmt{color:var(--orange);}
-  .badge.p-rapide{color:var(--teal);}
-  .badge.p-valeur{color:var(--toxic);}
+  .badge.p-fast{color:var(--teal);}
+  .badge.p-value{color:var(--toxic);}
   .badge.p-budget{color:var(--grey);}
   .badge.p-gamble{color:var(--amber); box-shadow:0 0 10px rgba(217,165,32,.25);}
-  .badge.p-cher{color:var(--orange);}
-  .badge.p-cle{color:var(--amber); box-shadow:0 0 10px rgba(217,165,32,.25);}
-  .badge.p-astuce{color:var(--teal);}
-  .badge.p-attention{color:var(--red);}
-  .badge.p-optionnel{color:var(--grey);}
+  .badge.p-expensive{color:var(--orange);}
+  .badge.p-key{color:var(--amber); box-shadow:0 0 10px rgba(217,165,32,.25);}
+  .badge.p-tip{color:var(--teal);}
+  .badge.p-caution{color:var(--red);}
+  .badge.p-optional{color:var(--grey);}
 
   .card-body .name{
     font-family:'Oswald', sans-serif;

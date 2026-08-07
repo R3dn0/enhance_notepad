@@ -3,28 +3,31 @@ window.StashApp.register('abi', {
     theme: 'abi',
     eyebrow: "📦 Stash // Pense-bête personnel",
     title: "Notes de <span>R3dn0</span>",
-    sub: "Loadouts pour Arena Breakout: Infinite glanés en vidéo — pas une vérité absolue, juste ce que j'ai noté pour m'y retrouver. Prix au moment de la vidéo, à vérifier sur le marché. Source : <a href='https://www.youtube.com/watch?v=MAYzuyx7XV4'>6 Lockdown Loadouts (Pork TV)</a>.",
-    footer: "R3dn0 — Loadouts ABI · prix indicatifs (au moment de la vidéo) · mis à jour au fil du temps"
+    sub: "Notes sur Arena Breakout: Infinite — loadouts, builds, guides et résumés de vidéos glanés au fil de mes sessions. Pas une vérité absolue, juste ce que j'ai noté pour m'y retrouver. Prix au moment des vidéos, à vérifier sur le marché.",
+    footer: "R3dn0 — Notes ABI · prix indicatifs (au moment des vidéos) · mis à jour au fil du temps"
   },
   tabs: [
-    { id: 'lockdown', label: 'Lockdown Loadouts' }
+    { id: 'builds', label: 'Builds' }
   ],
   data: {
-  lockdown: {
+  builds: {
     filters: [
-      {id:'budget', label:'Budget'},
-      {id:'hybrid', label:'Hybrid'},
-      {id:'chad', label:'Chad'},
+      {id:'guide', label:'The Only Loadout Guide'},
       {id:'all', label:'Tout'},
     ],
     categories: [
       {
-        id:'budget',
-        label:'Budget',
+        id:'guide',
+        label:'The Only Loadout Guide',
         subcats:[
           {
-            label:'Build 1 — T-951',
-            recap:'Simple, pas cher, efficace. Armure sous T4 = quasi inutile en Lockdown (80% des joueurs roulent en T4). Les casques font exception — la chance de ricochet est réelle.',
+            label:'📼 La vidéo',
+            recap:'6 loadouts pour le mode <b>Lockdown</b> (2 Budget, 2 Hybrid, 2 Chad) expliqués par <b>Pork TV</b> — 2500 raids, 450M de stash value, top 100. La méthode : choisis ta catégorie, copie le blueprint, adapte-le.<br><br>🎬 <a href="https://www.youtube.com/watch?v=MAYzuyx7XV4">Voir la vidéo — The Only Loadout Guide You\'ll Ever Need</a>',
+            items:[]
+          },
+          {
+            label:'💰 Budget',
+            recap:'Simple, pas cher, efficace. Armure sous T4 = quasi inutile en Lockdown (80% des joueurs roulent en munitions T4). Les casques font exception — la chance de ricochet est réelle. Priorité absolue : arme et munitions, toujours.',
             items:[
               { cat:'budget', name:'T-951 — simple, efficace',
                 img:'assets/abi/T951.webp',
@@ -35,13 +38,7 @@ window.StashApp.register('abi', {
                 rig:'BH Rig',
                 bag:'Medfield (ou équivalent)',
                 total:'220-240k',
-                note:"Tout gun vers ce prix peut compéter. Total avant meds et munitions — le prix fluctue selon l'heure." }
-            ]
-          },
-          {
-            label:'Build 2 — AUG',
-            recap:'Mêmes casque et audio — inutile de changer ce qui marche. Le gilet Hunter apporte plus de place, le XA4 le meilleur espace/prix du jeu.',
-            items:[
+                note:"Tout gun vers ce prix peut compéter. Total avant meds et munitions — le prix fluctue selon l'heure." },
               { cat:'budget', name:'AUG — le monstre budget',
                 img:'assets/abi/AUG.webp',
                 weapon:'AUG (une des meilleures guns budget)',
@@ -52,15 +49,9 @@ window.StashApp.register('abi', {
                 bag:'XA4 tactical backpack',
                 note:"Le A1 est très bon marché en ce moment pour un T4, et il tape sérieusement." }
             ]
-          }
-        ]
-      },
-      {
-        id:'hybrid',
-        label:'Hybrid',
-        subcats:[
+          },
           {
-            label:'Build 1 — AK-12',
+            label:'🔀 Hybrid',
             recap:"Tu peux farm tranquille ou foncer dans un combat — les deux marchent. Budget d'arme entre 300 et 400k.",
             items:[
               { cat:'hybrid', name:'AK-12 — le best tier de Lockdown',
@@ -71,13 +62,7 @@ window.StashApp.register('abi', {
                 armor:'6B23 (un des meilleurs T4)',
                 bag:'Rush backpack (best pour stacker)',
                 total:'764k + 100-150k ammo/consos',
-                note:"Particulièrement fort pour les nouveaux joueurs — tu vas détruire du monde." }
-            ]
-          },
-          {
-            label:'Build 2 — AK-12 (variante awareness)',
-            recap:"Meilleur audio et meilleure awareness que l'Helicopter helmet.",
-            items:[
+                note:"Particulièrement fort pour les nouveaux joueurs — tu vas détruire du monde." },
               { cat:'hybrid', name:'AK-12 — variante awareness',
                 img:'assets/abi/AK_12.webp',
                 weapon:'AK-12',
@@ -88,16 +73,10 @@ window.StashApp.register('abi', {
                 total:'835k + 100-150k ammo/consos',
                 note:'Les deux rigs sont solides — choisis selon ton playstyle.' }
             ]
-          }
-        ]
-      },
-      {
-        id:'chad',
-        label:'Chad',
-        subcats:[
+          },
           {
-            label:'Build 1 — HK Shredder',
-            recap:"Pour les sweaty players qui veulent du PvP. Oui, on peut dépasser 1M de valeur en Lockdown — astuce : strip les attachements de ton arme pour passer sous le cap des 1M.",
+            label:'🔥 Chad',
+            recap:"Pour les sweaty players qui veulent du PvP. On peut dépasser 1M de valeur en Lockdown — astuce : strip les attachements de ton arme pour passer sous le cap des 1M.",
             items:[
               { cat:'chad', name:'HK Shredder — PvP sous 1M',
                 img:'assets/abi/H416.webp',
@@ -107,13 +86,7 @@ window.StashApp.register('abi', {
                 rig:'Warrior rig (T5 — meilleur ratio valeur/prix)',
                 bag:'Rush backpack',
                 total:'juste sous 1M',
-                note:"Faisable avec n'importe quelle arme — il suffit de strip les attachements." }
-            ]
-          },
-          {
-            label:'Build 2 — Masochist',
-            recap:"Le perso du créateur. Le casque sans son : tu détruis ou tu te fais détruire — et plus tu joues avec, meilleur tu deviens.",
-            items:[
+                note:"Faisable avec n'importe quelle arme — il suffit de strip les attachements." },
               { cat:'chad', name:'Masochist — le perso du créateur',
                 img:'assets/abi/AK_12.webp',
                 weapon:'AK-12 ou HK (au choix)',
@@ -145,7 +118,7 @@ window.StashApp.register('abi', {
       <div class="subcat">
         <h3>${sc.label}</h3>
         ${sc.recap ? `<div class="recap">${sc.recap}</div>` : ''}
-        <div class="cards">
+        ${sc.items.length ? `<div class="cards">
           ${sc.items.map(it => `
             <div class="card loadout">
               <div class="loadout-head">
@@ -162,12 +135,12 @@ window.StashApp.register('abi', {
               ${it.note ? `<div class="loadout-note">${it.note}</div>` : ''}
             </div>
           `).join('')}
-        </div>
+        </div>` : ''}
       </div>
     `;
   },
   legends: {
-  lockdown: [
+  builds: [
     {label:'Budget — l\'essentiel pour exister (~200-240k)', color:'var(--color-accent)'},
     {label:'Hybrid — farm + combat (arme 300-400k)', color:'var(--abi-orange)'},
     {label:'Chad — PvP sweaty (1M+, gear détruit)', color:'var(--abi-red)'},

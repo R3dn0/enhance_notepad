@@ -177,16 +177,133 @@
 
     container.querySelectorAll('.loadout-img img').forEach(img => {
       img.style.cursor = 'zoom-in';
-      img.addEventListener('click', (e) => {
-        const overlay = document.createElement('div');
-        overlay.className = 'lightbox';
-        const bigImg = document.createElement('img');
-        bigImg.src = img.src;
-        bigImg.alt = img.alt;
-        overlay.appendChild(bigImg);
-        overlay.addEventListener('click', () => overlay.remove());
-        document.body.appendChild(overlay);
-      });
+      img.addEventListener('click', () => openLightbox(img));
     });
+  }
+
+  function openLightbox(imgEl) {
+    if (document.querySelector('.lightbox')) return;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'lightbox';
+    const bigImg = document.createElement('img');
+    bigImg.src = imgEl.currentSrc || imgEl.src;
+    bigImg.alt = imgEl.alt || '';
+    const badge = document.createElement('span');
+    badge.className = 'lightbox-zoom';
+    overlay.appendChild(bigImg);
+    overlay.appendChild(badge);
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+
+    let scale = 1;
+    let tx = 0;
+    let ty = 0;
+    const MIN_SCALE = 1;
+    const MAX_SCALE = 8;
+    const pointers = new Map();
+    let lastDist = 0;
+    let lastMid = { x: 0, y: 0 };
+
+    function rect() {
+      return overlay.getBoundingClientRect();
+    }
+
+    function clampPan() {
+      const r = rect();
+      const baseW = bigImg.offsetWidth;
+      const baseH = bigImg.offsetHeight;
+      const maxX = baseW * scale > r.width ? (baseW * scale - r.width) / 2 : 0;
+      const maxY = baseH * scale > r.height ? (baseH * scale - r.height) / 2 : 0;
+      tx = Math.max(-maxX, Math.min(maxX, tx));
+      ty = Math.max(-maxY, Math.min(maxY, ty));
+    }
+
+    function apply() {
+      bigImg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+      badge.textContent = `${scale.toFixed(2).replace(/\.?0+$/, '')}x`;
+    }
+
+    function zoomAt(factor, cx, cy) {
+      const r = rect();
+      const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale * factor));
+      const f = newScale / scale;
+      if (f === 1) return;
+      const ocx = r.left + r.width / 2;
+      const ocy = r.top + r.height / 2;
+      const ox = cx - ocx - tx;
+      const oy = cy - ocy - ty;
+      tx = cx - ocx - ox * f;
+      ty = cy - ocy - oy * f;
+      scale = newScale;
+      clampPan();
+      apply();
+    }
+
+    function close() {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+      overlay.remove();
+    }
+
+    function onKey(e) {
+      if (e.key === 'Escape') close();
+    }
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) close();
+    });
+
+    overlay.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      zoomAt(Math.exp(-e.deltaY * 0.0015), e.clientX, e.clientY);
+    }, { passive: false });
+
+    bigImg.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      if (bigImg.setPointerCapture) bigImg.setPointerCapture(e.pointerId);
+      bigImg.classList.add('dragging');
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 2) {
+        const [p1, p2] = [...pointers.values()];
+        lastDist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+        lastMid = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+      }
+    });
+
+    bigImg.addEventListener('pointermove', (e) => {
+      if (!pointers.has(e.pointerId)) return;
+      const prev = pointers.get(e.pointerId);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) {
+        tx += e.clientX - prev.x;
+        ty += e.clientY - prev.y;
+        clampPan();
+        apply();
+      } else if (pointers.size === 2) {
+        const [p1, p2] = [...pointers.values()];
+        const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+        const mid = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+        if (lastDist > 0) zoomAt(dist / lastDist, mid.x, mid.y);
+        tx += mid.x - lastMid.x;
+        ty += mid.y - lastMid.y;
+        clampPan();
+        apply();
+        lastDist = dist;
+        lastMid = mid;
+      }
+    });
+
+    const endPointer = (e) => {
+      pointers.delete(e.pointerId);
+      if (pointers.size === 0) bigImg.classList.remove('dragging');
+    };
+
+    bigImg.addEventListener('pointerup', endPointer);
+    bigImg.addEventListener('pointercancel', endPointer);
+    bigImg.addEventListener('pointerleave', endPointer);
+
+    document.addEventListener('keydown', onKey);
+    apply();
   }
 })();

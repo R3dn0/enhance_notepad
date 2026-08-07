@@ -243,6 +243,25 @@ footer {
 }
 .lightbox img {
   @apply max-w-full max-h-full object-contain;
+  transform-origin: center;
+  will-change: transform;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: grab;
+}
+.lightbox img.dragging {
+  cursor: grabbing;
+}
+.lightbox-zoom {
+  @apply absolute top-4 right-4 font-mono text-[12px];
+  color: rgba(255,255,255,.75);
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 4px;
+  padding: 3px 8px;
+  pointer-events: none;
+  user-select: none;
 }
 
 .theme-card {

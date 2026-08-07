@@ -2,143 +2,143 @@ window.StashApp.register('stalzone', {
   meta: {
     theme: 'stalzone',
     showHazardBar: true,
-    eyebrow: "📦 Stash // Pense-bête personnel",
-    title: "Notes de <span>R3dn0</span>",
-    sub: "Classements, récaps et recommandations glanés aux frontières de la Zone. Pas une vérité absolue, juste ce que j'ai noté pour m'y retrouver. Les onglets évolueront au fil de mes sessions.",
-    footer: "R3dn0 — Notes de la Zone · sources & liens en bas des synthèses · mis à jour au fil du temps"
+    eyebrow: "📦 Stash // Personal memo",
+    title: "<span>R3dn0</span>'s Notes",
+    sub: "Rankings, recaps and recommendations gathered at the edges of the Zone. Not an absolute truth, just what I noted to find my way around. Tabs will evolve over my sessions.",
+    footer: "R3dn0 — Zone notes · sources & links at the bottom of the summaries · updated over time"
   },
   tabs: [
-    { id: 'armures', label: 'Armures' },
-    { id: 'armes', label: 'Armes' },
-    { id: 'artefacts', label: 'Artéfacts' },
+    { id: 'armures', label: 'Armor' },
+    { id: 'armes', label: 'Weapons' },
+    { id: 'artefacts', label: 'Artifacts' },
     { id: 'progression', label: 'Progression' },
     { id: 'argent', label: 'Money Making' }
   ],
   data: {
   armures: {
     filters: [
-      {id:'synthese', label:'Synthèse'},
+      {id:'synthese', label:'Summary'},
       {id:'science', label:'Science'},
       {id:'combo', label:'Combo'},
       {id:'combat', label:'Combat'},
-      {id:'all', label:'Tout'},
+      {id:'all', label:'All'},
     ],
     categories: [
       {
         id:'synthese',
-        label:'Synthèse',
+        label:'Summary',
         subcats:[
           {
             label:'🔬 Science',
-            recap:'Le <b>Saturn</b> reste la référence — protège partout sauf Klondike. Évite le <b>Ganymède</b>, un Saturn dégradé sur tous les points qui comptent.',
+            recap:'The <b>Saturn</b> remains the reference — protects everywhere except Klondike. Avoid the <b>Ganymede</b>, a degraded Saturn on every point that matters.',
             items:[
-              {tier:'S', name:'Saturn', desc:"Référence absolue — protège de tout sauf Klondike. LA suit canon."},
-              {tier:'A', name:'Antares', desc:"Stats excellentes, mais -7% vitesse pénalisant en PvP réel."},
-              {tier:'B', name:'Faction science', desc:"Bon compromis combat/science, mais t'engage dans une faction."},
-              {tier:'C', name:'Atlas', desc:"Dépannage pas cher via quête, combinable avec artéfacts."},
-              {tier:'D', name:'Ganymède', desc:"Saturn dégradé sur tous les points — à éviter.", warn:true},
+              {tier:'S', name:'Saturn', desc:"Absolute reference — protects against everything except Klondike. THE canonical suit."},
+              {tier:'A', name:'Antares', desc:"Excellent stats, but -7% speed is punishing in real PvP."},
+              {tier:'B', name:'Faction science', desc:"Good combat/science compromise, but commits you to a faction."},
+              {tier:'C', name:'Atlas', desc:"Cheap stopgap via quest, combinable with artifacts."},
+              {tier:'D', name:'Ganymede', desc:"A degraded Saturn on every point — to avoid.", warn:true},
             ]
           },
           {
             label:'⚔️ Combo',
-            recap:'Le <b>Riot Gear</b> domine en combo pur. Les speedsters de faction sont un excellent plan B vu le gameplay chaotique. Laisse tomber les builds heal (Reps/JD).',
+            recap:'The <b>Riot Gear</b> dominates pure combo. Faction speedsters are an excellent plan B given the chaotic gameplay. Skip the heal builds (Reps/JD).',
             items:[
-              {tier:'A', name:'Riot Gear', desc:"Meilleur combo pour le combat lourd en zone. Polyvalent mais un peu lent."},
-              {tier:'B', name:'Speedsters', desc:"Très populaires en PvP — la vitesse > la résistance vu le lag serveur."},
-              {tier:'B', name:'Albatross / Martin', desc:"Compromis corrects, bons pour le farm."},
-              {tier:'D', name:'Reps / JD', desc:"Builds heal trop nerfés, déconseillés.", warn:true},
+              {tier:'A', name:'Riot Gear', desc:"Best combo for heavy fighting in the zone. Versatile but a bit slow."},
+              {tier:'B', name:'Speedsters', desc:"Very popular in PvP — speed > resistance given the server lag."},
+              {tier:'B', name:'Albatross / Martin', desc:"Decent compromises, good for farming."},
+              {tier:'D', name:'Reps / JD', desc:"Heal builds too nerfed, not recommended.", warn:true},
             ]
           },
           {
             label:'🎯 Combat',
-            recap:'Le <b>Centurion</b> est le meilleur rapport résistance/vitesse pour la majorité. La Beasthunter est une quasi-impasse hors événements mutant-heavy.',
+            recap:'The <b>Centurion</b> is the best resistance/speed ratio for the majority. The Beasthunter is almost a dead end outside mutant-heavy events.',
             items:[
-              {tier:'S', name:'SBA Tank', desc:"Sommet de résistance, vitesse sacrifiée. Pour experts du placement."},
-              {tier:'A', name:'Centurion', desc:"Meilleur compromis général pour la majorité des joueurs."},
-              {tier:'B', name:'Faction combat', desc:"Bonnes pour farm/transport PvP, ne compensent pas le debuff des armes lourdes."},
-              {tier:'C', name:'Cargo', desc:"Ace Mule, Hector, CD4 — pour le transport de loot."},
-              {tier:'F', name:'Beasthunter', desc:"Inutile en late game, les mutants meurent en reculant.", warn:true},
+              {tier:'S', name:'SBA Tank', desc:"Peak resistance, speed sacrificed. For positioning experts."},
+              {tier:'A', name:'Centurion', desc:"Best all-around compromise for most players."},
+              {tier:'B', name:'Faction combat', desc:"Good for farm/PvP transport, don't compensate for heavy weapon debuffs."},
+              {tier:'C', name:'Cargo', desc:"Ace Mule, Hector, CD4 — for loot transport."},
+              {tier:'F', name:'Beasthunter', desc:"Useless in late game, mutants die while you backpedal.", warn:true},
             ]
           }
         ]
       },
       {
         id:'science',
-        label:'Suits Science',
+        label:'Science Suits',
         subcats:[
           {
-            label:'Vue d\'ensemble',
-            recap:'Le <b>Saturn</b> reste la référence absolue — protège partout sauf Klondike. Les variantes existent surtout pour des raisons de prix ou de préférence, pas de vraie supériorité.',
+            label:'Overview',
+            recap:'The <b>Saturn</b> remains the absolute reference — protects everywhere except Klondike. Variants exist mostly for price or preference, not real superiority.',
             items:[
-              {tier:'S', name:'Saturn', desc:"Le standard doré. Protège contre tout ce que la zone peut envoyer sauf Klondike. Énormément de skins, LA suit \"canon\" pour tout joueur."},
-              {tier:'A', name:'Antares', desc:"Un Centurion version science : 329 résistance à +15, stabilité augmentée, annule les debuffs de vitesse d'arme. Mais -7% vitesse le plombe en vrai PvP."},
-              {tier:'B', name:'Suits de faction (Rice → Covenant)', desc:"Version combat-ready du Saturn, protection niveau 4 partout, debuff vitesse raisonnable (2% à 5%). Engage pleinement dans ta faction."},
-              {tier:'C', name:'Miss X Atlas', desc:"Solution pansement pas chère, accessible via quête. Même résistance balles que le Saturn mais protection niveau 3 (sauf chimique). Pensée pour être combinée avec des artéfacts."},
-              {tier:'D', name:'Ganymede', desc:"Le mouton noir. Achetable à l'hôtel des ventes mais résistances élémentaires coupées en deux et -3% vitesse. \"Jack of no trades, master of being shit\"."},
+              {tier:'S', name:'Saturn', desc:"The golden standard. Protects against everything the zone can throw except Klondike. Tons of skins, THE 'canon' suit for any player."},
+              {tier:'A', name:'Antares', desc:"A Centurion in science form: 329 resistance at +15, increased stability, removes weapon speed debuffs. But -7% speed drags it down in real PvP."},
+              {tier:'B', name:'Faction suits (Rice → Covenant)', desc:"Combat-ready version of the Saturn, level 4 protection everywhere, reasonable speed debuff (2% to 5%). Commits you fully to your faction."},
+              {tier:'C', name:'Miss X Atlas', desc:"Cheap band-aid solution via quest. Same bullet resistance as the Saturn but level 3 protection (except chemical). Designed to be combined with artifacts."},
+              {tier:'D', name:'Ganymede', desc:"The black sheep. Buyable at the auction house but elemental resistances cut in half and -3% speed. 'Jack of no trades, master of being shit'."},
             ]
           }
         ]
       },
       {
         id:'combo',
-        label:'Suits Combo',
+        label:'Combo Suits',
         subcats:[
           {
-            label:'Combo pur (anomalous + combat)',
-            recap:'Le <b>Riot Gear</b> domine en pur combo bullet-tank. Les builds heal (Reps/JD) sont à éviter tant que les nerfs de régénération continuent.',
+            label:'Pure combo (anomalous + combat)',
+            recap:'The <b>Riot Gear</b> dominates pure bullet-tank combo. Heal builds (Reps/JD) are to avoid while the regen nerfs keep coming.',
             items:[
-              {tier:'A', name:'Riot Gear', desc:"Le \"Centurion\" des combos : +300 résistance balles à +15, +22 stabilité, permet zones anomalous ET combat lourd. Un peu lourd mais très polyvalent."},
-              {tier:'C', name:'CD-4 (combo simple)', desc:"Option sans prise de tête, pas de vrais avantages/désavantages. Bon si pas accès au Riegel et pas envie d'optimiser."},
-              {tier:'D', name:'Reps', desc:"Jack-of-all-trades flimsy : protection anomalous <300, régén 2%, bonne résistance saignement. Priorité basse sauf engagement total dans un build heal."},
-              {tier:'D', name:'JD Suit Gas', desc:"Encore plus fragile que le Reps mais régén 3%. Même limite : les builds heal se font nerfer sans arrêt en ce moment."},
+              {tier:'A', name:'Riot Gear', desc:"The 'Centurion' of combos: +300 bullet resistance at +15, +22 stability, allows anomalous zones AND heavy combat. A bit heavy but very versatile."},
+              {tier:'C', name:'CD-4 (simple combo)', desc:"No-brainer option, no real pros/cons. Good if you don't have access to the Riegel and don't want to optimize."},
+              {tier:'D', name:'Reps', desc:"Flimsy jack-of-all-trades: anomalous protection <300, 2% regen, good bleed resistance. Low priority unless fully committing to a heal build."},
+              {tier:'D', name:'JD Suit Gas', desc:"Even flimsier than the Reps but 3% regen. Same limit: heal builds keep getting nerfed right now."},
             ]
           },
           {
             label:'Speedsters',
-            recap:'Vu le gameplay chaotique et le lag serveur, courir vite bat souvent tanker. Le <b>Ryza\'s Hound</b> est le plus rapide, l\'<b>Albatross</b> le meilleur compromis vitesse/protection.',
+            recap:'Given the chaotic gameplay and server lag, running fast often beats tanking. The <b>Ryza\'s Hound</b> is the fastest, the <b>Albatross</b> the best speed/protection compromise.',
             items:[
-              {tier:'A', name:"Ryza's Hound", desc:"Le plus rapide de tous (+12% vitesse). La réduction de protection vaut largement le coup selon le créateur."},
-              {tier:'A', name:'Albatross', desc:"Next-gen speedster de faction, seulement -6% (le mieux protégé des speedsters), achetable à l'hôtel des ventes. Bon compromis sans crafter une speed suit dédiée."},
-              {tier:'B', name:'Investigator / Punisher', desc:"Milieu de gamme entre le Hound et le Missionary — bon équilibre vitesse/résistance balles."},
-              {tier:'B', name:'Missionary', desc:"Le plus lent des speedsters (+9% vitesse) mais la meilleure résistance balles du groupe."},
-              {tier:'B-', name:'Martin', desc:"Cousin cargo de l'Albatross (+35 poids, +3 vitesse seulement). Pas encore dispo au moment du guide, jugé correct partout, excellent nulle part."},
+              {tier:'A', name:"Ryza's Hound", desc:"The fastest of all (+12% speed). The protection reduction is well worth it according to the creator."},
+              {tier:'A', name:'Albatross', desc:"Next-gen faction speedster, only -6% (best protected of the speedsters), buyable at the auction house. Good compromise without crafting a dedicated speed suit."},
+              {tier:'B', name:'Investigator / Punisher', desc:"Mid-range between the Hound and the Missionary — good speed/bullet resistance balance."},
+              {tier:'B', name:'Missionary', desc:"The slowest speedster (+9% speed) but the best bullet resistance of the group."},
+              {tier:'B-', name:'Martin', desc:"Albatross's cargo cousin (+35 weight, +3 speed only). Not yet available at the time of the guide, judged decent everywhere, great nowhere."},
             ]
           }
         ]
       },
       {
         id:'combat',
-        label:'Suits Combat',
+        label:'Combat Suits',
         subcats:[
           {
-            label:'PvP haut niveau',
-            recap:'Le <b>Centurion</b> est le meilleur rapport résistance/vitesse pour la majorité des joueurs. Le SBA/Mega Combat réservé à ceux qui savent gérer leurs déplacements.',
+            label:'High-level PvP',
+            recap:'The <b>Centurion</b> is the best resistance/speed ratio for most players. The SBA/Mega Combat reserved for those who know how to manage their movement.',
             items:[
-              {tier:'S', name:'SBA Tank / Mega Combat Armor', desc:"Le sommet en pure résistance balles, vitesse sacrifiée. Réservé à ceux qui gèrent bien couverture et déplacements."},
-              {tier:'A', name:'Centurion', desc:"Meilleur compromis pour la plupart : 355 résistance à +15, debuff vitesse minime, facile à compenser avec une arme de mêlée."},
+              {tier:'S', name:'SBA Tank / Mega Combat Armor', desc:"The peak in pure bullet resistance, speed sacrificed. Reserved for those who handle cover and movement well."},
+              {tier:'A', name:'Centurion', desc:"Best compromise for most: 355 resistance at +15, minimal speed debuff, easy to compensate with a melee weapon."},
             ]
           },
           {
-            label:'Faction (artefact builds)',
-            recap:'Les suits de faction sont des \"chariots avec des lames\" : bon compromis transport/protection pour builds artefact, mais ne compensent pas les debuffs des armes lourdes.',
+            label:'Faction (artifact builds)',
+            recap:"Faction suits are 'chariots with blades': good transport/protection compromise for artifact builds, but don't compensate for heavy weapon debuffs.",
             items:[
-              {tier:'B', name:'Templar & suits de faction', desc:"35kg de transport, +20% stamina, stabilité d'arme boostée. Idéal pour builds artefact PvP ou farm en zone PvP."},
+              {tier:'B', name:'Templar & faction suits', desc:"35kg of carry, +20% stamina, boosted weapon stability. Ideal for PvP artifact builds or farming in PvP zones."},
             ]
           },
           {
             label:'Cargo (farm & transport)',
-            recap:'Choix selon l\'accessibilité : <b>Ace Mule</b> pour le poids max, <b>Hector</b> pour la vitesse (fragile), <b>CD4</b> pour un compromis complet.',
+            recap:'Choice depends on accessibility: <b>Ace Mule</b> for max weight, <b>Hector</b> for speed (flimsy), <b>CD4</b> for a full compromise.',
             items:[
-              {tier:'B', name:'CD4', desc:"Meilleure stamina, polyvalent, pas de vraie faiblesse — idéal pour tester des builds artefact fous."},
-              {tier:'C', name:'Ace Mule', desc:"Transporte le plus de poids. Pour ceux qui aiment farmer des heures et remplir leur inventaire."},
-              {tier:'C', name:'Hector', desc:"Le plus rapide des cargos mais l'un des plus fragiles en combat. Décent en PvE, à éviter en PvP sérieux."},
+              {tier:'B', name:'CD4', desc:"Best stamina, versatile, no real weakness — ideal for testing crazy artifact builds."},
+              {tier:'C', name:'Ace Mule', desc:"Carries the most weight. For those who like farming for hours and filling their inventory."},
+              {tier:'C', name:'Hector', desc:"The fastest cargo but one of the flimsiest in combat. Decent in PvE, avoid in serious PvP."},
             ]
           },
           {
             label:'Mutant hunting',
-            recap:'Niche quasi inutile hors events spécifiques — en late game, la plupart des mutants meurent en reculant tout en tirant.',
+            recap:'Almost useless niche outside specific events — in late game, most mutants die while you backpedal and shoot.',
             items:[
-              {tier:'F', name:'Beasthunter', desc:"Seule suit dédiée à la chasse aux mutants. Faible résistance balles, pas de bonus vitesse. Utile uniquement sur événements mutant-heavy."},
+              {tier:'F', name:'Beasthunter', desc:"The only suit dedicated to mutant hunting. Weak bullet resistance, no speed bonus. Useful only on mutant-heavy events."},
             ]
           }
         ]
@@ -148,105 +148,105 @@ window.StashApp.register('stalzone', {
 
   armes: {
     filters: [
-      {id:'synthese', label:'Synthèse'},
-      {id:'ar', label:'Fusils d\'assaut'},
+      {id:'synthese', label:'Summary'},
+      {id:'ar', label:'Assault rifles'},
       {id:'shotguns', label:'Shotguns'},
       {id:'snipers', label:'Snipers'},
       {id:'smg', label:'SMG'},
-      {id:'pistols', label:'Pistolets'},
-      {id:'mg', label:'Mitrailleuses'},
-      {id:'all', label:'Tout'},
+      {id:'pistols', label:'Pistols'},
+      {id:'mg', label:'Machine guns'},
+      {id:'all', label:'All'},
     ],
     categories: [
       {
         id:'synthese',
-        label:'Synthèse',
+        label:'Summary',
         subcats:[
           {
-            label:'🔫 Fusils d\'assaut',
-            recap:'Le <b>Thunderbird</b> est le gold standard. Évite les armes sans accès tambour (AK308, AMB-17, DSA58) — problématique vu leurs dégâts/cadence déjà faibles.',
+            label:'🔫 Assault rifles',
+            recap:'The <b>Thunderbird</b> is the gold standard. Avoid weapons without drum access (AK308, AMB-17, DSA58) — a problem given their already-low damage/fire rate.',
             items:[
-              {tier:'S', name:'Thunderbird', desc:"Gold standard — meilleur équilibre dégâts/cadence/recoil."},
-              {tier:'A', name:'A545 / KS1', desc:"Excellentes alternatives. Le KS1 meilleur All Rounder."},
-              {tier:'A', name:'AK-15 / MK-47', desc:"Meilleur compromis pour mid-level."},
-              {tier:'D', name:'AK308 / AMB-17 / DSA58', desc:"À éviter — pas d'accès au tambour.", warn:true},
+              {tier:'S', name:'Thunderbird', desc:"Gold standard — best damage/fire rate/recoil balance."},
+              {tier:'A', name:'A545 / KS1', desc:"Excellent alternatives. The KS1 best all-rounder."},
+              {tier:'A', name:'AK-15 / MK-47', desc:"Best mid-level compromise."},
+              {tier:'D', name:'AK308 / AMB-17 / DSA58', desc:"To avoid — no drum access.", warn:true},
             ]
           },
           {
             label:'💥 Shotguns',
-            recap:'Komrad/Saiga 12 pour le farm, KS23 pour dominer en PvP (si accessible). La Derya est un piège — trop de contraintes pour le résultat.',
+            recap:'Komrad/Saiga 12 for farming, KS23 to dominate PvP (if accessible). The Derya is a trap — too many constraints for the result.',
             items:[
-              {tier:'A', name:'Komrad / Saiga 12', desc:"Meilleurs en PvE — tambour 30 coups."},
-              {tier:'S', name:'KS23', desc:"One-shot dévastateur en PvP mais quasi inaccessible."},
-              {tier:'A', name:'AEK965', desc:"Bon plan B PvP plus accessible."},
-              {tier:'D', name:'Derya', desc:"À éviter — trop de contraintes.", warn:true},
+              {tier:'A', name:'Komrad / Saiga 12', desc:"Best in PvE — 30-round drum."},
+              {tier:'S', name:'KS23', desc:"Devastating one-shot in PvP but nearly inaccessible."},
+              {tier:'A', name:'AEK965', desc:"Good more accessible PvP plan B."},
+              {tier:'D', name:'Derya', desc:"To avoid — too many constraints.", warn:true},
             ]
           },
           {
             label:'🎯 Snipers',
-            recap:'Sois honnête sur ton niveau de visée : headshots fiables → McMillan. Sinon un DMR polyvalent. Le VSK est un noob trap à éviter tant que non arsenalisé.',
+            recap:'Be honest about your aim: reliable headshots → McMillan. Otherwise a versatile DMR. The VSK is a noob trap until armed.',
             items:[
-              {tier:'S', name:'McMillan', desc:"King du headshot. Dégâts corps faibles."},
-              {tier:'A', name:'VSS Vykhlop', desc:"Meilleur en dégâts sur le corps."},
-              {tier:'A', name:'MK-14 / QBU / SVD-M', desc:"DMRs très polyvalents."},
-              {tier:'F', name:'VSK', desc:"Noob trap — effort mieux investi ailleurs.", warn:true},
+              {tier:'S', name:'McMillan', desc:"King of headshots. Weak body damage."},
+              {tier:'A', name:'VSS Vykhlop', desc:"Best body damage."},
+              {tier:'A', name:'MK-14 / QBU / SVD-M', desc:"Very versatile DMRs."},
+              {tier:'F', name:'VSK', desc:"Noob trap — effort better invested elsewhere.", warn:true},
             ]
           },
           {
             label:'⚡ SMGs',
-            recap:'L\'A545 fait tout ce qu\'une SMG fait, en mieux — n\'en prends une qu\'en complément d\'un AR déjà établi, pour du pur hit-and-run.',
+            recap:'The <b>A545</b> does everything an SMG does, better — only take one as a complement to an established AR, for pure hit-and-run.',
             items:[
-              {tier:'C', name:'Toutes les SMGs', desc:"L'A545 fait tout mieux. Niche : build vitesse pure après avoir un AR."},
+              {tier:'C', name:'All SMGs', desc:"The A545 does everything better. Niche: pure speed build after having an AR."},
             ]
           },
           {
-            label:'🔫 Pistolets',
-            recap:'Pernach pour le dégât brut, RSH pour la précision — les deux surclassent nettement les autres pistolets.',
+            label:'🔫 Pistols',
+            recap:'Pernach for raw damage, RSH for accuracy — both clearly outclass the other pistols.',
             items:[
-              {tier:'A', name:'Pernach / RSH', desc:"Meilleurs choix — dégâts monstrueux ou précision."},
-              {tier:'B', name:'Glock / Deagle / Sig', desc:"All-rounders corrects."},
+              {tier:'A', name:'Pernach / RSH', desc:"Best choices — monstrous damage or accuracy."},
+              {tier:'B', name:'Glock / Deagle / Sig', desc:"Decent all-rounders."},
             ]
           },
           {
-            label:'🔧 Mitrailleuses',
-            recap:'Priorité basse en général — un AR avec tambour fait aussi bien pour moins cher. Le PKP reste la seule vraiment valable.',
+            label:'🔧 Machine guns',
+            recap:'Low priority in general — an AR with a drum does as well for less. The PKP remains the only truly viable one.',
             items:[
-              {tier:'A', name:'PKP Pecheneg', desc:"Seule MG accessible et valable."},
-              {tier:'C', name:'MG en général', desc:"Faible priorité — AR + tambour fait aussi bien."},
+              {tier:'A', name:'PKP Pecheneg', desc:"The only accessible and viable MG."},
+              {tier:'C', name:'MGs in general', desc:"Low priority — AR + drum does just as well."},
             ]
           }
         ]
       },
       {
         id:'ar',
-        label:'Fusils d\'assaut',
+        label:'Assault rifles',
         subcats:[
           {
-            label:'Fast Shooters (haute cadence)',
-            recap:'Le <b>QBZ Thunderbird</b> est le gold standard. Sans lui, l\'<b>A545</b> est l\'alternative fiable et plus accessible.',
+            label:'Fast Shooters (high fire rate)',
+            recap:'The <b>QBZ Thunderbird</b> is the gold standard. Without it, the <b>A545</b> is the reliable, more accessible alternative.',
             items:[
-              {tier:'S', name:'QBZ Thunderbird', desc:"Meilleur équilibre dégâts/cadence/recoil/moddabilité selon le créateur."},
-              {tier:'A', name:'A545', desc:"Tire encore plus vite pour un poil moins de dégâts. Alternative fiable si pas de chance en loot box."},
-              {tier:'B', name:'HK416', desc:"Décent si arsenalisé. Accès au tambour, pas cher (arme violette de base)."},
-              {tier:'C', name:'FN2000', desc:"Moins moddable, pas d'accès au tambour → clairement inférieur à l'A545."},
+              {tier:'S', name:'QBZ Thunderbird', desc:"Best damage/fire rate/recoil/moddability balance according to the creator."},
+              {tier:'A', name:'A545', desc:"Fires even faster for slightly less damage. Reliable alternative if unlucky with loot boxes."},
+              {tier:'B', name:'HK416', desc:"Decent when arsenalized. Drum access, cheap (basic purple weapon)."},
+              {tier:'C', name:'FN2000', desc:"Less moddable, no drum access → clearly inferior to the A545."},
             ]
           },
           {
-            label:'All Rounders (polyvalents)',
-            recap:'Le <b>KS1</b> ressort du lot grâce à sa moddabilité et son tambour. Éviter les armes sans accès tambour dans cette catégorie.',
+            label:'All Rounders (versatile)',
+            recap:'The <b>KS1</b> stands out thanks to its moddability and drum. Avoid weapons without drum access in this category.',
             items:[
-              {tier:'A', name:'KS1', desc:"Le meilleur du groupe : très moddable, accès tambour."},
-              {tier:'B', name:'AUG A3', desc:"Décent si arsenalisé, look unique."},
-              {tier:'C', name:'Beretta ARX', desc:"Correct mais sans distinction particulière."},
-              {tier:'D', name:'AK308 / AMB-17 / DSA58', desc:"Déconseillés : pas d'accès au tambour, problématique avec des dégâts/cadence déjà faibles.", warn:true},
+              {tier:'A', name:'KS1', desc:"Best of the group: very moddable, drum access."},
+              {tier:'B', name:'AUG A3', desc:"Decent when arsenalized, unique look."},
+              {tier:'C', name:'Beretta ARX', desc:"Fine but nothing special."},
+              {tier:'D', name:'AK308 / AMB-17 / DSA58', desc:"Not recommended: no drum access, problematic with already-low damage/fire rate.", warn:true},
             ]
           },
           {
-            label:'Hard Hitters (gros dégâts)',
-            recap:'L\'<b>Ash 12</b> tape le plus fort mais exige un excellent niveau. Pour la majorité, <b>AK-15</b> ou <b>MK-47</b> sont le meilleur compromis.',
+            label:'Hard Hitters (big damage)',
+            recap:'The <b>Ash 12</b> hits hardest but demands excellent skill. For the majority, <b>AK-15</b> or <b>MK-47</b> are the best compromise.',
             items:[
-              {tier:'S', name:'Ash 12', desc:"Dégâts les plus élevés de tous les AR, mais 30 balles max et exige un très bon niveau — sinon arme PvE surqualifiée mais dépassée."},
-              {tier:'A', name:'AK-15 / MK-47 Mutant', desc:"Recommandation principale pour mid-level : bon compromis dégâts/cadence, recoil gérable une fois maîtrisé."},
+              {tier:'S', name:'Ash 12', desc:"Highest damage of all ARs, but 30 rounds max and demands a very good level — otherwise an overqualified but outclassed PvE gun."},
+              {tier:'A', name:'AK-15 / MK-47 Mutant', desc:"Main mid-level recommendation: good damage/fire rate compromise, manageable recoil once mastered."},
             ]
           }
         ]
@@ -256,24 +256,24 @@ window.StashApp.register('stalzone', {
         label:'Shotguns',
         subcats:[
           {
-            label:'Côté PvE',
-            recap:'<b>Komrad</b> ou <b>Saiga 12</b> pour le farm de mutants — tambour 30 coups. La <b>Protecta</b> reste un excellent choix économique.',
+            label:'PvE side',
+            recap:'<b>Komrad</b> or <b>Saiga 12</b> for mutant farming — 30-round drum. The <b>Protecta</b> remains an excellent budget choice.',
             items:[
-              {tier:'A', name:'Komrad / Saiga 12', desc:"Meilleurs choix : accès tambour 30 coups, parfaits contre les mutants."},
-              {tier:'B', name:'AA12', desc:"Très bon aussi mais moins accessible."},
-              {tier:'B-', name:'Protecta', desc:"Choix économique — rechargement lent mais tape aussi fort, bien plus accessible."},
-              {tier:'D', name:'Derya', desc:"Déconseillé — surclassé par tous sauf la Protecta, et doit être arsenalisé pour être utile.", warn:true},
+              {tier:'A', name:'Komrad / Saiga 12', desc:"Best choices: 30-round drum access, perfect against mutants."},
+              {tier:'B', name:'AA12', desc:"Very good too but less accessible."},
+              {tier:'B-', name:'Protecta', desc:"Budget choice — slow reload but hits just as hard, way more accessible."},
+              {tier:'D', name:'Derya', desc:"Not recommended — outclassed by everything except the Protecta, and must be arsenalized to be useful.", warn:true},
             ]
           },
           {
-            label:'Côté PvP',
-            recap:'La <b>KS23</b> a cassé la méta des Clan Wars mais reste quasi inatteignable. La <b>TOZ84</b> ou l\'<b>Ultima</b> sont des alternatives bien plus accessibles.',
+            label:'PvP side',
+            recap:'The <b>KS23</b> broke the Clan Wars meta but stays nearly unreachable. The <b>TOZ84</b> or <b>Ultima</b> are far more accessible alternatives.',
             items:[
-              {tier:'S', name:'KS23', desc:"A littéralement cassé la méta des Clan Wars. Capacité one-shot dévastatrice, seulement 4 coups. Quasi inatteignable."},
-              {tier:'A', name:'AEK965', desc:"Fait presque pareil que la KS23, un peu moins bien, mais plus accessible."},
-              {tier:'B', name:'TOZ84', desc:"One-shot la plupart des joueurs, 2 coups seulement, plus accessible que les deux précédentes."},
-              {tier:'B', name:'Ultima', desc:"Bon compromis PvE/PvP, clip décent et très moddable."},
-              {tier:'B-', name:'RMO 93', desc:"Mention honorable, ancien king du one-shot avant la démocratisation de l'AA12."},
+              {tier:'S', name:'KS23', desc:"Literally broke the Clan Wars meta. Devastating one-shot capacity, only 4 rounds. Nearly unreachable."},
+              {tier:'A', name:'AEK965', desc:"Does almost what the KS23 does, slightly worse, but more accessible."},
+              {tier:'B', name:'TOZ84', desc:"One-shots most players, 2 rounds only, more accessible than the previous two."},
+              {tier:'B', name:'Ultima', desc:"Good PvE/PvP compromise, decent mag and very moddable."},
+              {tier:'B-', name:'RMO 93', desc:"Honorable mention, former one-shot king before the AA12 became mainstream."},
             ]
           }
         ]
@@ -284,23 +284,23 @@ window.StashApp.register('stalzone', {
         subcats:[
           {
             label:'Hard Hitters (one-shot)',
-            recap:'Question à se poser : \"est-ce que je touche mes headshots ?\" Si oui, le <b>McMillan</b> est imbattable. Sinon descends vers Karbach puis L96.',
+            recap:"The question to ask: 'do I hit my headshots?' If yes, the <b>McMillan</b> is unbeatable. Otherwise step down to Karbach then L96.",
             items:[
-              {tier:'S', name:'McMillan', desc:"Le rêve du headshotter — surclasse tout sur headshot, mais dégâts corps très faibles."},
-              {tier:'A', name:'VSS Vykhlop', desc:"Meilleurs dégâts sur membres/corps, multiplicateurs plus faibles — l'inverse du McMillan."},
-              {tier:'A', name:'Karbach', desc:"Bonne alternative si un peu moins confiant sur les headshots."},
-              {tier:'B', name:'Cheytac 300', desc:"Dans la moyenne du groupe hard hitter."},
-              {tier:'B', name:'L96A1', desc:"Pour ceux encore moins sûrs de leur visée."},
+              {tier:'S', name:'McMillan', desc:"The headshotter's dream — outclasses everything on headshots, but very weak body damage."},
+              {tier:'A', name:'VSS Vykhlop', desc:"Best limb/body damage, weaker multipliers — the inverse of the McMillan."},
+              {tier:'A', name:'Karbach', desc:"Good alternative if slightly less confident on headshots."},
+              {tier:'B', name:'Cheytac 300', desc:"Average in the hard hitter group."},
+              {tier:'B', name:'L96A1', desc:"For those even less sure of their aim."},
             ]
           },
           {
-            label:'DMR (cadence plus rapide)',
-            recap:'Si les headshots ne sont pas ton fort, prends un DMR : <b>MK-14</b>/<b>QBU</b> pour l\'hybride AR/sniper, <b>SVD-M</b> pour un DMR classique.',
+            label:'DMR (faster fire rate)',
+            recap:"If headshots aren't your thing, take a DMR: <b>MK-14</b>/<b>QBU</b> for the AR/sniper hybrid, <b>SVD-M</b> for a classic DMR.",
             items:[
-              {tier:'A', name:'MK-14 / QBU', desc:"Les plus polyvalents : dégâts élevés, précis, accès tambour — hybrides AR/sniper."},
-              {tier:'A', name:'SVD-M', desc:"Meilleure option DMR classique accessible via l'arms dealer."},
-              {tier:'A', name:'Wave', desc:"Unique : sniper full-auto. Faut juste toucher tous ses tirs."},
-              {tier:'F', name:'VSK', desc:"Déconseillé — doit être arsenalisé pour être bon. Reste un bon dépannage bon marché en Clan Wars si rien d'autre.", warn:true},
+              {tier:'A', name:'MK-14 / QBU', desc:"The most versatile: high damage, accurate, drum access — AR/sniper hybrids."},
+              {tier:'A', name:'SVD-M', desc:"Best classic DMR option via the arms dealer."},
+              {tier:'A', name:'Wave', desc:"Unique: full-auto sniper. You just have to hit all your shots."},
+              {tier:'F', name:'VSK', desc:"Not recommended — must be arsenalized to be good. Still a cheap stopgap in Clan Wars if nothing else.", warn:true},
             ]
           }
         ]
@@ -310,41 +310,41 @@ window.StashApp.register('stalzone', {
         label:'SMG',
         subcats:[
           {
-            label:'Vue d\'ensemble',
-            recap:'L\'<b>A545</b> fait tout ce qu\'une SMG fait, en mieux. Les SMGs ne se justifient que pour du pur hit-and-run en build vitesse — à prendre seulement après avoir déjà un AR.',
+            label:'Overview',
+            recap:'The <b>A545</b> does everything an SMG does, better. SMGs only make sense for pure hit-and-run in a speed build — only after you already have an AR.',
             items:[
-              {tier:'C', name:'PPK / Kriss Vector / Evo Scorpion / MP7', desc:"Cadence rapide, recoil géré, tirent bien à la hanche — mais globalement surclassées par l'A545 en polyvalence et moddabilité. Utiles pour builds vitesse purs (aucun malus de mobilité)."},
+              {tier:'C', name:'PPK / Kriss Vector / Evo Scorpion / MP7', desc:"Fast fire rate, handled recoil, good hip fire — but overall outclassed by the A545 in versatility and moddability. Useful for pure speed builds (no mobility penalty)."},
             ]
           }
         ]
       },
       {
         id:'pistols',
-        label:'Pistolets',
+        label:'Pistols',
         subcats:[
           {
-            label:'Vue d\'ensemble',
-            recap:'Seuls sidearms master tier disponibles. <b>RSH</b> pour les précis, <b>Pernach</b> pour le dégât brut, les gros pistolets pour un compromis polyvalent.',
+            label:'Overview',
+            recap:'Only master-tier sidearms available. <b>RSH</b> for the accurate, <b>Pernach</b> for raw damage, the big pistols for a versatile compromise.',
             items:[
-              {tier:'A', name:'RSH (revolver)', desc:"Dégâts en un coup les plus élevés du pistolet (250 sur headshot à +15). Pour les tireurs précis."},
-              {tier:'A', name:'OTS Pernach', desc:"Dégâts monstrueux (44 mini) — comparable à certains AR. Bon en sidearm principal."},
-              {tier:'B', name:'Glock 18', desc:"Bien meilleure capacité que le Pernach, mais dispo uniquement à Noël → accessibilité limitée."},
-              {tier:'B', name:'Deagle / Big Bill / Sig Sauer', desc:"Bons all-rounders, ni excellents ni mauvais, efficaces entre bonnes mains."},
+              {tier:'A', name:'RSH (revolver)', desc:"Highest one-shot pistol damage (250 on headshot at +15). For precise shooters."},
+              {tier:'A', name:'OTS Pernach', desc:"Monstrous damage (44 min) — comparable to some ARs. Great as a main sidearm."},
+              {tier:'B', name:'Glock 18', desc:"Much better capacity than the Pernach, but only available at Christmas → limited accessibility."},
+              {tier:'B', name:'Deagle / Big Bill / Sig Sauer', desc:"Good all-rounders, neither great nor bad, effective in good hands."},
             ]
           }
         ]
       },
       {
         id:'mg',
-        label:'Mitrailleuses',
+        label:'Machine guns',
         subcats:[
           {
-            label:'Vue d\'ensemble',
-            recap:'Priorité basse en général (-6% vitesse mini, dur à contrôler debout). Le <b>PKP</b> reste la seule vraiment accessible et solide.',
+            label:'Overview',
+            recap:'Low priority in general (-6% speed minimum, hard to control standing up). The <b>PKP</b> remains the only truly accessible and solid one.',
             items:[
-              {tier:'A', name:'PKP Pecheneg', desc:"Seule mitrailleuse raisonnablement accessible via l'arms dealer, très bonne."},
-              {tier:'B', name:'Little Boy', desc:"Tape très fort mais nécessite un farming extrême en session battles."},
-              {tier:'B', name:'DSA RPD', desc:"Entre-deux AR/mitrailleuse, via pièces de recette."},
+              {tier:'A', name:'PKP Pecheneg', desc:"The only machine gun reasonably accessible via the arms dealer, very good."},
+              {tier:'B', name:'Little Boy', desc:"Hits very hard but requires extreme farming in session battles."},
+              {tier:'B', name:'DSA RPD', desc:"In-between AR/machine gun, via recipe parts."},
             ]
           }
         ]
@@ -363,73 +363,73 @@ window.StashApp.register('stalzone', {
         label:'Mediocre Dude — How 2 Make Money in Stalzone',
         subcats:[
           {
-            label:'📼 Résumé de la vidéo',
-            recap:'Guide décalé et cash sur les moyens \"standards\" de se faire de l\'argent en solo : farm d\'artéfacts frais, flip d\'Advanced Spare Parts via le season pass, backpack delivery, farm de matériaux sud et signal hunting, spots nordiques (Labyrinthe/Black Detour/Reflection/Forge/Lewich), et même la mendicité ou l\'achat direct de stalcoins. Se termine sur une leçon de marché tirée du crash du CheyTac Intervention : quand tout le monde panique-vend, c\'est le moment d\'acheter.<br><br>🎬 <a href="https://www.youtube.com/watch?v=76gllfsLGO0">Voir la vidéo</a> — chaîne : <a href="https://www.youtube.com/@HeraldOfMediocrity">Mediocre Dude</a>',
+            label:'📼 Video summary',
+            recap:'Offbeat and blunt guide on the \'standard\' ways to make money solo: fresh artifact farming, flipping Advanced Spare Parts via the season pass, backpack delivery, south material farming and signal hunting, north spots (Labyrinth/Black Detour/Reflection/Forge/Lewich), and even begging or buying stalcoins directly. Ends with a market lesson from the CheyTac Intervention crash: when everyone panic-sells, that is the time to buy.<br><br>🎬 <a href="https://www.youtube.com/watch?v=76gllfsLGO0">Watch the video</a> — channel: <a href="https://www.youtube.com/@HeraldOfMediocrity">Mediocre Dude</a>',
             items:[]
           },
           {
-            label:'Artéfacts',
-            recap:'Ramasser et revendre vite pendant que c\'est \"frais\" reste l\'un des moyens les plus rentables — mais attention à la compétition PvP après une émission, surtout sur les anomalies statiques.',
+            label:'Artifacts',
+            recap:"Grabbing and reselling fast while it is 'fresh' stays one of the most profitable ways — but watch out for PvP competition after an emission, especially on static anomalies.",
             items:[
-              {tag:'risque', name:'Farm d\'artéfacts (général)', desc:"Remplir son sac garantit facilement quelques centaines de K, plus si tu tombes sur du rouge/violet/bleu. Vends frais (icône horloge encore blanche) pour un meilleur prix au fence."},
-              {tag:'risque', name:'Anomalies statiques', desc:"Spawnent les artéfacts les plus précieux (shards, miroirs, atomes, prismes) mais zones à fort trafic — grosse compétition PvP juste après une émission."},
+              {tag:'risque', name:'Artifact farming (general)', desc:"Filling your bag easily guarantees a few hundred K, more if you find red/purple/blue. Sell fresh (clock icon still white) for a better price at the fence."},
+              {tag:'risque', name:'Static anomalies', desc:"Spawn the most valuable artifacts (shards, mirrors, atoms, prisms) but high-traffic areas — heavy PvP competition right after an emission."},
             ]
           },
           {
-            label:'Matériaux sud & Signal hunting',
-            recap:'Une option accessible même en zone sud, mais lente et peu fiable — le vrai intérêt, ce sont les pièces de schéma (notamment la Wave) et les nouvelles stations relais.',
+            label:'South materials & Signal hunting',
+            recap:'An option accessible even in the south, but slow and unreliable — the real value is in schematic parts (notably the Wave) and the new relay stations.',
             items:[
-              {tag:'lent', name:'Fils de cuivre / Crap height', desc:"Ressources bottleneck très demandées par les joueurs du sud, revendables cher aux joueurs de fin de jeu (100-150k le spool, 50-70k le crap height). Lent mais accessible dès le début."},
-              {tag:'lent', name:'Signal hunting (général)', desc:"Globalement peu rentable — des centaines d'heures pour du matos ou de l'ammo spéciale peu utile."},
-              {tag:'chance', name:'Pièces de schéma & la Wave', desc:"Le vrai intérêt du signal hunting : chaque pièce se revend 100-300k. La Wave (sniper full-auto) est LE bon plan si tu tombes sur ses pièces."},
-              {tag:'chance', name:'Stations relais', desc:"Nouvel item au moment de la vidéo : convertit en 20 trackers d'un coup, fait gagner un temps monstre. Encore rare, prix à surveiller."},
+              {tag:'lent', name:'Copper wires / Crap height', desc:"Bottleneck resources in high demand from south players, resellable at a premium to endgame players (100-150k per spool, 50-70k per crap height). Slow but accessible from the start."},
+              {tag:'lent', name:'Signal hunting (general)', desc:"Overall barely profitable — hundreds of hours for gear or niche special ammo."},
+              {tag:'chance', name:'Schematic parts & the Wave', desc:"The real value of signal hunting: each part resells for 100-300k. The Wave (full-auto sniper) is THE deal if you find its parts."},
+              {tag:'chance', name:'Relay stations', desc:"New item at the time of the video: converts into 20 trackers at once, saves a huge amount of time. Still rare, watch the price."},
             ]
           },
           {
-            label:'Spots de farm nordiques',
-            recap:'Le Labyrinthe reste rapide mais dangereux ; Black Detour/Reflection sont plus sûrs pour un revenu stable ; Lewich offre le meilleur ratio temps/risque pour un joueur solo.',
+            label:'North farming spots',
+            recap:'The Labyrinth stays fast but dangerous; Black Detour/Reflection are safer for steady income; Lewich offers the best time/risk ratio for a solo player.',
             items:[
-              {tag:'risque', name:'Labyrinthe', desc:"Rapide pour farmer de la poussière anomalous mais forte compétition PvP. Le marché de la poussière est désormais dilué avec Black Detour/Reflection."},
-              {tag:'lent', name:'Black Detour / Reflection', desc:"Plus sûr et plus lent que le Labyrinthe pour la même poussière anomalous — bon revenu stable au fil du temps."},
-              {tag:'lent', name:'Forge 11', desc:"Beaucoup moins rentable qu'avant les nerfs. Utile surtout pour les dailies et le farming de matériaux, pas pour s'enrichir."},
-              {tag:'rapide', name:'Lewich', desc:"Risqué (détecteur de proximité coupé, sortie conditionnée à tuer un boss) mais très rentable en solo : 100-150k par run de 10 minutes, plus des ressources uniques (dark limbo, lambda data...)."},
+              {tag:'risque', name:'Labyrinth', desc:"Fast for farming anomalous dust but heavy PvP competition. The dust market is now diluted with Black Detour/Reflection."},
+              {tag:'lent', name:'Black Detour / Reflection', desc:"Safer and slower than the Labyrinth for the same anomalous dust — good steady income over time."},
+              {tag:'lent', name:'Forge 11', desc:"Much less profitable than before the nerfs. Useful mainly for dailies and material farming, not for getting rich."},
+              {tag:'rapide', name:'Lewich', desc:"Risky (proximity detector off, exit requires killing a boss) but very profitable solo: 100-150k per 10-minute run, plus unique resources (dark limbo, lambda data...)."},
             ]
           },
           {
             label:'Season Pass',
-            recap:'Flipper des Advanced Spare Parts (ASP) est \"le revenu le plus stable et constant\" selon le créateur — les gacha boxes, c\'est plutôt pour le frisson que pour la rentabilité.',
+            recap:"Flipping Advanced Spare Parts (ASP) is 'the most stable and consistent income' according to the creator — gacha boxes are more for the thrill than the profit.",
             items:[
-              {tag:'fiable', name:'Advanced Spare Parts (ASP)', desc:"Achète les ASP via la monnaie du season pass et revends à 40-45k l'unité — 100 ASP = environ 4 à 5 millions. Revenu jugé le plus stable du jeu."},
-              {tag:'chance', name:'Gacha boxes', desc:"Peut rapporter des dizaines de millions si tu as de la chance, mais statistiquement tu finiras avec des objets sans grande valeur."},
-              {tag:'rmt', name:'Season pass via act tickets', desc:"Le créateur déconseille formellement d'acheter des season passes avec des act tickets — garde-les plutôt pour du matériel doré (Albatross, Gauss, Civil Fair).", warn:true},
+              {tag:'fiable', name:'Advanced Spare Parts (ASP)', desc:"Buy ASP with season pass currency and resell at 40-45k each — 100 ASP ≈ 4 to 5 million. Income judged the most stable in the game."},
+              {tag:'chance', name:'Gacha boxes', desc:"Can bring in tens of millions if you are lucky, but statistically you will end up with items of little value."},
+              {tag:'rmt', name:'Season pass via act tickets', desc:"The creator strongly advises against buying season passes with act tickets — keep them for gold gear (Albatross, Gauss, Civil Fair).", warn:true},
             ]
           },
           {
             label:'Backpack delivery',
-            recap:'Pas glamour, mais toujours disponible — une source de revenu quotidienne fiable, même en fin de jeu.',
+            recap:'Not glamorous, but always available — a reliable daily income source, even in endgame.',
             items:[
-              {tag:'fiable', name:'Livraisons de sac à dos', desc:"Jusqu'à 500k par jour sur un seul personnage (plus avec des alts). Demande juste de la vitesse et de la vigilance sur le trajet."},
+              {tag:'fiable', name:'Backpack deliveries', desc:"Up to 500k per day on a single character (more with alts). Just needs speed and vigilance on the route."},
             ]
           },
           {
-            label:'Mendicité',
-            recap:'Une vraie méthode viable si tu soignes ta présentation — mais attends-toi à une réputation qui se dégrade avec le temps.',
+            label:'Begging',
+            recap:'A real viable method if you polish your presentation — but expect a reputation that degrades over time.',
             items:[
-              {tag:'chance', name:'Mendier', desc:"Fonctionne surtout via un bon profil (description, skins, réalisations affichées) plutôt qu'en spammant des messages. Attire la sympathie... jusqu'à ce que les autres joueurs s'en lassent."},
+              {tag:'chance', name:'Begging', desc:"Works mainly through a good profile (description, skins, displayed achievements) rather than spamming messages. Attracts sympathy... until other players get tired of it."},
             ]
           },
           {
-            label:'Achat de stalcoins (RMT)',
-            recap:'La méthode la plus efficace en temps/rubles, mais elle consomme littéralement de l\'argent réel — le créateur est clair : ce n\'est pas un conseil, juste un constat.',
+            label:'Buying stalcoins (RMT)',
+            recap:'The most time-efficient method in rubles, but it literally burns real money — the creator is clear: this is not advice, just a statement.',
             items:[
-              {tag:'rmt', name:'Achat de monnaie premium', desc:"Achète indirectement des objets tradables à haute valeur (cosmétiques surtout) que tu revends. Season pass et packs overdrive sont les paris les plus sûrs, les cosmétiques les plus lucratifs mais aléatoires."},
+              {tag:'rmt', name:'Buying premium currency', desc:"Indirectly buys tradeable high-value items (mostly cosmetics) that you resell. Season pass and overdrive packs are the safest bets, cosmetics the most lucrative but random."},
             ]
           },
           {
-            label:'La leçon du crash CheyTac',
-            recap:'Quand tout le monde vend en panique, c\'est le moment d\'acheter — puis d\'attendre la stabilisation du marché à la saison suivante.',
+            label:'The CheyTac crash lesson',
+            recap:'When everyone panic-sells, that is the time to buy — then wait for the market to stabilize next season.',
             items:[
-              {tag:'risque', name:'Hold pendant un crash', desc:"Lors de la sortie du CheyTac Intervention, tout le monde a liquidé ses biens pour payer l'arme (jusqu'à 150M), faisant chuter tous les prix. Le créateur a accumulé ASP et skins à prix cassé en attendant la stabilisation à la saison suivante."},
+              {tag:'risque', name:'Hold during a crash', desc:"When the CheyTac Intervention launched, everyone liquidated their assets to afford the gun (up to 150M), crashing all prices. The creator stacked ASP and skins at cut prices while waiting for stabilization next season."},
             ]
           }
         ]
@@ -439,41 +439,41 @@ window.StashApp.register('stalzone', {
         label:'Cheeki Breeki — Best Ways to Make Money',
         subcats:[
           {
-            label:'📼 Résumé de la vidéo',
-            recap:'Approche méthodique et chiffrée (spreadsheet à l\'appui) pensée pour un joueur solo moyen, sans clan. Classement basé sur des centaines de runs chronométrés : les stashes arrivent en tête, juste devant la chasse aux artéfacts et les proto-anomalies, loin devant les installations anomales, les signaux ou le farm de mutants. Mentionne aussi le flip à l\'hôtel des ventes et le gamble sur les loot boxes du battle pass comme activités \"hors classement\" mais potentiellement très rentables.<br><br>🎬 <a href="https://www.youtube.com/watch?v=tTz2iHHkn9g">Voir la vidéo</a> — chaîne : <a href="https://www.youtube.com/@CheekiBreekiTv">Cheeki Breeki</a><br>📊 <a href="https://docs.google.com/spreadsheets/d/1yNwwNMTRAeoMh5XN--gkH3FCWfJBUkp99AUa5XP5VwY/edit?gid=1684694789#gid=1684694789">Spreadsheet complet du créateur</a>',
+            label:'📼 Video summary',
+            recap:'Methodical, number-crunching approach (spreadsheet included) designed for an average solo player, no clan. Ranking based on hundreds of timed runs: stashes come first, just ahead of artifact hunting and proto-anomalies, far ahead of anomalous installations, signals or mutant farming. Also mentions auction house flipping and battle pass loot box gambling as \'off-ranking\' but potentially very profitable activities.<br><br>🎬 <a href="https://www.youtube.com/watch?v=tTz2iHHkn9g">Watch the video</a> — channel: <a href="https://www.youtube.com/@CheekiBreekiTv">Cheeki Breeki</a><br>📊 <a href="https://docs.google.com/spreadsheets/d/1yNwwNMTRAeoMh5XN--gkH3FCWfJBUkp99AUa5XP5VwY/edit?gid=1684694789#gid=1684694789">Creator\'s full spreadsheet</a>',
             items:[]
           },
           {
-            label:'Le podium (joueur solo moyen)',
-            recap:'Contexte important : ce créateur joue solo à 99%, sans clan, et se dit mauvais en PvP — son classement est pensé pour le joueur moyen, pas les clans qui contrôlent Lyubech ou les squads PvP en Stillwater.',
+            label:'The podium (average solo player)',
+            recap:'Important context: this creator plays solo 99% of the time, no clan, and calls himself bad at PvP — his ranking is built for the average player, not clans controlling Lyubech or PvP squads in Stillwater.',
             items:[
-              {tag:'fiable', name:'Stashes (n°1)', desc:"Aucun gear spécifique requis — pas besoin du Buryat ni d'un Saturn, jouable à tout moment sans attendre d'émission. Un run de 18 stashes en moins de 7 minutes. Quasi égal à la chasse aux artéfacts en argent brut, et bien plus consistant. Astuce du créateur : loot absolument tout dans les caisses, ne pas trier sur place."},
-              {tag:'risque', name:'Chasse aux artéfacts (n°2)', desc:"~900k par émission en moyenne. Nécessite le Buryat, et au moins un Saturn usé pour le labo/Black Detour/Reflection/Stillwater. Rester près de sa base de faction est étonnamment efficace et sûr — le labo et Black Detour sont plus riches mais bien plus contestés."},
-              {tag:'lent', name:'Proto-anomalies (n°3)', desc:"60 secondes par proto en théorie, mais en jeu réel il faut courir pour en trouver et parfois les partager avec d'autres joueurs — chute de rendement bien plus marquée que pour les stashes. Plus une activité opportuniste qu'un vrai farm actif. Les Mines sont le meilleur spot général, le Labo excellent avec un Saturn."},
+              {tag:'fiable', name:'Stashes (n°1)', desc:"No specific gear required — no Buryat or Saturn needed, playable anytime without waiting for an emission. A run of 18 stashes in under 7 minutes. Nearly equal to artifact hunting in raw money, and far more consistent. Creator's tip: loot absolutely everything in the crates, don't sort on the spot."},
+              {tag:'risque', name:'Artifact hunting (n°2)', desc:"~900k per emission on average. Requires the Buryat, and at least a worn Saturn for the lab/Black Detour/Reflection/Stillwater. Staying near your faction base is surprisingly effective and safe — the lab and Black Detour are richer but far more contested."},
+              {tag:'lent', name:'Proto-anomalies (n°3)', desc:"60 seconds per proto in theory, but in real play you have to run around to find them and sometimes share them with other players — a much bigger drop in efficiency than stashes. More of an opportunistic activity than a real active farm. The Mines are the best general spot, the Lab excellent with a Saturn."},
             ]
           },
           {
-            label:'Activités secondaires (moyennes à faibles)',
-            recap:'Ni excellentes ni inutiles — surtout intéressantes pour des objectifs annexes (battle pass, matériaux de craft) plutôt que pour l\'argent pur.',
+            label:'Secondary activities (average to low)',
+            recap:'Neither great nor useless — mostly interesting for side objectives (battle pass, craft materials) rather than pure money.',
             items:[
-              {tag:'lent', name:'Installations anomales', desc:"Pas aussi mauvaises que leur réputation, notamment pour les tools/parts qu'elles font tomber — bonnes pour les missions \"tuer des mutants\" du battle pass. Entre minuit et 4h du matin, les wisps n'attaquent pas l'installation (jouable \"gratuitement\" mais ennuyeux)."},
-              {tag:'lent', name:'Signaux', desc:"Autrefois excellents (acide revendable, dust via fragments+artefact étrange), mais ces recettes ont été nerfées dans le dernier patch. Restent utiles pour le battle pass et le farm de trackers pour le Buryat — plus vraiment pour l'argent."},
-              {tag:'lent', name:'Mutants', desc:"Corrects si tu as besoin de fern (upgrade) ou de viande/sabots (recettes hideout), mais mauvais pour l'argent pur et très ennuyeux. Environ 6 niveaux de battle pass par heure — il existe de bien meilleures façons de farmer le battle pass."},
+              {tag:'lent', name:'Anomalous installations', desc:"Not as bad as their reputation, notably for the tools/parts they drop — good for the battle pass 'kill mutants' missions. Between midnight and 4am, the wisps don't attack the installation (playable 'for free' but boring)."},
+              {tag:'lent', name:'Signals', desc:"Once excellent (resellable acid, dust via fragments+strange artifact), but these recipes got nerfed in the last patch. Still useful for the battle pass and farming trackers for the Buryat — no longer really for money."},
+              {tag:'lent', name:'Mutants', desc:"Fine if you need fern (upgrade) or meat/hooves (hideout recipes), but bad for pure money and very boring. About 6 battle pass levels per hour — there are far better ways to farm the battle pass."},
             ]
           },
           {
-            label:'Battle pass & flip',
-            recap:'Deux activités hors classement officiel : l\'une parce qu\'elle est trop aléatoire pour être comparée, l\'autre parce qu\'elle est difficile à chiffrer — mais toutes deux potentiellement très rentables.',
+            label:'Battle pass & flipping',
+            recap:'Two off-ranking activities: one because it is too random to compare, the other because it is hard to quantify — but both potentially very profitable.',
             items:[
-              {tag:'chance', name:'Gamble sur les loot boxes', desc:"Pourrait être la méthode la plus rentable de toutes selon le créateur — mais tellement basée sur la chance qu'il refuse de la classer sérieusement. Vendre les caisses fermées (et les vieilles caisses dont le prix grimpe avec le temps) reste un revenu stable et sûr."},
-              {tag:'fiable', name:'Flip à l\'hôtel des ventes', desc:"Probablement dans son propre top 3 personnel. Acheter en dessous du prix du marché et revendre plus cher — exemple donné : l'huile, achetable directement chez le marchand alors que beaucoup pensent qu'elle ne se farm qu'en extérieur, revendue à environ deux fois le prix d'achat."},
+              {tag:'chance', name:'Gambling on loot boxes', desc:"Could be the most profitable method of all according to the creator — but so luck-based he refuses to rank it seriously. Selling unopened crates (and old crates whose price rises over time) remains a steady, safe income."},
+              {tag:'fiable', name:'Auction house flipping', desc:"Probably in his own personal top 3. Buy below market price and resell higher — example given: oil, buyable directly from the vendor while many think it can only be farmed outside, resold at about twice the purchase price."},
             ]
           },
           {
-            label:'⚠️ Le hideout',
-            recap:'Un avertissement clair et direct : ne pas investir activement dans le hideout dans l\'optique de générer du revenu, dans l\'état actuel du jeu.',
+            label:'⚠️ The hideout',
+            recap:'A clear, direct warning: do not actively invest in the hideout expecting income, in the game\'s current state.',
             items:[
-              {tag:'lent', name:'Investir dans le hideout pour le profit', desc:"Le dernier patch a nerfé presque toutes les recettes intéressantes. Continue de l'upgrader passivement (ça vient vite avec le farm de stashes) mais n'investis pas activement dedans en pensant y gagner de l'argent pour l'instant — c'est devenu un gouffre à ressources plus qu'une source de revenu.", warn:true},
+              {tag:'lent', name:'Investing in the hideout for profit', desc:"The last patch nerfed almost every interesting recipe. Keep upgrading it passively (it comes fast with stash farming) but don't actively invest in it expecting to make money — it has become a resource sink rather than an income source.", warn:true},
             ]
           }
         ]
@@ -483,109 +483,109 @@ window.StashApp.register('stalzone', {
 
   artefacts: {
     filters: [
-      {id:'synthese', label:'Synthèse'},
+      {id:'synthese', label:'Summary'},
       {id:'early', label:'Early Game'},
       {id:'mid', label:'Mid Game'},
       {id:'late', label:'Late Game'},
-      {id:'all', label:'Tout'},
+      {id:'all', label:'All'},
     ],
     categories: [
       {
         id:'synthese',
-        label:'Synthèse',
+        label:'Summary',
         subcats:[
           {
-            label:'🎯 À savoir avant tout',
-            recap:'La question qui revient tout le temps : farmer le <b>Buryat</b> (détecteur), ça vaut le coup ? Oui, sans hésiter — ça rend le farm d\'artéfacts bien plus rapide et rentable, malgré le grind pénible pour l\'obtenir.',
+            label:'🎯 Good to know first',
+            recap:'The recurring question: is farming the <b>Buryat</b> (detector) worth it? Yes, no doubt — it makes artifact farming much faster and more profitable, despite the painful grind to get it.',
             items:[
-              {tag:'valeur', name:'Le Buryat vaut le coup', desc:"Douloureux à farmer (300 signaux avant de l'avoir), mais rend la chasse aux artéfacts nettement plus rapide. Une émission peut rapporter 300k facilement en 15-20 minutes rien qu'en artéfacts communs."},
-              {tag:'budget', name:'Rolls parfaits ≠ rolls réels', desc:"Toutes les stats du créateur supposent un roll parfait (110% vert, 120% bleu, 130% rose). En vrai jeu, attends-toi à moins sans grind supplémentaire — c'est une base de comparaison, pas une garantie."},
+              {tag:'valeur', name:'The Buryat is worth it', desc:"Painful to farm (300 signals before getting it), but makes artifact hunting much faster. One emission can easily bring in 300k in 15-20 minutes in common artifacts alone."},
+              {tag:'budget', name:'Perfect rolls ≠ real rolls', desc:"All the creator's stats assume a perfect roll (110% green, 120% blue, 130% pink). In real play, expect less without extra grinding — it's a comparison base, not a guarantee."},
             ]
           },
           {
-            label:'💰 Meilleurs rapports qualité/prix par étape',
-            recap:'Un build par étape qui revient souvent dans les recommandations du créateur — à ajuster selon ton budget avec les variantes plus complètes du tableau fourni.',
+            label:'💰 Best quality/price ratios per stage',
+            recap:"One build per stage that keeps coming up in the creator's recommendations — adjust to your budget with the more complete variants in the provided table.",
             items:[
-              {tag:'valeur', name:'Early Speed — Candlelight, Comet, 2x Rattle', desc:"~51 000 rubles. Bon move speed + gros bonus de stamina. Le vrai point de départ recommandé (pas le tout gratuit)."},
-              {tag:'valeur', name:'Mid PvP — Proto-Onion, Veiner, Onion, Spiral, Shrimp', desc:"~1,9M. Build équilibré \"jack of all trades\" qui évite d'avoir à switcher entre un sac speed et un container PvP."},
-              {tag:'cher', name:'Late PvP — Atom, Branch, 2x Shard, Steel Hedgehog, Cursed Rose', desc:"~75M. Le build personnel du créateur en fin de jeu — bonne vitalité/heal/BR sans payer le surcoût du Prism (un Steel Hedgehog +15 égale un Prism bleu en BR, pour bien moins cher)."},
+              {tag:'valeur', name:'Early Speed — Candlelight, Comet, 2x Rattle', desc:"~51,000 rubles. Good move speed + big stamina bonus. The real recommended starting point (not the free minimum)."},
+              {tag:'valeur', name:'Mid PvP — Proto-Onion, Veiner, Onion, Spiral, Shrimp', desc:"~1.9M. Balanced 'jack of all trades' build that avoids switching between a speed bag and a PvP container."},
+              {tag:'cher', name:'Late PvP — Atom, Branch, 2x Shard, Steel Hedgehog, Cursed Rose', desc:"~75M. The creator's personal endgame build — good vitality/heal/BR without paying the Prism premium (a +15 Steel Hedgehog equals a blue Prism in BR, for far less)."},
             ]
           }
         ]
       },
       {
         id:'early',
-        label:'Early Game (artéfacts verts)',
+        label:'Early Game (green artifacts)',
         subcats:[
           {
             label:'Speed / Stamina',
-            recap:'Commence avec un sac 4 slots (duffelbag). Le combo <b>Candlelight + Comet + 2 Rattle</b> est le vrai point de départ recommandé — le budget minimal (Wolf Tears) marche, mais l\'écart de prix ne vaut pas le sacrifice.',
+            recap:'Start with a 4-slot bag (duffelbag). The <b>Candlelight + Comet + 2 Rattle</b> combo is the real recommended start — the minimum budget (Wolf Tears) works, but the price gap isn\'t worth the sacrifice.',
             items:[
-              {tag:'budget', name:'Wolf Tears + 3x Rattle', desc:"32 000₽. Movespeed 2.64, Stamina 36.63, Carry +5.72. \"Mieux que rien\", dixit le créateur — mais grind les 20k de plus si tu peux."},
-              {tag:'valeur', name:'Candlelight, Comet, 2x Rattle', desc:"51 000₽. Movespeed 3.08, Stamina 42.24, Stamina R 2.20. Le meilleur point de départ pour le prix."},
-              {tag:'valeur', name:'Gum, Rattle x2, Spiral', desc:"306 000₽. Movespeed 3.52, Stamina 24.42, Stamina R 2.86, Carry +7.70. Upgrade naturel une fois un peu d'argent de côté (swap Candlelight→Gum, un Rattle→Spiral)."},
-              {tag:'gamble', name:'Transformer, 2x Ice Hedgehog, White Bracelet', desc:"440 000₽. Movespeed 6.16, Stamina R 9.02, Carry +8.58. Un artefact blanc peut roll à 0% — le créateur parle d'expérience (\"utiliser un serum de changement sur un artefact blanc, c'est un blasphème\")."},
-              {tag:'valeur', name:'Scrubber, Helium, 2x Spiral', desc:"650 000₽. Movespeed 5.17, Stamina 12.87, Stamina R 5.06, Carry +15.40. Le meilleur choix pour les riches sans le gamble du bracelet blanc."},
+              {tag:'budget', name:'Wolf Tears + 3x Rattle', desc:"32,000₽. Movespeed 2.64, Stamina 36.63, Carry +5.72. 'Better than nothing', per the creator — but grind the extra 20k if you can."},
+              {tag:'valeur', name:'Candlelight, Comet, 2x Rattle', desc:"51,000₽. Movespeed 3.08, Stamina 42.24, Stamina R 2.20. The best starting point for the price."},
+              {tag:'valeur', name:'Gum, Rattle x2, Spiral', desc:"306,000₽. Movespeed 3.52, Stamina 24.42, Stamina R 2.86, Carry +7.70. Natural upgrade once you have some money set aside (swap Candlelight→Gum, one Rattle→Spiral)."},
+              {tag:'gamble', name:'Transformer, 2x Ice Hedgehog, White Bracelet', desc:"440,000₽. Movespeed 6.16, Stamina R 9.02, Carry +8.58. A white artifact can roll at 0% — the creator speaks from experience ('using a change serum on a white artifact is blasphemy')."},
+              {tag:'valeur', name:'Scrubber, Helium, 2x Spiral', desc:"650,000₽. Movespeed 5.17, Stamina 12.87, Stamina R 5.06, Carry +15.40. The best choice for the wealthy without the white bracelet gamble."},
             ]
           },
           {
             label:'PvP (KZS-4 / KZS-5)',
-            recap:'Sous 200 BR, la seule priorité c\'est d\'en accumuler plus — les diminishing returns démarrent vers 300. Le build personnel du créateur à ce niveau ajoute un Polyhedron contre les snipers.',
+            recap:'Under 200 BR, the only priority is stacking more — diminishing returns kick in around 300. The creator\'s personal build at this level adds a Polyhedron against snipers.',
             items:[
-              {tag:'budget', name:'2x Onion, 2x Rose (KZS-4)', desc:"36 000₽. BR 28.16, Stamina 17.16. \"Rien de fou ne va se passer ici\" — mais toujours mieux que rien pour 36k."},
-              {tag:'valeur', name:'Proto-Onion, Cursed Rose, Onion, Shrimp (KZS-4)', desc:"248 000₽. BR 26.95, Stamina 8.58, Carry +11.99. 6-7x le prix pour le même BR que l'option budget, mais carry weight et stamina rendent le build vraiment jouable."},
-              {tag:'valeur', name:'Proto-Onion, Cursed Rose, 2x Onion, Shrimp (KZS-5)', desc:"256 000₽. BR 33.33, Stamina 17.16, Carry +11.99. Build PvP early game très solide pour le prix, dès l'accès au KZS-5."},
-              {tag:'astuce', name:'Gum, Sun, 2x Onion, Steel Hedgehog', desc:"406 000₽. BR 27.06, Vita 2.09, Bleeding -1.21. Anti-sniper : contre la mode des fusils qui infligent du bleeding, pense à la réduction de saignement plutôt qu'au pur BR."},
-              {tag:'valeur', name:'Proto-Onion, Polyhedron, Cursed Rose, Crust, Shrimp', desc:"740 000₽. BR 31.68, Carry +11.99. Le build personnel du créateur à ce niveau — le Polyhedron absorbe un gros chunk de dégâts, sauve la vie contre les snipers plus que prévu. Remplace le Crust par un Onion si le budget est serré."},
+              {tag:'budget', name:'2x Onion, 2x Rose (KZS-4)', desc:"36,000₽. BR 28.16, Stamina 17.16. 'Nothing crazy will happen here' — but still better than nothing for 36k."},
+              {tag:'valeur', name:'Proto-Onion, Cursed Rose, Onion, Shrimp (KZS-4)', desc:"248,000₽. BR 26.95, Stamina 8.58, Carry +11.99. 6-7x the price for the same BR as the budget option, but carry weight and stamina make the build actually playable."},
+              {tag:'valeur', name:'Proto-Onion, Cursed Rose, 2x Onion, Shrimp (KZS-5)', desc:"256,000₽. BR 33.33, Stamina 17.16, Carry +11.99. Very solid early game PvP build for the price, once you have access to the KZS-5."},
+              {tag:'astuce', name:'Gum, Sun, 2x Onion, Steel Hedgehog', desc:"406,000₽. BR 27.06, Vita 2.09, Bleeding -1.21. Anti-sniper: against the rifle trend dealing bleeding, think bleed reduction rather than pure BR."},
+              {tag:'valeur', name:'Proto-Onion, Polyhedron, Cursed Rose, Crust, Shrimp', desc:"740,000₽. BR 31.68, Carry +11.99. The creator's personal build at this level — the Polyhedron absorbs a big chunk of damage, saves your life against snipers more than expected. Swap the Crust for an Onion if the budget is tight."},
             ]
           }
         ]
       },
       {
         id:'mid',
-        label:'Mid Game (artéfacts bleus/roses)',
+        label:'Mid Game (blue/pink artifacts)',
         subcats:[
           {
             label:'Speed / Stamina',
-            recap:'Passe directement au rose si le budget le permet — inutile de perdre du temps sur le bleu. Le Forager (ressources Limansk) est un excellent container mi-jeu, même si Limansk fait peur aux débutants.',
+            recap:'Go straight to pink if the budget allows — no point wasting time on blue. The Forager (Limansk resources) is an excellent mid-game container, even if Limansk scares beginners.',
             items:[
-              {tag:'budget', name:'Gum, Comet, Rattle, Spiral, Golden Prima', desc:"~2 045 000₽. Movespeed 6, Stamina 32.76, Carry +23.28. Solide si le build \"presque 3M\" est trop cher — sacrifie un peu de movespeed/stamina régen."},
-              {tag:'cher', name:'Proto-Onion, Golden Prima, Rattle, 2x Spiral (KZS-5)', desc:"~2 875 000₽. Movespeed 6.48, Stamina 13.32, Carry +31.68. Un des meilleurs builds speed complets à ce stade, mais sur le haut du budget mid-game."},
-              {tag:'valeur', name:'Golden Prima, Spiral, Ice Hedge, Rattle (Forager)', desc:"~1 875 000₽. Movespeed 6.48, Stamina 13.32, Carry +23.28. Le Forager donne -2.5 radiation et marche sur n'importe quelle armure, même lourde — un des containers préférés du créateur pour le mid-game."},
+              {tag:'budget', name:'Gum, Comet, Rattle, Spiral, Golden Prima', desc:"~2,045,000₽. Movespeed 6, Stamina 32.76, Carry +23.28. Solid if the 'almost 3M' build is too expensive — sacrifices a bit of movespeed/stamina regen."},
+              {tag:'cher', name:'Proto-Onion, Golden Prima, Rattle, 2x Spiral (KZS-5)', desc:"~2,875,000₽. Movespeed 6.48, Stamina 13.32, Carry +31.68. One of the best complete speed builds at this stage, but at the top of the mid-game budget."},
+              {tag:'valeur', name:'Golden Prima, Spiral, Ice Hedge, Rattle (Forager)', desc:"~1,875,000₽. Movespeed 6.48, Stamina 13.32, Carry +23.28. The Forager gives -2.5 radiation and works on any armor, even heavy — one of the creator's favorite mid-game containers."},
             ]
           },
           {
-            label:'PvP équilibré',
-            recap:'Deux approches : garder un sac speed + switcher vers un container PvP au besoin, ou jouer un build \"jack of all trades\" dans un seul container. Le créateur préfère la seconde option.',
+            label:'Balanced PvP',
+            recap:"Two approaches: keep a speed bag + switch to a PvP container when needed, or play a 'jack of all trades' build in a single container. The creator prefers the second.",
             items:[
-              {tag:'valeur', name:'Proto-Onion, Veiner, Onion, Spiral, Shrimp', desc:"~1 885 000₽. Movespeed 1.92, Stamina 9.36, Carry +28.8, BR 23.64. Le build \"go-to\" du créateur à ce niveau — un peu de tout sans avoir à switcher de container."},
-              {tag:'cher', name:'Proto-Onion, Veiner, Onion, Spiral, Steel Hedgehog', desc:"~2 785 000₽. Carry +15.72, BR 30.72. Variante plus tanky du build précédent — swap le Shrimp contre un Steel Hedgehog, perd du carry weight mais gagne beaucoup de BR."},
-              {tag:'gamble', name:'2x Cursed Rose, Veiner, Steel Hedgehog (Forager)', desc:"~2 300 000₽. BR 51.6. Permet un BR délirant pour un container léger, facile à transporter et à switcher au besoin en PvP — mais ça reste un build très spécialisé, pas pour jouer en continu."},
+              {tag:'valeur', name:'Proto-Onion, Veiner, Onion, Spiral, Shrimp', desc:"~1,885,000₽. Movespeed 1.92, Stamina 9.36, Carry +28.8, BR 23.64. The creator's 'go-to' build at this level — a bit of everything without switching containers."},
+              {tag:'cher', name:'Proto-Onion, Veiner, Onion, Spiral, Steel Hedgehog', desc:"~2,785,000₽. Carry +15.72, BR 30.72. Tankier variant of the previous build — swap the Shrimp for a Steel Hedgehog, lose carry weight but gain a lot of BR."},
+              {tag:'gamble', name:'2x Cursed Rose, Veiner, Steel Hedgehog (Forager)', desc:"~2,300,000₽. BR 51.6. Insane BR for a light container, easy to carry and switch in PvP — but a very specialized build, not for continuous play."},
             ]
           }
         ]
       },
       {
         id:'late',
-        label:'Late Game (artéfacts roses +15)',
+        label:'Late Game (+15 pink artifacts)',
         subcats:[
           {
             label:'Speed',
-            recap:'L\'objectif final en Bear\'s Den demande un Transformer bien roulé (protection anti-psy-émission) — risqué à monter en +15 sans un bon roll de départ. La Hive offre une alternative plus safe.',
+            recap:'The Bear\'s Den endgame goal requires a well-rolled Transformer (anti-psy-emission protection) — risky to push to +15 without a good starting roll. The Hive offers a safer alternative.',
             items:[
-              {tag:'cher', name:'Transformer, Helium, Spiral, 3x Bracelet (Bear\'s Den)', desc:"~76 400 000₽. Movespeed 23.32, Stamina 82.13, Carry +33.46. L'objectif final du créateur pour la vitesse — nécessite un Transformer avec le bon roll anti-psy, sinon dégâts psy garantis. Swap un Bracelet pour un Shrimp = version moins chère avec plus de carry weight."},
-              {tag:'valeur', name:'Scrubber, Golden Prima, Spiral, 3x Ice Hedgehog', desc:"~8 000 000₽. Movespeed 18.08, Stamina 101.06, Carry +43.94. Alternative bien moins chère pour progresser vers l'objectif Bear's Den, sans le gamble du Transformer."},
-              {tag:'cher', name:'Helium, Spiral, Golden Prima, 2x Bracelet (Hive)', desc:"~52 000 000₽. Movespeed 21.13, Stamina 76.73, Carry +43.94. Un des meilleurs builds speed du jeu selon le créateur — les builds à 2 Bracelets doivent éviter les rolls parfaits sous peine de dégâts psy."},
+              {tag:'cher', name:'Transformer, Helium, Spiral, 3x Bracelet (Bear\'s Den)', desc:"~76,400,000₽. Movespeed 23.32, Stamina 82.13, Carry +33.46. The creator's endgame speed goal — requires a Transformer with the right anti-psy roll, otherwise guaranteed psy damage. Swap a Bracelet for a Shrimp = cheaper version with more carry weight."},
+              {tag:'valeur', name:'Scrubber, Golden Prima, Spiral, 3x Ice Hedgehog', desc:"~8,000,000₽. Movespeed 18.08, Stamina 101.06, Carry +43.94. Much cheaper alternative to progress toward the Bear's Den goal, without the Transformer gamble."},
+              {tag:'cher', name:'Helium, Spiral, Golden Prima, 2x Bracelet (Hive)', desc:"~52,000,000₽. Movespeed 21.13, Stamina 76.73, Carry +43.94. One of the best speed builds in the game per the creator — 2-Bracelet builds should avoid perfect rolls or risk psy damage."},
             ]
           },
           {
             label:'PvP',
-            recap:'À ce niveau tu joues déjà des armures master avec beaucoup de BR de base — le focus glisse vers la vitalité et le heal. Le créateur évite le Prism (trop cher pour le gain) au profit du Steel Hedgehog.',
+            recap:'At this level you already play master armors with a lot of base BR — the focus shifts to vitality and healing. The creator avoids the Prism (too expensive for the gain) in favor of the Steel Hedgehog.',
             items:[
-              {tag:'cher', name:'Atom, 2x Branch, 2x Shard, Prism (Bear\'s Den)', desc:"~109 000 000₽. Vita 15.55, Heal Eff 101.4, BR 32.79. Le build le plus commun vu par le créateur en observant les meilleurs joueurs — le cœur de tous les builds Bear's Den PvP."},
-              {tag:'valeur', name:'Atom, Branch, 2x Shard, Steel Hedgehog, Cursed Rose', desc:"~75 000 000₽. Vita 12.17, Heal Eff 70.3, BR 55.6. Le build personnel du créateur — un Steel Hedgehog +15 égale la BR d'un Prism bleu pour moitié moins cher. \"Je ne paie pas 10M de plus pour 3 BR en plus\", dixit."},
-              {tag:'valeur', name:'Branch, Shard, Prism, Sun, Snake Eyes (Hive)', desc:"~65 500 000₽. Vita 16.56, Heal Eff 50.7, BR 32.79. Le cœur des builds Hive PvP les plus courants — remplace aussi le Prism par un Steel Hedgehog si tu veux économiser."},
-              {tag:'valeur', name:'Branch, Shard, Sun, Snake Eyes, Heel (Hive, full heal)', desc:"~63 500 000₽. Vita 16.56, Heal Eff 87.88. Sur les armures les plus lourdes (Hive), tu peux complètement lâcher le BR pour du full vitalité/heal en remplaçant le Prism par un Heel."},
+              {tag:'cher', name:'Atom, 2x Branch, 2x Shard, Prism (Bear\'s Den)', desc:"~109,000,000₽. Vita 15.55, Heal Eff 101.4, BR 32.79. The most common build seen by the creator watching the best players — the heart of all Bear's Den PvP builds."},
+              {tag:'valeur', name:'Atom, Branch, 2x Shard, Steel Hedgehog, Cursed Rose', desc:"~75,000,000₽. Vita 12.17, Heal Eff 70.3, BR 55.6. The creator's personal build — a +15 Steel Hedgehog equals the BR of a blue Prism for half the price. 'I'm not paying 10M more for 3 more BR', says he."},
+              {tag:'valeur', name:'Branch, Shard, Prism, Sun, Snake Eyes (Hive)', desc:"~65,500,000₽. Vita 16.56, Heal Eff 50.7, BR 32.79. The core of the most common Hive PvP builds — also swap the Prism for a Steel Hedgehog if you want to save."},
+              {tag:'valeur', name:'Branch, Shard, Sun, Snake Eyes, Heel (Hive, full heal)', desc:"~63,500,000₽. Vita 16.56, Heal Eff 87.88. On the heaviest armors (Hive), you can drop BR entirely for full vitality/heal by replacing the Prism with a Heel."},
             ]
           }
         ]
@@ -595,63 +595,63 @@ window.StashApp.register('stalzone', {
 
   progression: {
     filters: [
-      {id:'synthese', label:'Synthèse'},
-      {id:'swamps', label:'Marais'},
+      {id:'synthese', label:'Summary'},
+      {id:'swamps', label:'Swamps'},
       {id:'roadside', label:'Roadside'},
       {id:'bar', label:'Bar (Stalker)'},
-      {id:'veteran', label:'Vétéran'},
-      {id:'all', label:'Tout'},
+      {id:'veteran', label:'Veteran'},
+      {id:'all', label:'All'},
     ],
     categories: [
       {
         id:'synthese',
-        label:'Synthèse',
+        label:'Summary',
         subcats:[
           {
-            label:'🗺️ Les règles d\'or',
-            recap:'Le fil rouge de tout le guide : <b>ne pousse jamais ton équipement au-delà de ton niveau de craft actuel</b> — le matchmaking s\'ajuste sur ton gear, et te retrouver face à des joueurs avec 500-700h d\'expérience ruine l\'expérience.',
+            label:'🗺️ The golden rules',
+            recap:'The thread through the whole guide: <b>never push your gear beyond your current crafting level</b> — matchmaking scales to your gear, and ending up against players with 500-700h of experience ruins the experience.',
             items:[
-              {tag:'cle', name:'Attention au matchmaking gear', desc:"N'achète jamais de gear plus haut niveau que ce que tu peux actuellement crafter, et n'upgrade pas au-delà de +3 à Roadside. Ça t'évite d'être catapulté dans des lobbies bien trop difficiles."},
-              {tag:'cle', name:'Garde tes Act Tickets', desc:"Ne les dépense JAMAIS avant de bien comprendre leur valeur (plus tard dans le jeu). Toute autre monnaie peut être dépensée librement, pas celle-là."},
-              {tag:'cle', name:'Garde Advanced Spare Parts / Advanced Tools', desc:"Ne les dépense pas avant d'atteindre le nord — stocke-les, tu en auras besoin plus tard. Les tools/parts basiques peuvent être dépensés librement."},
+              {tag:'cle', name:'Beware of gear matchmaking', desc:"Never buy gear above what you can currently craft, and don't upgrade beyond +3 at Roadside. It avoids getting catapulted into far too hard lobbies."},
+              {tag:'cle', name:'Keep your Act Tickets', desc:"NEVER spend them before fully understanding their value (later in the game). Any other currency can be spent freely, not these."},
+              {tag:'cle', name:'Keep Advanced Spare Parts / Advanced Tools', desc:"Don't spend them until reaching the north — stock them, you'll need them later. Basic tools/parts can be spent freely."},
             ]
           },
           {
-            label:'⚠️ Pièges fréquents',
-            recap:'Des erreurs que le créateur a lui-même faites en 7000+ heures de jeu.',
+            label:'⚠️ Common traps',
+            recap:'Mistakes the creator himself made in 7000+ hours of play.',
             items:[
-              {tag:'attention', name:'Lignes d\'armes Ash 12 / VSSsk / RSH12', desc:"Ces lignes forcent à crafter via Limansk plus tard — une zone de guerre permanente. Évite-les si tu ne veux pas ce niveau de difficulté imposé.", warn:true},
-              {tag:'attention', name:'Sessions battles sans preset gear', desc:"Sur les maps classiques, tu affronteras des joueurs avec des builds à 200M+. Reste sur Arms Race ou Death Match (gear imposé) tant que t'es pas prêt.", warn:true},
-              {tag:'attention', name:'Crafter des containers trop tôt', desc:"Ils ne deviennent intéressants qu'avec un vrai budget artéfacts, que t'as pas encore à Roadside. Perte de temps à ce stade.", warn:true},
+              {tag:'attention', name:'Ash 12 / VSSsk / RSH12 weapon lines', desc:"These lines force crafting via Limansk later — a permanent war zone. Avoid them if you don't want that imposed difficulty level.", warn:true},
+              {tag:'attention', name:'Session battles without preset gear', desc:"On classic maps you'll face players with 200M+ builds. Stay on Arms Race or Death Match (preset gear) until you're ready.", warn:true},
+              {tag:'attention', name:'Crafting containers too early', desc:"They only become interesting with a real artifact budget, which you don't have at Roadside yet. A waste of time at this stage.", warn:true},
             ]
           },
           {
-            label:'📍 Par étape (résumé express)',
-            recap:'Le parcours complet en une phrase par zone.',
+            label:'📍 Step by step (express recap)',
+            recap:'The whole journey in one sentence per zone.',
             items:[
-              {tag:'astuce', name:'Marais', desc:"Zone tutoriel très chill. Termine juste la quête d'histoire, ne perds pas de temps à tout crafter."},
-              {tag:'astuce', name:'Roadside', desc:"4 zones, système d'infection introduit. Crafte une arme + une armure, explore un peu, artéfacts pas chers seulement (<15k)."},
-              {tag:'astuce', name:'Bar (niveau Stalker)', desc:"Farm de data fragments (Electra, installations, signaux), premiers vrais builds artéfacts, plus de PvP."},
-              {tag:'astuce', name:'Vétéran', desc:"Chasse aux artéfacts après émissions, builds spécialisés jusqu'à +5/+15, fin de trame sud (boss du radar) puis choix de faction nordique."},
+              {tag:'astuce', name:'Swamps', desc:"Very chill tutorial zone. Just finish the story quest, don't waste time crafting everything."},
+              {tag:'astuce', name:'Roadside', desc:"4 zones, infection system introduced. Craft one weapon + one armor, explore a bit, cheap artifacts only (<15k)."},
+              {tag:'astuce', name:'Bar (Stalker level)', desc:"Data fragment farming (Electra, installations, signals), first real artifact builds, more PvP."},
+              {tag:'astuce', name:'Veteran', desc:"Post-emission artifact hunting, specialized builds up to +5/+15, end of the south arc (radar boss) then north faction choice."},
             ]
           }
         ]
       },
       {
         id:'swamps',
-        label:'Marais (tutoriel)',
+        label:'Swamps (tutorial)',
         subcats:[
           {
-            label:'Bases à connaître',
-            recap:'Zone la plus chill du jeu, quasi pas de PvP. Le seul vrai objectif ici : comprendre les mécaniques et finir la quête d\'histoire — pas besoin de s\'attarder.',
+            label:'Basics to know',
+            recap:'The chillest zone in the game, almost no PvP. The only real goal here: understand the mechanics and finish the story quest — no need to linger.',
             items:[
-              {tag:'cle', name:'Le choix de faction ne compte pas vraiment', desc:"Bandits ou Stalkers — choisis juste celle que tu préfères visuellement/thématiquement, ça n'a pas d'impact majeur à ce stade."},
-              {tag:'cle', name:'Comprendre le système de barter', desc:"Récolte des ressources et de l'argent, utilise-les pour crafter/upgrader arme et armure. C'est toute la boucle de progression du jeu."},
-              {tag:'astuce', name:'Ne perds pas de temps à tout crafter', desc:"Tu n'auras jamais besoin de revenir dans les marais pour crafter quoi que ce soit d'utile plus tard — inutile de suivre toutes les lignes de craft ici."},
-              {tag:'astuce', name:'Achète un shotgun dès le départ (280₽)', desc:"Utilisable en slot secondaire à la place d'un pistolet, 6 coups en magasin. Les shotguns sont particulièrement forts contre les mutants et t'aideront jusqu'au milieu de la Zone."},
-              {tag:'cle', name:'Compréhension de la carte', desc:"Le vrai danger, ce sont les autres joueurs. Repère d'où les ennemis peuvent venir et découpe chaque zone en niveaux de danger avant de t'y aventurer avec du loot."},
-              {tag:'attention', name:'Perte de loot à la mort', desc:"Presque tout ce que tu farmes (ressources, munitions non paquetées, medkits) tombe dans un sac au sol si tu meurs. Seuls les objets avec un symbole cadenas ou bouclier sont protégés.", warn:true},
-              {tag:'astuce', name:'La roue d\'accès rapide', desc:"Survole un objet, appuie sur un chiffre pour l'ajouter à la roue (touche C pour l'ouvrir). Permet d'utiliser arme/sac/médicaments sans ouvrir l'inventaire."},
+              {tag:'cle', name:'The faction choice barely matters', desc:"Bandits or Stalkers — just pick the one you prefer visually/thematically, it has no major impact at this stage."},
+              {tag:'cle', name:'Understand the barter system', desc:"Gather resources and money, use them to craft/upgrade weapons and armor. That's the whole progression loop of the game."},
+              {tag:'astuce', name:'Don\'t waste time crafting everything', desc:"You'll never need to come back to the swamps to craft anything useful later — no need to follow every craft line here."},
+              {tag:'astuce', name:'Buy a shotgun from the start (280₽)', desc:"Usable in the secondary slot instead of a pistol, 6 rounds in the mag. Shotguns are particularly strong against mutants and will carry you to the middle of the Zone."},
+              {tag:'cle', name:'Map awareness', desc:"The real danger is other players. Spot where enemies can come from and divide each zone into danger levels before venturing in with loot."},
+              {tag:'attention', name:'Loot loss on death', desc:"Almost everything you farm (resources, unpacked ammo, medkits) drops into a bag on the ground if you die. Only items with a padlock or shield symbol are protected.", warn:true},
+              {tag:'astuce', name:'The quick wheel', desc:"Hover an item, press a number to add it to the wheel (key C to open). Lets you use weapon/bag/meds without opening the inventory."},
             ]
           }
         ]
@@ -661,125 +661,125 @@ window.StashApp.register('stalzone', {
         label:'Roadside',
         subcats:[
           {
-            label:'Navigation & zones à risque',
-            recap:'4 zones plus dangereuses que les marais mais globalement chill. Plus tu vas au nord, plus les zones sont risquées — mais les récompenses suivent. Nouveauté : les zones de danger (infection).',
+            label:'Navigation & risk zones',
+            recap:'4 zones more dangerous than the swamps but overall chill. The further north, the riskier the zones — but rewards follow. New: danger zones (infection).',
             items:[
-              {tag:'astuce', name:'Zones intermédiaires = bon compromis', desc:"Les zones latérales permettent de farmer sans trop de risque, tant que tu évites les entrées de Scrapyard. Idéal si tu manques encore de confiance."},
-              {tag:'cle', name:'Scrapyard = meilleures récompenses', desc:"Seule zone qui permet de farmer le niveau de réputation final de la base Roadside. Pas obligatoire d'y aller tout de suite."},
-              {tag:'cle', name:'3 types d\'armures face aux zones de danger', desc:"Combat = protection la plus faible. Science = protection totale. Combo = protection partielle ou plus de temps pour fuir. La plupart des joueurs crafte soit une combat + une science (à switcher), soit une combo seule (avec limitations)."},
-              {tag:'astuce', name:'Bandages contre le saignement', desc:"Très efficaces contre le bleeding causé par les snipers ou mutants puissants. Objets peu chers qui peuvent sauver la vie — à toujours avoir sur soi."},
+              {tag:'astuce', name:'Intermediate zones = good compromise', desc:"Side zones let you farm without too much risk, as long as you avoid the Scrapyard entrances. Ideal if you still lack confidence."},
+              {tag:'cle', name:'Scrapyard = best rewards', desc:"The only zone that lets you farm the final reputation level of the Roadside base. Not mandatory to go right away."},
+              {tag:'cle', name:'3 armor types vs danger zones', desc:"Combat = weakest protection. Science = total protection. Combo = partial protection or more time to flee. Most players craft either a combat + a science (to switch), or a single combo (with limitations)."},
+              {tag:'astuce', name:'Bandages against bleeding', desc:"Very effective against bleeding from snipers or strong mutants. Cheap items that can save your life — always carry some."},
             ]
           },
           {
-            label:'Équipement & artéfacts',
-            recap:'Expérimente librement les armes, mais ne crafte pas encore de containers — ils ne deviennent intéressants qu\'avec un vrai budget artéfacts. Reste sous les 15k par artéfact pour l\'instant.',
+            label:'Gear & artifacts',
+            recap:'Experiment with weapons freely, but don\'t craft containers yet — they only get interesting with a real artifact budget. Stay under 15k per artifact for now.',
             items:[
-              {tag:'astuce', name:'Expérimente les armes librement', desc:"Le craft prend plus de temps qu'aux marais mais reste raisonnable. Choisis ce qui te plaît, pas de meilleure arme universelle."},
-              {tag:'attention', name:'Ne crafte pas de containers encore', desc:"Ils ne deviennent vraiment forts qu'avec un investissement sérieux en artéfacts, que tu n'as pas encore à ce stade. Perte de ressources.", warn:true},
-              {tag:'astuce', name:'Artéfacts bon marché uniquement', desc:"Ne dépasse pas 15 000₽ par artéfact. Prends-en avec différentes résistances aux infections négatives, peu importe le type (vitesse, HP, heal)."},
-              {tag:'attention', name:'N\'achète pas de gear trop haut niveau', desc:"Même si l'hôtel des ventes (débloqué au niveau 2 de la base Roadside) propose du matériel supérieur, ça peut te pousser vers des lobbies bien trop difficiles à cause du matchmaking basé sur le gear.", warn:true},
-              {tag:'astuce', name:'Exception : les couteaux', desc:"Un couteau bleu ou violet pas cher peut être acheté juste pour le bonus de vitesse de déplacement, sans risque de matchmaking."},
-              {tag:'cle', name:'Upgrades limités à +3', desc:"Comme pour l'achat de gear, upgrader trop haut peut perturber ton matchmaking. Reste à +3 maximum à ce stade."},
-              {tag:'cle', name:'Garde Advanced Spare Parts et Advanced Tools', desc:"Ne les dépense pas avant d'atteindre le nord — stocke-les. Les tools/parts basiques peuvent eux être dépensés librement."},
-              {tag:'astuce', name:'Ne upgrade pas encore tes artéfacts', desc:"Pure perte de ressources et de temps à ce stade. Garde tes catalyseurs et sources d'énergie pour plus tard."},
+              {tag:'astuce', name:'Experiment with weapons freely', desc:"Crafting takes longer than in the swamps but stays reasonable. Pick what you like, no universal best weapon."},
+              {tag:'attention', name:'Don\'t craft containers yet', desc:"They only get really strong with a serious artifact investment, which you don't have yet at this stage. Waste of resources.", warn:true},
+              {tag:'astuce', name:'Cheap artifacts only', desc:"Don't exceed 15,000₽ per artifact. Take ones with different negative-infection resistances, whatever the type (speed, HP, heal)."},
+              {tag:'attention', name:'Don\'t buy gear that is too high-level', desc:"Even if the auction house (unlocked at Roadside base level 2) offers better gear, it can push you into far too hard lobbies because of gear-based matchmaking.", warn:true},
+              {tag:'astuce', name:'Exception: knives', desc:"A cheap blue or purple knife can be bought just for the movement speed bonus, without matchmaking risk."},
+              {tag:'cle', name:'Upgrades limited to +3', desc:"Like gear purchases, upgrading too high can mess with your matchmaking. Stay at +3 maximum at this stage."},
+              {tag:'cle', name:'Keep Advanced Spare Parts and Advanced Tools', desc:"Don't spend them before reaching the north — stock them. Basic tools/parts can be spent freely."},
+              {tag:'astuce', name:'Don\'t upgrade your artifacts yet', desc:"Pure waste of resources and time at this stage. Keep your catalysts and energy sources for later."},
             ]
           },
           {
-            label:'Attachements & ressources',
-            recap:'Vérifie toujours la compatibilité des attachements avant de crafter quoi que ce soit — chaque arme a ses propres slots de module.',
+            label:'Attachments & resources',
+            recap:'Always check attachment compatibility before crafting anything — each weapon has its own module slots.',
             items:[
-              {tag:'cle', name:'Vérifie la compatibilité avant de crafter', desc:"Chaque arme a des slots différents pour canon, laser, poignée et viseur — et tous les attachements ne fonctionnent pas ensemble. Preview l'arme chez le barter avant de dépenser quoi que ce soit."},
-              {tag:'astuce', name:'Fils de cuivre via détecteur de métaux', desc:"Obtenu via la quête d'histoire à la base des diggers. Un signal sonore indique la proximité — sors le détecteur, approche-toi, des petits tas apparaissent à creuser."},
-              {tag:'astuce', name:'Revends les spools de fils de cuivre', desc:"Se vendent cher à l'hôtel des ventes, comme le burning karpite. Bonne source de revenu passive à ce stade."},
-              {tag:'optionnel', name:'Carte du wiki pour les caches', desc:"Si tu as besoin de beaucoup de fils de cuivre spécifiquement, la carte du wiki Stall Zone indique les zones jaunes où trouver des caches."},
+              {tag:'cle', name:'Check compatibility before crafting', desc:"Each weapon has different slots for barrel, laser, grip and scope — and not all attachments work together. Preview the weapon at the barter before spending anything."},
+              {tag:'astuce', name:'Copper wires via metal detector', desc:"Obtained through the story quest at the diggers' base. A sound signal indicates proximity — bring out the detector, get close, small piles appear to dig."},
+              {tag:'astuce', name:'Resell copper wire spools', desc:"Sell well at the auction house, like burning karpite. Good passive income source at this stage."},
+              {tag:'optionnel', name:'Wiki map for caches', desc:"If you specifically need a lot of copper wires, the Stall Zone wiki map shows the yellow zones where caches are found."},
             ]
           }
         ]
       },
       {
         id:'bar',
-        label:'Bar (niveau Stalker)',
+        label:'Bar (Stalker level)',
         subcats:[
           {
-            label:'Zones autour du Bar',
-            recap:'Bar, forêt et fosse offrent les mêmes récompenses — seules différences : niveau de danger et temps de trajet. Attends-toi à beaucoup plus de PvP qu\'avant, certains joueurs se font même tuer avant de poser leur point de respawn.',
+            label:'Zones around the Bar',
+            recap:'Bar, forest and pit offer the same rewards — only differences: danger level and travel time. Expect much more PvP than before, some players even get killed before setting their respawn point.',
             items:[
-              {tag:'attention', name:'Zones à éviter si tu veux la paix', desc:"L'entrée du milieu vers le bar et toute la partie supérieure sont particulièrement dangereuses — évite-les si tu ne cherches pas le combat."},
-              {tag:'cle', name:'Pas de caches dans le bar lui-même', desc:"Si tu as besoin de caches, il faut aller en forêt ou à la fosse — le bar seul ne les propose pas."},
+              {tag:'attention', name:'Zones to avoid if you want peace', desc:"The middle entrance to the bar and the whole upper part are especially dangerous — avoid them if you're not looking for combat."},
+              {tag:'cle', name:'No caches in the bar itself', desc:"If you need caches, you have to go to the forest or the pit — the bar alone doesn't offer any."},
             ]
           },
           {
-            label:'Farm de data fragments',
-            recap:'Trois méthodes pour farmer les data fragments — les anomalies Electra sont les plus simples mais ennuyeuses, les installations et signaux offrent plus de variété.',
+            label:'Data fragment farming',
+            recap:'Three methods to farm data fragments — Electra anomalies are the simplest but boring, installations and signals offer more variety.',
             items:[
-              {tag:'astuce', name:'Anomalies Electra', desc:"Reste dans le rayon de l'anomalie sans en sortir (le progrès redescend sinon) — faisable même en armure combat si bien joué. Simple mais répétitif."},
-              {tag:'astuce', name:'Installations de recherche anomale', desc:"Achète-en une chez Gromaika, place-la près d'une faille anomale, défends-la contre des vagues de mutants, puis récupère la récompense."},
-              {tag:'astuce', name:'Signaux', desc:"Détecteur longue portée pour repérer une zone, détecteur courte portée pour localiser le signal précis. Pas de carte des spawns — il faut courir et checker régulièrement."},
-              {tag:'attention', name:'Donjons via signaux', desc:"Donnent plus de loot selon la difficulté, mais si tu meurs à l'intérieur, ton sac est perdu définitivement, sans possibilité de récupération.", warn:true},
-              {tag:'optionnel', name:'Tableau de quêtes journalières', desc:"Prends-les toutes et complète-les en marge de ton farm normal. Pas obligatoires — annule celles trop dures ou trop longues et prends-en une autre le lendemain."},
+              {tag:'astuce', name:'Electra anomalies', desc:"Stay within the anomaly's radius without leaving (the progress resets otherwise) — doable even in combat armor if played well. Simple but repetitive."},
+              {tag:'astuce', name:'Anomalous research installations', desc:"Buy one from Gromaika, place it near an anomalous rift, defend it against mutant waves, then collect the reward."},
+              {tag:'astuce', name:'Signals', desc:"Long-range detector to spot an area, short-range detector to locate the exact signal. No spawn map — you have to run and check regularly."},
+              {tag:'attention', name:'Signal dungeons', desc:"Give more loot depending on difficulty, but if you die inside, your bag is permanently lost, with no recovery possible.", warn:true},
+              {tag:'optionnel', name:'Daily quest board', desc:"Take them all and complete them alongside your normal farm. Not mandatory — cancel the too hard or too long ones and take another the next day."},
             ]
           },
           {
-            label:'Équipement & tactique',
-            recap:'Commence à te stabiliser sur une ligne de gear précise — chaque prochain palier nécessite l\'objet précédent de la même ligne pour être crafté.',
+            label:'Gear & tactics',
+            recap:'Start settling on a specific gear line — each next tier requires the previous item of the same line to be crafted.',
             items:[
-              {tag:'attention', name:'Évite Ash 12 / VSSsk / RSH12 en tant que newbie', desc:"Ces lignes forcent à crafter plus tard via Limansk, une zone de combat permanent. Choisis une autre ligne si tu veux éviter ce niveau de challenge imposé.", warn:true},
-              {tag:'cle', name:'Munitions perforantes pour le PvP', desc:"Les munitions expansives sont bonnes en PvE mais t'affaiblissent nettement contre les joueurs — passe aux munitions perforantes."},
-              {tag:'astuce', name:'Plaques acier (PvE) vs céramique (PvP)', desc:"Farme avec une plaque acier équipée, puis switch vers une plaque céramique avant d'extraire ton loot pour de meilleures chances en PvP. La céramique casse vite, donc à utiliser au bon moment."},
-              {tag:'astuce', name:'Utilise des caches (stashes)', desc:"Place-les près de tes spots de farm en zone dangereuse (forêt/fosse), stocke ton loot au fur et à mesure, puis extrait tout une fois la situation calmée."},
-              {tag:'optionnel', name:'Trade coins pour acheter des ressources', desc:"Obtenus via récompenses de connexion, battle pass et caisses. Utile pour ce que tu ne peux pas farmer facilement — inutile de les garder sans raison."},
+              {tag:'attention', name:'Avoid Ash 12 / VSSsk / RSH12 as a newbie', desc:"These lines force crafting via Limansk later, a permanent combat zone. Pick another line if you want to avoid that imposed challenge.", warn:true},
+              {tag:'cle', name:'Armor-piercing ammo for PvP', desc:"Expansive ammo is good in PvE but clearly weakens you against players — switch to armor-piercing ammo."},
+              {tag:'astuce', name:'Steel plates (PvE) vs ceramic (PvP)', desc:"Farm with a steel plate equipped, then switch to a ceramic plate before extracting your loot for better PvP chances. Ceramic breaks fast, so use it at the right moment."},
+              {tag:'astuce', name:'Use caches (stashes)', desc:"Place them near your farming spots in dangerous zones (forest/pit), stock your loot as you go, then extract everything once things calm down."},
+              {tag:'optionnel', name:'Trade coins to buy resources', desc:"Obtained via login rewards, battle pass and crates. Useful for what you can't easily farm — no reason to hoard them."},
             ]
           },
           {
             label:'Battle Pass & session battles',
-            recap:'Le battle pass s\'achète avec des rubles sans dépenser d\'argent réel — pas besoin de le prioriser à ce stade. Côté PvP compétitif, ne touche qu\'aux modes à gear imposé.',
+            recap:'The battle pass is bought with rubles without spending real money — no need to prioritize it at this stage. For competitive PvP, only touch preset-gear modes.',
             items:[
-              {tag:'cle', name:'N\'utilise jamais tes Act Tickets', desc:"Extrêmement précieux et limités — leur valeur devient claire bien plus tard. Toute autre monnaie peut être dépensée librement à ce stade.", warn:true},
-              {tag:'astuce', name:'Reroll tes tâches vers les plus communes', desc:"Permet de progresser naturellement dans le battle pass en faisant ce que tu ferais de toute façon."},
-              {tag:'attention', name:'Évite les session battles sur maps classiques', desc:"Tu affronteras des joueurs avec du gear master/legendary valant 200M+. Reste sur Arms Race ou Death Match qui utilisent du gear imposé.", warn:true},
+              {tag:'cle', name:'Never use your Act Tickets', desc:"Extremely valuable and limited — their value becomes clear much later. Any other currency can be spent freely at this stage.", warn:true},
+              {tag:'astuce', name:'Reroll your tasks toward the most common ones', desc:"Lets you progress naturally in the battle pass by doing what you'd do anyway."},
+              {tag:'attention', name:'Avoid session battles on classic maps', desc:"You'll face players with master/legendary gear worth 200M+. Stay on Arms Race or Death Match which use preset gear.", warn:true},
             ]
           }
         ]
       },
       {
         id:'veteran',
-        label:'Niveau Vétéran',
+        label:'Veteran level',
         subcats:[
           {
             label:'Zones & dangers',
-            recap:'4 zones pour débuter le craft vétéran. Les zones latérales sont plus sûres mais moins généreuses — Graveyard et Dead City ne sont pas simples non plus, avec leurs zones de danger.',
+            recap:'4 zones to start veteran crafting. Side zones are safer but less generous — Graveyard and Dead City aren\'t simple either, with their danger zones.',
             items:[
-              {tag:'astuce', name:'Plescoy / Path of Fools / Graveyard / Dead City', desc:"Zones latérales plus sûres mais récompenses plus faibles. Plescoy et Path of Fools ont plus de PvP ; Graveyard et Dead City ont des zones de danger à surveiller."},
-              {tag:'attention', name:'Anti-rads et antidotes obligatoires sans suit science', desc:"Si tu n'utilises pas une armure science, garde toujours ces objets sur toi face aux zones de danger.", warn:true},
+              {tag:'astuce', name:'Plescoy / Path of Fools / Graveyard / Dead City', desc:"Safer side zones but weaker rewards. Plescoy and Path of Fools have more PvP; Graveyard and Dead City have danger zones to watch."},
+              {tag:'attention', name:'Anti-rads and antidotes mandatory without a science suit', desc:"If you don't use a science armor, always keep these items on you in danger zones.", warn:true},
             ]
           },
           {
-            label:'Chasse aux artéfacts',
-            recap:'Une vraie ruée vers l\'or après chaque émission. Ça peut rapporter des millions par run si t\'as de la chance — mais il faut être rapide et méthodique.',
+            label:'Artifact hunting',
+            recap:'A real gold rush after every emission. Can bring in millions per run if you\'re lucky — but you have to be fast and methodical.',
             items:[
-              {tag:'cle', name:'Timing des émissions', desc:"Aléatoire entre 2h30 et 4h après la précédente (timer visible en haut à gauche de la carte). Les artéfacts spawnent 5 à 35 minutes après l'émission."},
-              {tag:'astuce', name:'Cours vers les spots à forte densité d\'anomalies', desc:"Repère à l'avance les endroits où tu as déjà vu beaucoup d'anomalies, puis enchaîne les spots en gérant les joueurs ennemis qui tentent de te voler."},
-              {tag:'astuce', name:'Le Beluga (détecteur) aide énormément', desc:"Pas cher et facile à crafter, montre les artéfacts proches — utile aussi pour la chasse aux signaux."},
-              {tag:'attention', name:'Arrête de looter n\'importe quoi', desc:"Munitions random, plaques acier et autre camelote ralentissent ton run et te forcent à revenir en base plus souvent. Ne prends que ce qui a de la valeur ou sert au craft de ta planque.", warn:true},
+              {tag:'cle', name:'Emission timing', desc:"Random between 2h30 and 4h after the previous one (timer visible top-left of the map). Artifacts spawn 5 to 35 minutes after the emission."},
+              {tag:'astuce', name:'Run toward high anomaly-density spots', desc:"Scope out in advance where you've already seen lots of anomalies, then chain spots while managing enemy players trying to steal from you."},
+              {tag:'astuce', name:'The Beluga (detector) helps a lot', desc:"Cheap and easy to craft, shows nearby artifacts — also useful for signal hunting."},
+              {tag:'attention', name:'Stop looting anything', desc:"Random ammo, steel plates and other junk slow your run and force you back to base more often. Only take what has value or serves your hideout's crafting.", warn:true},
             ]
           },
           {
-            label:'Builds artéfacts',
-            recap:'Les recommandations de builds changent régulièrement avec les mises à jour — ce qui était bon hier peut être mauvais aujourd\'hui. Vise la qualité \"spéciale\" minimum, jamais commune.',
+            label:'Artifact builds',
+            recap:'Build recommendations change regularly with updates — what was good yesterday can be bad today. Aim for \'special\' quality minimum, never common.',
             items:[
-              {tag:'cle', name:'Jamais d\'artéfacts communs', desc:"Une perte de ressources pure. Commence directement avec des artéfacts de qualité \"spéciale\" — ils se revendent bien et perdent moins de valeur à l'upgrade, contrairement aux uncommon."},
-              {tag:'astuce', name:'Vise +5 au niveau du Bar, +15 seulement dans le nord', desc:"Pas besoin de pousser plus haut avant d'atteindre le nord — inutile de dépenser des ressources rares trop tôt."},
-              {tag:'astuce', name:'Process d\'upgrade', desc:"Recherche l'artéfact chez le scientifique, remplis l'installation d'énergie (poussière anomalous, proto-artéfacts communs, batteries anomalous = sources les moins chères), puis choisis des catalyseurs et lance les tentatives. Chaque palier de 5 niveaux donne une propriété bonus."},
-              {tag:'optionnel', name:'Calculateur de builds du wiki', desc:"Utile pour tester et adapter les builds recommandés à ta situation avant de t'engager financièrement."},
+              {tag:'cle', name:'Never common artifacts', desc:"A pure waste of resources. Start directly with 'special' quality artifacts — they resell well and lose less value on upgrade, unlike uncommon ones."},
+              {tag:'astuce', name:'Aim for +5 at the Bar, +15 only in the north', desc:"No need to push higher before reaching the north — no point spending rare resources too early."},
+              {tag:'astuce', name:'Upgrade process', desc:"Research the artifact at the scientist, fill the installation with energy (anomalous dust, common proto-artifacts, anomalous batteries = the cheapest sources), then pick catalysts and launch attempts. Every 5-level tier gives a bonus property."},
+              {tag:'optionnel', name:'Wiki build calculator', desc:"Useful to test and adapt recommended builds to your situation before committing financially."},
             ]
           },
           {
-            label:'Fin de la trame sud',
-            recap:'La quête du Radar termine la trame sud avec un combat de boss — prépare-toi avant d\'y aller. Ensuite, le choix de faction nordique est obligatoire pour accéder au nord.',
+            label:'End of the south arc',
+            recap:'The Radar quest ends the south arc with a boss fight — prepare before going. Then, the north faction choice is mandatory to access the north.',
             items:[
-              {tag:'cle', name:'Boss du Radar', desc:"Prends une arme à grand chargeur et détruis les lampes sur le corps du boss pendant le combat."},
-              {tag:'cle', name:'Choix de faction nordique obligatoire', desc:"Impossible d'accéder au nord sans en choisir une. Trois approches : le style/l'idéologie qui te plaît, la population de la faction (stats de clans sur le site Stall Zone HQ), ou juste le visuel des armures."},
-              {tag:'astuce', name:'Toutes les factions ont les mêmes 4 types d\'armure', desc:"Seules les stats varient légèrement et le visuel change — au fond, ce sont les mêmes armures avec un skin différent selon la faction."},
+              {tag:'cle', name:'Radar boss', desc:"Take a high-capacity magazine weapon and destroy the lamps on the boss's body during the fight."},
+              {tag:'cle', name:'North faction choice mandatory', desc:"Impossible to access the north without picking one. Three approaches: the style/ideology you like, the faction population (clan stats on the Stall Zone HQ site), or just the armor visuals."},
+              {tag:'astuce', name:'All factions have the same 4 armor types', desc:"Only the stats vary slightly and the look changes — at the core, they're the same armors with a different skin per faction."},
             ]
           }
         ]
@@ -788,87 +788,87 @@ window.StashApp.register('stalzone', {
   }
   },
   tagLabels: {
-  fiable:'Fiable', risque:'Risqué', chance:'Chance', lent:'Lent', rapide:'Rapide', rmt:'RMT',
-  valeur:'Valeur', budget:'Budget', gamble:'Gamble', cher:'Cher',
-  cle:'Clé', astuce:'Astuce', attention:'Attention', optionnel:'Optionnel'
+  fiable:'Reliable', risque:'Risky', chance:'Luck', lent:'Slow', rapide:'Fast', rmt:'RMT',
+  valeur:'Value', budget:'Budget', gamble:'Gamble', cher:'Expensive',
+  cle:'Key', astuce:'Tip', attention:'Caution', optionnel:'Optional'
   },
   legends: {
   argent: [
-    {label:'Fiable — lent mais sûr', color:'var(--toxic)'},
-    {label:'Rapide — bon ratio temps', color:'var(--teal)'},
-    {label:'Risqué — PvP / danger', color:'var(--red)'},
-    {label:'Chance — aléatoire', color:'var(--amber)'},
-    {label:'Lent — faible rendement/h', color:'var(--grey)'},
-    {label:'RMT — argent réel', color:'var(--orange)'},
+    {label:'Reliable — slow but safe', color:'var(--toxic)'},
+    {label:'Fast — good time ratio', color:'var(--teal)'},
+    {label:'Risky — PvP / danger', color:'var(--red)'},
+    {label:'Luck — random', color:'var(--amber)'},
+    {label:'Slow — low output per hour', color:'var(--grey)'},
+    {label:'RMT — real money', color:'var(--orange)'},
   ],
   artefacts: [
-    {label:'Valeur — meilleur rapport qualité/prix', color:'var(--toxic)'},
-    {label:'Budget — le moins cher jouable', color:'var(--grey)'},
-    {label:'Gamble — roll aléatoire', color:'var(--amber)'},
-    {label:'Cher — investissement lourd', color:'var(--orange)'},
+    {label:'Value — best quality/price', color:'var(--toxic)'},
+    {label:'Budget — cheapest playable', color:'var(--grey)'},
+    {label:'Gamble — random roll', color:'var(--amber)'},
+    {label:'Expensive — heavy investment', color:'var(--orange)'},
   ],
   progression: [
-    {label:'Clé — règle importante', color:'var(--amber)'},
-    {label:'Astuce — conseil pratique', color:'var(--teal)'},
-    {label:'Attention — piège fréquent', color:'var(--red)'},
-    {label:'Optionnel — si ça t\'intéresse', color:'var(--grey)'},
+    {label:'Key — important rule', color:'var(--amber)'},
+    {label:'Tip — practical advice', color:'var(--teal)'},
+    {label:'Caution — common trap', color:'var(--red)'},
+    {label:'Optional — if it interests you', color:'var(--grey)'},
   ]
   },
   summaries: {
   armures: {
-    title:"Résumé — vers quelle armure te tourner",
+    title:"Summary — which armor to go for",
     paragraphs:[
-      "Priorité n°1 : une <b>suit science</b> (Saturn, Ganymede ou Atlas selon budget) pour farmer Black Detour et Reflection sans galérer.",
-      "Priorité n°2 : une <b>combo suit</b>, idéalement une speed suit de faction — vu le gameplay chaotique de Stalcraft, la vitesse vaut souvent plus que la résistance brute.",
-      "Priorité n°3 : une <b>combat suit</b> — Centurion pour du PvP/clan wars, Ace Mule si tu restes en PvE.",
-      "Règle d'or : si une armure est craftable via schéma et sans équivalent dans sa catégorie, fonce dessus en priorité — moins cher, pas de serum anomalous dépensé.",
-      "🎬 <a href=\"https://www.youtube.com/watch?v=vYEt1Z_vWJ0\">Voir la vidéo source — Classement Armures</a>"
+      "Priority #1: a <b>science suit</b> (Saturn, Ganymede or Atlas depending on budget) to farm Black Detour and Reflection without struggling.",
+      "Priority #2: a <b>combo suit</b>, ideally a faction speed suit — given Stalcraft's chaotic gameplay, speed often beats raw resistance.",
+      "Priority #3: a <b>combat suit</b> — Centurion for PvP/clan wars, Ace Mule if you stay in PvE.",
+      "Golden rule: if an armor is craftable via blueprint with no equivalent in its category, go for it first — cheaper, no anomalous serum spent.",
+      "🎬 <a href=\"https://www.youtube.com/watch?v=vYEt1Z_vWJ0\">Watch the source video — Armor Ranking</a>"
     ]
   },
   armes: {
-    title:"Résumé — vers quelle arme te tourner",
+    title:"Summary — which weapon to go for",
     paragraphs:[
-      "Il n'existe <b>pas d'arme objectivement meilleure</b> que les autres — chaque catégorie brille dans une situation précise.",
-      "Fusil principal : QBZ Thunderbird ou A545. Pour du gros dégât : AK-15/MK-47 (mid-level) ou Ash 12 (si tu vises bien).",
-      "Shotgun : Komrad/Saiga 12 en PvE, KS23/AEK965 en PvP si accessible, sinon TOZ84.",
-      "Sniper : sois honnête sur ton niveau de visée — headshots fiables → McMillan/Karbach, sinon prends un DMR (MK-14, QBU, SVD-M).",
-      "SMG et mitrailleuses : priorité basse, en complément une fois le kit principal établi.",
-      "Piège à éviter : les armes \"noob trap\" (VSK, Derya, AK308, HK417) sont bonnes entre bonnes mains mais leur faible coût attire des joueurs pas encore prêts pour le niveau de jeu qu'elles impliquent.",
-      "🎬 <a href=\"https://www.youtube.com/watch?v=afvIVzWMxtI\">Voir la vidéo source — Classement Armes</a>"
+      "There's <b>no objectively best weapon</b> — each category shines in a specific situation.",
+      "Main rifle: QBZ Thunderbird or A545. For big damage: AK-15/MK-47 (mid-level) or Ash 12 (if you aim well).",
+      "Shotgun: Komrad/Saiga 12 in PvE, KS23/AEK965 in PvP if accessible, otherwise TOZ84.",
+      "Sniper: be honest about your aim — reliable headshots → McMillan/Karbach, otherwise take a DMR (MK-14, QBU, SVD-M).",
+      "SMG and machine guns: low priority, as a complement once the main kit is established.",
+      "Trap to avoid: 'noob trap' weapons (VSK, Derya, AK308, HK417) are good in good hands, but their low cost attracts players not yet ready for the skill level they imply.",
+      "🎬 <a href=\"https://www.youtube.com/watch?v=afvIVzWMxtI\">Watch the source video — Weapon Ranking</a>"
     ]
   },
   argent: {
-    title:"Résumé — comment se faire de l'argent",
+    title:"Summary — how to make money",
     paragraphs:[
-      "Le créateur pose un triangle simple : <b>temps, risque, fiabilité</b> — tu n'obtiens jamais les trois à la fois pour une même méthode.",
-      "Revenu le plus <b>stable</b> : flipper des Advanced Spare Parts via le season pass (40-45k/unité, environ 4-5M pour 100 ASP).",
-      "Meilleur ratio pour un <b>solo pressé</b> : Lewich, malgré le risque — 100-150k pour un run de 10 minutes.",
-      "Pour un revenu <b>sûr et constant</b> mais lent : Black Detour/Reflection plutôt que le Labyrinthe, désormais plus dilué.",
-      "Piège à éviter : les gacha boxes et les season passes achetés avec des act tickets — l'espérance de gain ne vaut pas le coût.",
-      "Leçon de marché : quand tout le monde panique-vend (ex. sortie du CheyTac Intervention), c'est souvent le bon moment pour acheter et attendre la saison suivante.",
-      "🎬 <a href=\"https://www.youtube.com/watch?v=76gllfsLGO0\">Voir la vidéo source — Money Making</a>"
+      "The creator lays out a simple triangle: <b>time, risk, reliability</b> — you never get all three at once for a single method.",
+      "Most <b>stable</b> income: flipping Advanced Spare Parts via the season pass (40-45k/unit, about 4-5M for 100 ASP).",
+      "Best ratio for a <b>busy solo</b>: Lewich, despite the risk — 100-150k per 10-minute run.",
+      "For <b>safe, steady</b> income but slow: Black Detour/Reflection rather than the Labyrinth, now more diluted.",
+      "Trap to avoid: gacha boxes and season passes bought with act tickets — the expected gain isn't worth the cost.",
+      "Market lesson: when everyone panic-sells (e.g. the CheyTac Intervention launch), it's often the right time to buy and wait for the next season.",
+      "🎬 <a href=\"https://www.youtube.com/watch?v=76gllfsLGO0\">Watch the source video — Money Making</a>"
     ]
   },
   artefacts: {
-    title:"Résumé — construire son build artéfacts",
+    title:"Summary — building your artifact setup",
     paragraphs:[
-      "Le <b>Buryat</b> (détecteur) vaut le grind malgré la douleur — il rend toute la chasse aux artéfacts bien plus rapide et rentable.",
-      "Early game : commence par un build vitesse pas cher (Candlelight, Comet, 2x Rattle, ~51k) plutôt que le strict minimum.",
-      "Mid game : le Forager (ressources Limansk) est sous-coté — utilisable sur toute armure, très polyvalent pour ~2M.",
-      "Late game PvP : évite le Prism si le budget est serré — un Steel Hedgehog +15 offre presque le même BR pour une fraction du prix.",
-      "Toutes les stats supposent des rolls parfaits (110%/120%/130%) — les prix bougent avec le marché, vérifie stalcraftdb.net pour du temps réel.",
-      "🎬 <a href=\"https://www.youtube.com/watch?v=tIbqRal7sCI\">Voir la vidéo source — Artifact Builds</a>"
+      "The <b>Buryat</b> (detector) is worth the grind despite the pain — it makes all artifact hunting much faster and more profitable.",
+      "Early game: start with a cheap speed build (Candlelight, Comet, 2x Rattle, ~51k) rather than the bare minimum.",
+      "Mid game: the Forager (Limansk resources) is underrated — usable on any armor, very versatile for ~2M.",
+      "Late game PvP: skip the Prism if the budget is tight — a +15 Steel Hedgehog offers almost the same BR for a fraction of the price.",
+      "All stats assume perfect rolls (110%/120%/130%) — prices move with the market, check stalcraftdb.net for real time.",
+      "🎬 <a href=\"https://www.youtube.com/watch?v=tIbqRal7sCI\">Watch the source video — Artifact Builds</a>"
     ]
   },
   progression: {
-    title:"Résumé — bien débuter sans se faire piéger",
+    title:"Summary — starting off without getting trapped",
     paragraphs:[
-      "La règle absolue : <b>ne jamais dépasser ton niveau de craft actuel</b> en gear acheté ou en upgrades — le matchmaking s'ajuste dessus et peut te jeter face à des vétérans.",
-      "Garde précieusement tes <b>Act Tickets</b> et tes <b>Advanced Spare Parts/Tools</b> — leur valeur ne devient claire qu'en avançant, ne les gaspille pas tôt.",
-      "Évite les lignes d'armes Ash 12 / VSSsk / RSH12 si tu veux éviter d'être forcé de crafter via Limansk.",
-      "Pour le PvP compétitif avant d'être prêt : reste sur Arms Race / Death Match (gear imposé), évite les maps classiques.",
-      "Artéfacts : uniquement qualité spéciale ou mieux, jamais commune. Vise +5 au Bar, +15 seulement dans le nord.",
-      "🎬 <a href=\"https://www.youtube.com/watch?v=_QxAfl2gNTQ\">Voir la vidéo source — Guide de progression complet</a>"
+      "The absolute rule: <b>never exceed your current crafting level</b> in bought gear or upgrades — matchmaking scales to it and can throw you against veterans.",
+      "Keep your <b>Act Tickets</b> and <b>Advanced Spare Parts/Tools</b> safe — their value only becomes clear as you progress, don't waste them early.",
+      "Avoid the Ash 12 / VSSsk / RSH12 weapon lines if you don't want to be forced to craft via Limansk.",
+      "For competitive PvP before you're ready: stay on Arms Race / Death Match (preset gear), avoid classic maps.",
+      "Artifacts: only special quality or better, never common. Aim for +5 at the Bar, +15 only in the north.",
+      "🎬 <a href=\"https://www.youtube.com/watch?v=_QxAfl2gNTQ\">Watch the source video — Full progression guide</a>"
     ]
   }
   }

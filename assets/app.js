@@ -12,8 +12,8 @@
     },
     init(id) {
       const cfg = topics[id];
-      if (!cfg) { console.error('Thème inconnu :', id); return; }
-      if (!cfg.data || !cfg.tabs) { console.error('Thème mal configuré :', id); return; }
+      if (!cfg) { console.error('Unknown theme:', id); return; }
+      if (!cfg.data || !cfg.tabs) { console.error('Misconfigured theme:', id); return; }
       const root = document.getElementById('stash-app');
       buildHeader(cfg, root);
       const state = {
@@ -106,7 +106,7 @@
       section.innerHTML = `
         <div class="category-head">
           <h2>${cat.label}</h2>
-          <span class="count">${itemCount} entrée${itemCount > 1 ? 's' : ''}</span>
+          <span class="count">${itemCount} entr${itemCount > 1 ? 'ies' : 'y'}</span>
         </div>
         <div class="category-rule"></div>
       `;

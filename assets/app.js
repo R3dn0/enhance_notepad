@@ -176,5 +176,19 @@
       if (!a.rel.includes('noreferrer')) a.rel.push('noreferrer');
       a.rel = a.rel.join(' ');
     });
+
+    container.querySelectorAll('.loadout-img img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', (e) => {
+        const overlay = document.createElement('div');
+        overlay.className = 'lightbox';
+        const bigImg = document.createElement('img');
+        bigImg.src = img.src;
+        bigImg.alt = img.alt;
+        overlay.appendChild(bigImg);
+        overlay.addEventListener('click', () => overlay.remove());
+        document.body.appendChild(overlay);
+      });
+    });
   }
 })();

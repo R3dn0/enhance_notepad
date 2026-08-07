@@ -237,6 +237,14 @@ footer {
   @apply text-accent;
 }
 
+.lightbox {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/80;
+  cursor: zoom-out;
+}
+.lightbox img {
+  @apply max-w-full max-h-full object-contain;
+}
+
 .theme-card {
   @apply flex flex-col gap-2.5 p-5 no-underline transition-[border-color,transform] duration-150 hover:-translate-y-0.5;
   background: var(--card-bg, var(--color-panel-2));

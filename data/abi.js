@@ -47,7 +47,16 @@ window.StashApp.register('abi', {
                 headset:'M32',
                 rig:'Hunter vest (more space, 2x2 slot)',
                 bag:'XA4 tactical backpack',
-                note:"The A1 is very cheap right now for a tier 4, and it still packs a serious punch." }
+                note:"The A1 is very cheap right now for a tier 4, and it still packs a serious punch." },
+              { cat:'budget', name:'M4 — Andrew Z\'s 300k kit',
+                img:'assets/abi/M4A1.webp',
+                weapon:'M4A1 bare-bones (base gun) — A1s in SCAR mags',
+                ammo:'5.56 A1 (tier 4, one of the cheapest tier 4 rounds)',
+                helmet:'T3 helmet, built-in headphones (high ricochet chance)',
+                rig:'TM1 (tier 4 rig — armor + storage)',
+                bag:'Large camping backpack',
+                total:'~290k',
+                note:"vs KSS tactical + GS2 (~390k) you save ~100k. Meds: 3 liquid painkillers + a few region-set painkillers. Ran a 300k kit into a 3.3M extract (7 kills) — one safe can pay for the whole kit. 🎬 <a href=\"https://www.youtube.com/watch?v=jGvOYM_w16c\">Watch the video</a>" }
             ]
           },
           {

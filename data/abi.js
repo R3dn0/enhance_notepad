@@ -12,16 +12,17 @@ window.StashApp.register('abi', {
   data: {
   builds: {
     filters: [
-      {id:'guide', label:'The Only Loadout Guide'},
       {id:'all', label:'All'},
+      {id:'porktv', label:'Pork TV'},
+      {id:'andrewz', label:'Andrew Z'},
     ],
     categories: [
       {
-        id:'guide',
-        label:'The Only Loadout Guide',
+        id:'porktv',
+        label:'Pork TV',
         subcats:[
           {
-            label:'📼 The video',
+            label:'📼 The Only Loadout Guide',
             recap:'6 loadouts for <b>Lockdown</b> (2 Budget, 2 Hybrid, 2 Chad) broken down by <b>Pork TV</b> — 2,500 raids, 450M stash value, top 100. The method: pick your category, copy the blueprint, make it yours.<br><br>🎬 <a href="https://www.youtube.com/watch?v=MAYzuyx7XV4">Watch the video — The Only Loadout Guide You\'ll Ever Need</a>',
             items:[]
           },
@@ -47,16 +48,7 @@ window.StashApp.register('abi', {
                 headset:'M32',
                 rig:'Hunter vest (more space, 2x2 slot)',
                 bag:'XA4 tactical backpack',
-                note:"The A1 is very cheap right now for a tier 4, and it still packs a serious punch." },
-              { cat:'budget', name:'M4 — Andrew Z\'s 300k kit',
-                img:'assets/abi/M4A1.webp',
-                weapon:'M4A1 bare-bones (base gun) — A1s in SCAR mags',
-                ammo:'5.56 A1 (tier 4, one of the cheapest tier 4 rounds)',
-                helmet:'T3 helmet, built-in headphones (high ricochet chance)',
-                rig:'TM1 (tier 4 rig — armor + storage)',
-                bag:'Large camping backpack',
-                total:'~290k',
-                note:"vs KSS tactical + GS2 (~390k) you save ~100k. Meds: 3 liquid painkillers + a few region-set painkillers. Ran a 300k kit into a 3.3M extract (7 kills) — one safe can pay for the whole kit. 🎬 <a href=\"https://www.youtube.com/watch?v=jGvOYM_w16c\">Watch the video</a>" }
+                note:"The A1 is very cheap right now for a tier 4, and it still packs a serious punch." }
             ]
           },
           {
@@ -103,6 +95,32 @@ window.StashApp.register('abi', {
                 rig:'M4 armored rig (most tanky tier 5 rig, double 2x2 slot)',
                 bag:'Rush backpack',
                 note:"Both guns work — you know the drill by now." }
+            ]
+          }
+        ]
+      },
+      {
+        id:'andrewz',
+        label:'Andrew Z',
+        subcats:[
+          {
+            label:'📼 Budget M4 (~290k)',
+            recap:'A budget <b>M4</b> by <b>Andrew Z</b> — bare-bones M4 shooting A1s out of SCAR mags, one of the cheapest tier 4 setups. 100k cheaper than KSS tactical + GS2.<br><br>🎬 <a href="https://www.youtube.com/watch?v=jGvOYM_w16c">Watch the video — 300k kit, 3.3M extract</a>',
+            items:[]
+          },
+          {
+            label:'💰 Budget',
+            recap:'A1s do some damage. T3 helmet with built-in headphones, TM1 rig for storage and tier 4 protection.',
+            items:[
+              { cat:'budget', name:'M4 — Andrew Z\'s 300k kit',
+                img:'assets/abi/M4A1.webp',
+                weapon:'M4A1 bare-bones (base gun) — A1s in SCAR mags',
+                ammo:'5.56 A1 (tier 4, one of the cheapest tier 4 rounds)',
+                helmet:'T3 helmet, built-in headphones (high ricochet chance)',
+                rig:'TM1 (tier 4 rig — armor + storage)',
+                bag:'Large camping backpack',
+                total:'~290k',
+                note:"vs KSS tactical + GS2 (~390k) you save ~100k. Meds: 3 liquid painkillers + a few region-set painkillers. Ran a 300k kit into a 3.3M extract (7 kills) — one safe can pay for the whole kit." }
             ]
           }
         ]

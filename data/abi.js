@@ -32,6 +32,7 @@ window.StashApp.register('abi', {
             items:[
               { cat:'budget', name:'T-951 — simple, effective',
                 img:'assets/abi/T951-porktv-guide.webp',
+                imgFull:'assets/abi/T951-porktv-guide-hd.webp',
                 weapon:'T-951 budget build (~170k)',
                 ammo:'Tier 3 base, top-loaded tier 4',
                 helmet:'Retro Steel (6k, high ricochet)',
@@ -42,6 +43,7 @@ window.StashApp.register('abi', {
                 note:"Any gun around that price point still competes. Total before meds and ammo — price varies depending on the time of day." },
               { cat:'budget', name:'AUG — the budget monster',
                 img:'assets/abi/AUG-porktv-guide.webp',
+                imgFull:'assets/abi/AUG-porktv-guide-hd.webp',
                 weapon:'AUG (one of the best budget guns in the game)',
                 ammo:'5.56 A1 (tier 4) all the time — no top load needed',
                 helmet:'Retro Steel',
@@ -57,6 +59,7 @@ window.StashApp.register('abi', {
             items:[
               { cat:'hybrid', name:'AK-12 — the best lockdown tier gun',
                 img:'assets/abi/AK_12-porktv-guide.webp',
+                imgFull:'assets/abi/AK_12-porktv-guide-hd.webp',
                 weapon:'AK-12 (cheap ammo, high damage, manageable recoil)',
                 helmet:'Helicopter helmet (tier 4, built-in audio)',
                 rig:'FA Multi (double 2x2 slot, stacks beautifully)',
@@ -66,6 +69,7 @@ window.StashApp.register('abi', {
                 note:"Especially strong for newer players — you will destroy people with this." },
               { cat:'hybrid', name:'AK-12 — awareness variant',
                 img:'assets/abi/AK_12-porktv-guide.webp',
+                imgFull:'assets/abi/AK_12-porktv-guide-hd.webp',
                 weapon:'AK-12',
                 helmet:'KSS tactical + tier 4 visor',
                 headset:'Commander',
@@ -81,6 +85,7 @@ window.StashApp.register('abi', {
             items:[
               { cat:'chad', name:'HK Shredder — PvP under 1M',
                 img:'assets/abi/H416-porktv-guide.webp',
+                imgFull:'assets/abi/H416-porktv-guide-hd.webp',
                 weapon:'HK Shredder build (~400k)',
                 helmet:'03H (tier 5 protection)',
                 headset:'Commander or GS2',
@@ -90,6 +95,7 @@ window.StashApp.register('abi', {
                 note:"You can do this with any gun — just strip the attachments down." },
               { cat:'chad', name:'Masochist — the creator\'s favorite',
                 img:'assets/abi/AK_12-porktv-guide.webp',
+                imgFull:'assets/abi/AK_12-porktv-guide-hd.webp',
                 weapon:'AK-12 or HK (your call)',
                 helmet:'Masochist (Mad Skull) — the no-sound helmet',
                 rig:'M4 armored rig (most tanky tier 5 rig, double 2x2 slot)',
@@ -114,6 +120,7 @@ window.StashApp.register('abi', {
             items:[
               { cat:'budget', name:'M4 — Andrew Z\'s 300k kit',
                 img:'assets/abi/M4A1-andrewz-m4-budget.webp',
+                imgFull:'assets/abi/M4A1-andrewz-m4-budget-hd.webp',
                 weapon:'M4A1 bare-bones (base gun) — A1s in SCAR mags',
                 ammo:'5.56 A1 (tier 4, one of the cheapest tier 4 rounds)',
                 helmet:'T3 helmet, built-in headphones (high ricochet chance)',
@@ -157,7 +164,7 @@ window.StashApp.register('abi', {
                 <div class="loadout-gear">
                   ${gearFields.filter(f => it[f[0]]).map(f => `<div class="gear-row"><span>${f[1]}</span><b>${it[f[0]]}</b></div>`).join('')}
                 </div>
-                ${it.img ? `<div class="loadout-img"><img src="${it.img}" alt="${it.name}" loading="lazy"></div>` : ''}
+                ${it.img ? `<div class="loadout-img"><img src="${it.img}" data-full="${it.imgFull || it.img}" alt="${it.name}" loading="lazy"></div>` : ''}
               </div>
               ${it.note ? `<div class="loadout-note">${it.note}</div>` : ''}
             </div>

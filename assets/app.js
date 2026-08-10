@@ -187,7 +187,7 @@
     const overlay = document.createElement('div');
     overlay.className = 'lightbox';
     const bigImg = document.createElement('img');
-    bigImg.src = imgEl.currentSrc || imgEl.src;
+    bigImg.src = imgEl.dataset.full || imgEl.currentSrc || imgEl.src;
     bigImg.alt = imgEl.alt || '';
     const badge = document.createElement('span');
     badge.className = 'lightbox-zoom';

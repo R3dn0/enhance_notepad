@@ -16,15 +16,36 @@
       if (!cfg.data || !cfg.tabs) { console.error('Misconfigured theme:', id); return; }
       const root = document.getElementById('stash-app');
       buildHeader(cfg, root);
+
+      const td0 = cfg.data[cfg.tabs[0].id];
       const state = {
         tab: cfg.tabs[0].id,
-        filter: cfg.data[cfg.tabs[0].id].filters[0].id
+        sub: null,
+        filter: null
       };
-      const hash = location.hash.replace(/^#\/?/, '');
-      if (hash && cfg.data[hash]) {
-        state.tab = hash;
-        state.filter = cfg.data[hash].filters[0].id;
+      if (td0.videos) {
+        state.sub = td0.videos[0].id;
+        state.filter = td0.videos[0].filters[0].id;
+      } else {
+        state.filter = td0.filters[0].id;
       }
+
+      const hash = location.hash.replace(/^#\/?/, '');
+      if (hash) {
+        const parts = hash.split('/');
+        if (parts[0] && cfg.data[parts[0]]) {
+          state.tab = parts[0];
+          const ht = cfg.data[state.tab];
+          if (ht.videos) {
+            state.sub = parts[1] || ht.videos[0].id;
+            const vid = ht.videos.find(v => v.id === state.sub);
+            state.filter = vid ? vid.filters[0].id : ht.videos[0].filters[0].id;
+          } else {
+            state.filter = ht.filters[0].id;
+          }
+        }
+      }
+
       bindTabs(cfg, state, root);
       render(cfg, state, root);
     }
@@ -40,6 +61,7 @@
       <div class="maintabs">
         ${cfg.tabs.map(t => `<button class="maintab" data-tab="${t.id}">${t.label}</button>`).join('')}
       </div>
+      <div class="subtabs" id="subtabs"></div>
     `;
     if (cfg.meta.footer) {
       const footer = root.querySelector('#footer');
@@ -51,8 +73,15 @@
     root.querySelectorAll('.maintab').forEach(btn => {
       btn.addEventListener('click', () => {
         state.tab = btn.dataset.tab;
-        state.filter = cfg.data[state.tab].filters[0].id;
-        location.hash = '/' + state.tab;
+        const td = cfg.data[state.tab];
+        if (td.videos) {
+          state.sub = td.videos[0].id;
+          state.filter = td.videos[0].filters[0].id;
+        } else {
+          state.sub = null;
+          state.filter = td.filters[0].id;
+        }
+        location.hash = '/' + state.tab + (state.sub ? '/' + state.sub : '');
         render(cfg, state, root);
       });
     });
@@ -67,6 +96,14 @@
     openExternalLinksInNewTab(root.querySelector('#main'));
   }
 
+  function getSection(cfg, state) {
+    const td = cfg.data[state.tab];
+    if (td.videos) {
+      return td.videos.find(v => v.id === state.sub) || td.videos[0];
+    }
+    return td;
+  }
+
   function defaultCardHTML(it, tagLabels) {
     if (it.tag) {
       return `<div class="badge p-${it.tag}">${tagLabels[it.tag] || it.tag}</div>`;
@@ -76,7 +113,8 @@
   }
 
   function renderTopic(cfg, state, root) {
-    const d = cfg.data;
+    const td = cfg.data[state.tab];
+    const sec = getSection(cfg, state);
     const cardHTML = cfg.cardHTML || defaultCardHTML;
     const subcatHTML = cfg.subcatHTML;
     const tagLabels = cfg.tagLabels || {};
@@ -85,9 +123,31 @@
 
     root.querySelectorAll('.maintab').forEach(b => b.classList.toggle('active', b.dataset.tab === state.tab));
 
+    const subTabs = root.querySelector('#subtabs');
+    if (subTabs) {
+      if (td.videos && td.videos.length > 1) {
+        subTabs.style.display = '';
+        subTabs.innerHTML = td.videos.map(v =>
+          `<button class="subtab${v.id === state.sub ? ' active' : ''}" data-sub="${v.id}">${v.label}</button>`
+        ).join('');
+        subTabs.querySelectorAll('.subtab').forEach(btn => {
+          btn.addEventListener('click', () => {
+            state.sub = btn.dataset.sub;
+            const vid = td.videos.find(v => v.id === state.sub);
+            state.filter = vid ? vid.filters[0].id : sec.filters[0].id;
+            location.hash = '/' + state.tab + '/' + state.sub;
+            render(cfg, state, root);
+          });
+        });
+      } else {
+        subTabs.style.display = 'none';
+        subTabs.innerHTML = '';
+      }
+    }
+
     const fb = root.querySelector('#filterbar');
     fb.innerHTML = '';
-    d[state.tab].filters.forEach(f => {
+    sec.filters.forEach(f => {
       const btn = document.createElement('button');
       btn.className = 'pill' + (f.id === state.filter ? ' active' : '');
       btn.textContent = f.label;
@@ -97,7 +157,7 @@
 
     const main = root.querySelector('#main');
     main.innerHTML = '';
-    const cats = d[state.tab].categories.filter(c => state.filter === 'all' ? c.id !== 'summary' : c.id === state.filter);
+    const cats = sec.categories.filter(c => state.filter === 'all' ? c.id !== 'summary' : c.id === state.filter);
 
     cats.forEach(cat => {
       const itemCount = cat.subcats.reduce((n, sc) => n + sc.items.length, 0);
@@ -106,7 +166,7 @@
       section.innerHTML = `
         <div class="category-head">
           <h2>${cat.label}</h2>
-          <span class="count">${itemCount} entr${itemCount > 1 ? 'ies' : 'y'}</span>
+          ${itemCount > 0 ? `<span class="count">${itemCount} entr${itemCount > 1 ? 'ies' : 'y'}</span>` : ''}
         </div>
         <div class="category-rule"></div>
       `;
@@ -158,10 +218,11 @@
       main.appendChild(section);
     });
 
-    if (legends[state.tab]) {
+    const legendList = sec.legend || legends[state.tab];
+    if (legendList) {
       const legend = document.createElement('div');
       legend.className = 'legend';
-      legend.innerHTML = legends[state.tab].map(l => `<span><i style="color:${l.color}"></i>${l.label}</span>`).join('');
+      legend.innerHTML = legendList.map(l => `<span><i style="color:${l.color}"></i>${l.label}</span>`).join('');
       main.appendChild(legend);
     }
   }

@@ -79,6 +79,24 @@ h1 span {
   @apply text-bg bg-text;
 }
 
+.subtabs {
+  @apply flex flex-wrap mt-3 gap-1.5;
+}
+.subtab {
+  @apply font-sans font-semibold uppercase text-[12px] text-muted bg-transparent border-none py-2 px-3.5 cursor-pointer;
+  letter-spacing: .06em;
+  border-bottom: 2px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
+}
+.subtab:hover {
+  @apply text-text;
+  border-bottom-color: var(--color-accent-strong);
+}
+.subtab.active {
+  @apply text-text;
+  border-bottom-color: var(--color-accent);
+}
+
 .filterbar {
   @apply flex flex-wrap gap-2 mt-6 mb-2;
 }

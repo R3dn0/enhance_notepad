@@ -9,6 +9,7 @@ window.StashApp.register('abi', {
   tabs: [
     { id:'porktv', label:'Pork TV' },
     { id:'andrewz', label:'Andrew Z' },
+    { id:'surafps', label:'SuraFPS' },
   ],
   data: {
     porktv: {
@@ -275,6 +276,50 @@ window.StashApp.register('abi', {
           ],
           legend:[
             {label:'Budget — ~290k total', color:'var(--color-accent)'},
+          ]
+        }
+      ]
+    },
+    surafps: {
+      videos: [
+        {
+          id:'hk-polyvalent',
+          label:'🎬 The Most Polyvalent AR',
+          filters:[
+            {id:'all', label:'All'},
+            {id:'chad', label:'PvP'},
+          ],
+          categories:[
+            {
+              id:'surafps-header',
+              label:'The Most Polyvalent Assault Rifle',
+              subcats:[{
+                label:'',
+                recap:"The <b>HK416</b> shown by <b>SuraFPS</b> in solo Lockdown — the polyvalent AR. The meta around it: everyone runs AK-12 or <b>995</b> (tier 5 rounds), and the <b>T5 visor is non-negotiable</b> — not having one is 'trolling' because one BS round to the face kills you. Sound is king in this game.<br><br>\ud83c\udfac <a href='https://www.youtube.com/watch?v=tMMWfN_gVTE'>Watch the video — The Most Polyvalent Assault Rifle</a>",
+                items:[]
+              }]
+            },
+            {
+              id:'build',
+              label:'\ud83d\udd2b The build',
+              subcats:[{
+                label:'HK416 — the polyvalent AR',
+                recap:'Solo Lockdown, TV Station. 3.1M extract, 7 real kills.',
+                items:[
+                  { cat:'chad', name:'HK416 — the polyvalent AR',
+                    img:'assets/abi/surafps/hk-polyvalent/HK416.webp',
+                    imgFull:'assets/abi/surafps/hk-polyvalent/HK416-hd.webp',
+                    weapon:'HK416 (the most polyvalent AR)',
+                    ammo:'5.56 995 (tier 5)',
+                    helmet:'Best T5 helmet ~150k',
+                    headset:'Sound is king — T5 over T6 helmet',
+                    note:"T5 visor is mandatory: without it you die to one BS round to the face. The best T5 helmet is ~150k (the one with built-in headset is ~300k)." }
+                ]
+              }]
+            }
+          ],
+          legend:[
+            {label:'PvP — chad level', color:'var(--abi-red)'},
           ]
         }
       ]

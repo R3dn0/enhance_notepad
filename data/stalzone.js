@@ -605,6 +605,18 @@ window.StashApp.register('stalzone', {
               {tag:'tip', name:'Gum, Sun, 2x Onion, Steel Hedgehog', desc:"406,000₽. BR 27.06, Vita 2.09, Bleeding -1.21. Anti-sniper: against the rifle trend dealing bleeding, think bleed reduction rather than pure BR."},
               {tag:'value', name:'Proto-Onion, Polyhedron, Cursed Rose, Crust, Shrimp', desc:"740,000₽. BR 31.68, Carry +11.99. The creator's personal build at this level — the Polyhedron absorbs a big chunk of damage, saves your life against snipers more than expected. Swap the Crust for an Onion if the budget is tight."},
             ]
+          },
+          {
+            label:'📼 CuddlyJay — Best Early Budget Artifact Builds',
+            recap:'Every build here is <b>bought at the auction</b> — no farming needed early on (finding them in the world is pure luck anyway). Needs 4 artifact slots: use the <b>Aaron Junior</b> backpack (upgradeable to the secret valley version) instead of the speed bag\'s 2 slots. Prices are buyout prices, watch the market day to day.<br><br>🎬 <a href="https://www.youtube.com/watch?v=FwMVQ2rhcTU">Watch the video</a> — channel: <a href="https://www.youtube.com/@CuddlyJay">CuddlyJay</a>',
+            items:[
+              {tag:'budget', name:'Comet, Candlelight, 2x Rattle', desc:"~24,000₽ (comet 9k, candlelight 5k, rattles 5k each). Stamina +31%, movespeed, running speed, carry weight, health/stamina regen, bullet resistance. THE recommended starter — super cheap and you can feel the difference immediately."},
+              {tag:'budget', name:'2x Spiral, Proto Onion, Golden Primer', desc:"~88,000₽ (spirals 27k each, onion 15k, primer 19k). Movespeed + running speed 2.5%, carry weight, stamina regen, healing effectiveness — plus a bit of radiation and vitality."},
+              {tag:'expensive', name:'Proto Onion, 3x Golden Primus', desc:"Movespeed ~1.4-1.5, more running speed, carry weight, stamina regen, healing effectiveness. A bit pricier — affordable from the bar onward, a stretch for true early game."},
+              {tag:'value', name:'2x Spiral, Helium, Scrubber', desc:"~182k-202k₽ (spirals 27k each, helium 59k, scrubber 69k or 89k green). Movespeed 2.17%, running speed, carry weight, health/stamina regen, healing effectiveness, stability, injury/laceration resist."},
+              {tag:'value', name:'Gum, 2x Spiral, Comet (or 2x Battery)', desc:"~151k₽ (gum 88k). Stamina, movespeed 1.7, running speed, carry weight, health regen, bullet resist, temp/bleeding/chemical resist. Swap the spirals for 2x batteries (5k each) for stamina 2.7, movespeed 1.64."},
+              {tag:'budget', name:'2x Rattle, Spiral, Gum — the sandwich', desc:"~125,000₽. Stamina +21%, movespeed, running speed 2%, carry weight, health regen, bullet resistance, radiation, bleeding, chemical burn resist. A favorite — cheap and effective."},
+            ]
           }
         ]
       },

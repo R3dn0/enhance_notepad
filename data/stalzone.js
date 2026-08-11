@@ -356,6 +356,7 @@ window.StashApp.register('stalzone', {
     filters: [
       {id:'video1', label:'Mediocre Dude — How 2 Make Money in Stalzone'},
       {id:'video2', label:'Cheeki Breeki — Best Ways to Make Money'},
+      {id:'video3', label:'Trisp — Decent Money EARLY'},
     ],
     categories: [
       {
@@ -474,6 +475,72 @@ window.StashApp.register('stalzone', {
             recap:'A clear, direct warning: do not actively invest in the hideout expecting income, in the game\'s current state.',
             items:[
               {tag:'slow', name:'Investing in the hideout for profit', desc:"The last patch nerfed almost every interesting recipe. Keep upgrading it passively (it comes fast with stash farming) but don't actively invest in it expecting to make money — it has become a resource sink rather than an income source.", warn:true},
+            ]
+          }
+        ]
+      },
+      {
+        id:'video3',
+        label:'Trisp — How to Make Decent Money EARLY in Stalzone',
+        subcats:[
+          {
+            label:'📼 Video summary',
+            recap:'Beginner-focused guide using only what a brand new player has: the <b>Leglet</b>, the <b>Sack</b> and the <b>Candle</b> (one range detector). A slow but fairly safe loop around the Digger Hut (Agra Complex / Black Willows): clear camps for a chance at <b>burning crapite</b>, farm <b>copper wire</b> and do <b>signals</b> for alpha trackers (a bundle sells for 1-3M). After emissions: artifact spots (Dead City, Graveyard, the pit) and proto artifacts / research installations (alpha & beta data — beta sells for a lot).<br><br>🎬 <a href="https://www.youtube.com/watch?v=JimuTfuUq04">Watch the video</a> — channel: <a href="https://www.youtube.com/@Trisp.">Trisp</a>',
+            items:[]
+          },
+          {
+            label:'The starter loop (Digger Hut)',
+            recap:'All you need is the story gear: the Leglet, the Sack and the Candle. Stay near the Digger Hut so you can recharge your scanners and leglet between runs.',
+            items:[
+              {tag:'slow', name:'Leglet + Sack + Candle', desc:"The minimum: leglet, sack and a range detector. Elbrus + Sack 2 or Beluga + Buryat make it much faster, but the starter trio works fine."},
+              {tag:'reliable', name:'Stay near the Digger Hut', desc:"Go back and forth recharging your scanners and leglet instead of heading home — keeps the loop running."},
+              {tag:'slow', name:'Scrapyard alternative', desc:"Scrapyard has more copper spots and more camps — a solid second location for the same loop."},
+            ]
+          },
+          {
+            label:'Signals & alpha trackers',
+            recap:'Do signals as you run around — trackers are needed for upgrades, and a full bundle sells for real money.',
+            items:[
+              {tag:'luck', name:'Alpha trackers', desc:"Signals give a chance at alpha trackers, working toward your Buryat and Beluga. A bundle of alpha trackers sells for 1-3M."},
+            ]
+          },
+          {
+            label:'Burning crapite & camps',
+            recap:'Clearing camps gives a chance at burning crapite — still used late-game as a barter/crafting item for the hideout.',
+            items:[
+              {tag:'luck', name:'Burning crapite', desc:"Found by clearing camps. Only ~65k currently, but it stacks: the more you farm, the more you sell. Try the player market / Discord for a better deal."},
+            ]
+          },
+          {
+            label:'⚠️ Signal dungeons',
+            recap:'When a signal turns into a bubble/dungeon, be careful — dying inside means your stuff is gone for good.',
+            items:[
+              {tag:'risky', name:'Take the ammo, let it load', desc:"Grab the free ammo inside (it doesn\'t touch your resources), but wait for everything to load before moving — invisible mobs killed the creator last time."},
+              {tag:'risky', name:'Death = permanent loss', desc:"If you die in a signal dungeon, your gear is permanently stuck inside. Play it safe.", warn:true},
+            ]
+          },
+          {
+            label:'After an emission',
+            recap:'Artifact spawns refresh after emissions — Dead City, Graveyard and the pit are the early-game sweet spots.',
+            items:[
+              {tag:'luck', name:'Dead City / Graveyard', desc:"Very lucrative artifact spots in early game — bits and bobs everywhere."},
+              {tag:'slow', name:'The pit & the Farm', desc:"Artifacts sometimes spawn down here too — decent, but only worth it after an emission."},
+            ]
+          },
+          {
+            label:'Proto artifacts & research installations',
+            recap:'Research installations spawn wherever rifts do (bar, Dead City, Graveyard, forest, pit). Bring a shotgun with birdshot.',
+            items:[
+              {tag:'reliable', name:'Alpha & beta data', desc:"Blocks sell for a fair amount, and proto artifacts stack — sell them or keep them for upgrading. Birdshot, not incendiary: cheap and just as good."},
+              {tag:'fast', name:'Paths of Fools (the Pole)', desc:"The game rewards more the farther you are from base — best for beta data, which is a pain to farm and sells for a lot. Alpha: bar and pit."},
+            ]
+          },
+          {
+            label:'Rifts & protoclusters',
+            recap:'Rifts are pretty good for gamma. Protoclusters work too, but you are very exposed dodging the orbs.',
+            items:[
+              {tag:'luck', name:'Rifts', desc:"Good rewards — army batteries go for a lot too. Do signals while waiting for one."},
+              {tag:'risky', name:'Protoclusters', desc:"Gamma clusters, but dodging the orbs leaves you exposed. Stay in the center, use small movements, and don\'t walk into the electric.", warn:true},
             ]
           }
         ]

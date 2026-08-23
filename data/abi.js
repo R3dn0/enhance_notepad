@@ -302,7 +302,7 @@ window.StashApp.register('abi', {
               }]
             },
             {
-              id:'build',
+              id:'chad',
               label:'\ud83d\udd2b The build',
               subcats:[{
                 label:'M4 — the polyvalent AR',

@@ -10,6 +10,7 @@ window.StashApp.register('abi', {
     { id:'porktv', label:'Pork TV' },
     { id:'andrewz', label:'Andrew Z' },
     { id:'surafps', label:'SuraFPS' },
+    { id:'mavity', label:'Mavity' },
   ],
   data: {
     porktv: {
@@ -320,6 +321,53 @@ window.StashApp.register('abi', {
           ],
           legend:[
             {label:'PvP — chad level', color:'var(--abi-red)'},
+          ]
+        }
+      ]
+    },
+    mavity: {
+      videos: [
+        {
+          id:'t03-budget',
+          label:'🎬 Budget T03 (~200k)',
+          filters:[
+            {id:'all', label:'All'},
+            {id:'budget', label:'Budget'},
+          ],
+          categories:[
+            {
+              id:'mavity-header',
+              label:'Budget T03',
+              subcats:[{
+                label:'',
+                recap:"A budget <b>T03</b> build by <b>Mavity</b> — a very effective ~200k lockdown build utilizing DVC12 ammo. The flashlight is kept, but you can swap the handguard and remove the flashlight for a better stock to get more horizontal recoil control and ergo.<br><br>🎬 <a href='https://www.youtube.com/watch?v=JqAfhWBH480'>Watch the video — Best budget options for lockdown</a>",
+                items:[]
+              }]
+            },
+            {
+              id:'budget',
+              label:'💋 Budget',
+              subcats:[{
+                label:'T03 + Flashlight',
+                recap:'Tier 4 armor, a small bag, vest, and a headset. Extremely lucrative for running Lockdown and TV Station.',
+                items:[
+                  { cat:'budget', name:"T03 — Mavity's 200k kit",
+                    img:'assets/abi/mavity/t3-budget/T03.webp',
+                    imgFull:'assets/abi/mavity/t3-budget/T03-hd.webp',
+                    weapon:'T03 budget build (~200k)',
+                    ammo:'5.8x42mm DVC12 (Tier 5)',
+                    headset:'Little headset',
+                    rig:'Vest',
+                    armor:'Tier 4 armor',
+                    bag:'Small bag',
+                    total:'~200k',
+                    note:"Allows taking advantage of the high-tier DVC12 ammo. Slap a flashlight on. Extracting 4M in 3 runs (855k, 875k, 3M)." }
+                ]
+              }]
+            }
+          ],
+          legend:[
+            {label:'Budget — ~200k weapon build', color:'var(--color-accent)'},
           ]
         }
       ]

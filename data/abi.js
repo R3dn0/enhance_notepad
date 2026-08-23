@@ -11,6 +11,7 @@ window.StashApp.register('abi', {
     { id:'andrewz', label:'Andrew Z' },
     { id:'surafps', label:'SuraFPS' },
     { id:'mavity', label:'Mavity' },
+    { id:'shamy', label:'Shamy' },
   ],
   data: {
     porktv: {
@@ -368,6 +369,52 @@ window.StashApp.register('abi', {
           ],
           legend:[
             {label:'Budget — ~200k weapon build', color:'var(--color-accent)'},
+          ]
+        }
+      ]
+    },
+    shamy: {
+      videos: [
+        {
+          id:'ar57-budget',
+          label:'🎬 Budget AR-57 (~230k)',
+          filters:[
+            {id:'all', label:'All'},
+            {id:'budget', label:'Budget'},
+          ],
+          categories:[
+            {
+              id:'shamy-header',
+              label:'Budget AR-57',
+              subcats:[{
+                label:'',
+                recap:"The most perfect <b>AR-57</b> budget build by <b>Shamy</b> — a highly competitive 230k loadout with low recoil that shreds in Lockdown. It is compact enough to fit inside most backpacks, saving even more money.<br><br>🎬 <a href='https://www.youtube.com/watch?v=NmSLwkvrvHY'>Watch the video — The Perfect Budget Build (AR-57)</a>",
+                items:[]
+              }]
+            },
+            {
+              id:'budget',
+              label:'💋 Budget',
+              subcats:[{
+                label:'AR-57 + Tier 4/5 Gear',
+                recap:'Low-recoil budget shredder paired with high-tier ammo and budget gear/bundles to maximize ROI.',
+                items:[
+                  { cat:'budget', name:"AR-57 — Shamy's Budget Build",
+                    img:'assets/abi/shamy/ar57-budget/AR-57.webp',
+                    imgFull:'assets/abi/shamy/ar57-budget/AR-57-hd.webp',
+                    weapon:'AR-57 budget build (~230k)',
+                    ammo:'SS198 (T5) top-loaded / SS190 (T4) bottom-loaded',
+                    helmet:'Tier 4 / 5 helmet (or weekly bundle)',
+                    armor:'Tier 4 / 5 armor (or weekly bundle)',
+                    bag:'Fits in most backpacks (5*1)',
+                    total:'~230k (weapon)',
+                    note:"Low recoil, compact. Top-load mags with 25x SS198 (T5) and bottom-load with 25x SS190 (T4). Save 120k by trading the weapon via Randall Fisher (-100k) and using 50-round mags (-20k). Buy Tier 4 gear bundles from the point store weekly." }
+                ]
+              }]
+            }
+          ],
+          legend:[
+            {label:'Budget — ~230k weapon build', color:'var(--color-accent)'},
           ]
         }
       ]

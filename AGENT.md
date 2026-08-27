@@ -39,3 +39,9 @@ If a PNG image is provided:
 
 * Run `npm run build` to compile Tailwind and Sass files.
 * Verify the return code and check for any errors.
+
+### 5. Commit and Push
+
+* Stage all relevant changes (`git add .`).
+* Commit with a descriptive conventional commit message (e.g., `feat(abi): add <creator> <weapon> build and assets`).
+* Push to the remote repository (`git push origin main`).

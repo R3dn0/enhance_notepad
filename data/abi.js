@@ -416,6 +416,44 @@ window.StashApp.register('abi', {
           legend:[
             {label:'Budget — ~230k weapon build', color:'var(--color-accent)'},
           ]
+        },
+        {
+          id:'an94-budget',
+          label:'🎬 Budget AN-94',
+          filters:[
+            {id:'all', label:'All'},
+            {id:'budget', label:'Budget'},
+          ],
+          categories:[
+            {
+              id:'an94-header',
+              label:'Budget AN-94',
+              subcats:[{
+                label:'',
+                recap:"A solid and fun <b>AN-94</b> build by <b>Shamy</b> — performs exceptionally well with budget attachments. Only the initial 4-8 bullets have vertical recoil before turning purely horizontal. Receives a +50 RPM buff in Season 6.<br><br>🎬 <a href='https://www.youtube.com/watch?v=fNRnwE1j4MM'>Watch the video — AN-94 Budget Build</a>",
+                items:[]
+              }]
+            },
+            {
+              id:'budget',
+              label:'💋 Budget',
+              subcats:[{
+                label:'AN-94 + Right-hand peak flashlight',
+                recap:'Solid 5.45 rifle for Lockdown. Budget attachments with best value stock and scope of choice.',
+                items:[
+                  { cat:'budget', name:"AN-94 — Shamy's Budget Build",
+                    img:'assets/abi/shamy/an94-budget/AN-94.webp',
+                    imgFull:'assets/abi/shamy/an94-budget/AN-94-hd.webp',
+                    weapon:'AN-94 budget build',
+                    ammo:'5.45x39mm BS (Tier 5 — 3-tap T4/T5)',
+                    note:"Control the first 4-8 bullets (vertical), then recoil becomes purely horizontal. Flashlight on the right side for right-hand peak advantage. Save ~40k Koen by trading the base weapon with contact Flatline. RPM trick: clicking rapidly instead of holding left-click increases rate of fire. Buffed with +50 RPM in Season 6." }
+                ]
+              }]
+            }
+          ],
+          legend:[
+            {label:'Budget — weapon build', color:'var(--color-accent)'},
+          ]
         }
       ]
     }

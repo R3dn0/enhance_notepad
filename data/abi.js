@@ -12,6 +12,7 @@ window.StashApp.register('abi', {
     { id:'surafps', label:'SuraFPS' },
     { id:'mavity', label:'Mavity' },
     { id:'shamy', label:'Shamy' },
+    { id:'fartinzilla', label:'Fartinzilla' },
   ],
   data: {
     porktv: {
@@ -453,6 +454,56 @@ window.StashApp.register('abi', {
           ],
           legend:[
             {label:'Budget — weapon build', color:'var(--color-accent)'},
+          ]
+        }
+      ]
+    },
+    fartinzilla: {
+      videos: [
+        {
+          id:'best-gear-survive',
+          label:'🎬 Best Gear to Survive',
+          filters:[
+            {id:'all', label:'All'},
+            {id:'chad', label:'Chad'},
+          ],
+          categories:[
+            {
+              id:'fartinzilla-header',
+              label:'Best Gear to Survive',
+              subcats:[{
+                label:'',
+                recap:"Fartinzilla's go-to high-tier loadout for <b>Forbidden Zone</b> in Season 3. The strategy: prioritize <b>P90</b> with expensive rounds, high-tier armor (Tier 6 KN or Marshall), and the <b>SH 65 military helmet</b> (low sound blocking is key). Avoid T5 gear, which is overpriced for the protection it offers.<br><br>🎬 <a href='https://www.youtube.com/watch?v=JzxYDrlflKQ'>Watch the video — Best Gear to Survive with in Forbidden Zone</a>",
+                items:[]
+              }]
+            },
+            {
+              id:'chad',
+              label:'🔥 Chad',
+              subcats:[{
+                label:'P90 + Tier 6 Gear',
+                recap:'A high-end setup designed to win close-range gunfights in Forbidden Zone.',
+                items:[
+                  { cat:'chad', name:"P90 — Fartinzilla's Go-To Kit",
+                    img:'assets/abi/fartinzilla/best-gear-survive/P90.webp',
+                    imgFull:'assets/abi/fartinzilla/best-gear-survive/P90-hd.webp',
+                    weapon:'P90 (meta close-range, expensive rounds)',
+                    ammo:'Most expensive rounds (~7k/rd, top-loaded or full)',
+                    helmet:'SH 65 military helmet (low sound blocking, high ergo/speed)',
+                    armor:'KN (T6, best speed/ergo) or Marshall (T6, cheaper alternative)',
+                    bag:'Small backpack (loot N26 / Field bags from dead PMCs)',
+                    note:"Pop painkillers often (carry 2x Energy Drinks for hydration). Use Endurance boosters to aim/sprint longer, and Strength boosters to carry out enemy loot. For grenades, use Stuns to locate campers (hit marker) and slow targets, then follow up with GH/Frags. Use Tear Gas to finish downed enemies or block their team from reviving."
+                  },
+                  { cat:'chad', name:"Alternative Weapons — Fartinzilla's recommendations",
+                    weapon:'M4, F2000, AEK, AK-12 (BS only), MP5/MPX (Dum Dums)',
+                    note:"If you want to save money on the weapon: M4 (decent, pull down recoil), F2000 (cheaper, low recoil), AEK (nerfed but still good), AK-12 (only run BS rounds, BP is hit or miss), or MP5/MPX (use Dum Dums to shred legs on a budget)."
+                  }
+                ]
+              }]
+            }
+          ],
+          legend:[
+            {label:'Chad — high-end T6/P90 build', color:'var(--abi-red)'},
           ]
         }
       ]

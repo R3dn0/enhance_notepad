@@ -280,6 +280,47 @@ window.StashApp.register('abi', {
           legend:[
             {label:'Budget — ~290k total', color:'var(--color-accent)'},
           ]
+        },
+        {
+          id:'scar-budget',
+          label:'🎬 Budget SCAR-L (~85k)',
+          filters:[
+            {id:'all', label:'All'},
+            {id:'budget', label:'Budget'},
+          ],
+          categories:[
+            {
+              id:'scar-header',
+              label:'Budget SCAR-L',
+              subcats:[{
+                label:'',
+                recap:"A super cheap budget <b>SCAR-L</b> by <b>Andrew Z</b> — one of the most common and cost-effective weapons in the game. Built for ~85k reference price, designed for snowballing on solo Lockdown into massive profits.<br><br>🎬 <a href='https://www.youtube.com/watch?v=9BkR3xUoGwM'>Watch the video — This Budget SCAR-L Build is TOO GOOD For its Price!</a>",
+                items:[]
+              }]
+            },
+            {
+              id:'budget',
+              label:'💋 Budget',
+              subcats:[{
+                label:'High Firing Power + Budget Attachments',
+                recap:'Large barrel for high firing power, cheap muzzle and foregrip, paired with Tier 4 ammo and gear to snowball.',
+                items:[
+                  { cat:'budget', name:"SCAR-L — Andrew Z's 85k Budget Build",
+                    img:'assets/abi/andrewz/scar-budget/SCAR-L.webp',
+                    imgFull:'assets/abi/andrewz/scar-budget/SCAR-L-hd.webp',
+                    weapon:'SCAR-L budget build (~85k)',
+                    ammo:'5.56x45mm A1 (Tier 4)',
+                    helmet:'Tier 4 helmet (or budget T3/T4)',
+                    armor:'Tier 4 armor',
+                    total:'~85k (weapon)',
+                    note:"Large barrel (high firing power), RK6 foregrip (or lightweight tilt), AR universal muzzle (600 Koen vs 25k), A18 red dot / PK reflex, default stock & standard polymer rear grip, 30-round mags. Excellent budget laser to snowball on Farm Lockdown (2.7M extract, 8 kills)." }
+                ]
+              }]
+            }
+          ],
+          legend:[
+            {label:'Budget — ~85k weapon build', color:'var(--color-accent)'},
+          ]
         }
       ]
     },

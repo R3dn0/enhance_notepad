@@ -74,6 +74,114 @@
         costume: "Plastron de Chevalier Noir",
         armes: "Aucune"
       }
+    },
+    {
+      id: 'sram-f-002',
+      name: 'Sram Brûlâme & Flâme',
+      class: 'sram',
+      gender: 'female',
+      head: 'Visage Sram F',
+      headImage: 'assets/dofus/skins/sram-f-002-head.webp',
+      image: 'assets/dofus/skins/sram-f-002.webp',
+      imageFull: 'assets/dofus/skins/sram-f-002-hd.webp',
+      colors: {
+        peau: '#EAB366',
+        cheveux: '#FFFEF0',
+        vetement1: '#8D9B5B',
+        vetement2: '#FFFEF0',
+        vetement3: '#4D6235',
+        vetement4: '#FFFEF0'
+      },
+      items: {
+        coiffe: "Masque Brûlâme",
+        cape: "Cape diaprée du Démon I",
+        bouclier: "Bouclier Chimèrivan 9",
+        familier: "Flâme",
+        epaulieres: "Épaulières diaprées de la Démone II",
+        costume: "Costume Chimèrivan 3",
+        armes: "Aucune"
+      }
+    },
+    {
+      id: 'sram-f-003',
+      name: 'Sram Spairance & Gekokar',
+      class: 'sram',
+      gender: 'female',
+      head: 'Visage Capuche Sram',
+      headImage: 'assets/dofus/skins/sram-f-003-head.webp',
+      image: 'assets/dofus/skins/sram-f-003.webp',
+      imageFull: 'assets/dofus/skins/sram-f-003-hd.webp',
+      colors: {
+        peau: '#D5CBA4',
+        cheveux: '#EADEC0',
+        vetement1: '#8D6434',
+        vetement2: '#5E4320',
+        vetement3: '#929172',
+        vetement4: '#E5E4C2'
+      },
+      items: {
+        coiffe: "Bonnet Spairance",
+        cape: "Cape Routh",
+        bouclier: "Aucun",
+        familier: "Gekokar",
+        epaulieres: "Épaulières Chimèrivan 6",
+        costume: "Aucun",
+        armes: "Dagues Aerdala"
+      }
+    },
+    {
+      id: 'sram-f-004',
+      name: 'Sram Panoplie du Chtigre',
+      class: 'sram',
+      gender: 'female',
+      head: 'Visage Capuche Crâne',
+      headImage: 'assets/dofus/skins/sram-f-004-head.webp',
+      image: 'assets/dofus/skins/sram-f-004.webp',
+      imageFull: 'assets/dofus/skins/sram-f-004-hd.webp',
+      colors: {
+        peau: '#A2744C',
+        cheveux: '#212121',
+        vetement1: '#D8C8A5',
+        vetement2: '#4A3822',
+        vetement3: '#2B3236',
+        vetement4: '#493821'
+      },
+      items: {
+        coiffe: "Oreilles du Chtigre",
+        cape: "Cape du Chtigre",
+        bouclier: "Aucun",
+        familier: "Aucun",
+        epaulieres: "Brassards du Chtigre",
+        costume: "Costume Chimèrivan 3",
+        armes: "Aucune"
+      }
+    },
+    {
+      id: 'sram-f-005',
+      name: 'Sram Thanatena & Flâme',
+      class: 'sram',
+      gender: 'female',
+      head: 'Visage Squelette Couronné',
+      headImage: 'assets/dofus/skins/sram-f-005-head.webp',
+      image: 'assets/dofus/skins/sram-f-005.webp',
+      imageFull: 'assets/dofus/skins/sram-f-005-hd.webp',
+      colors: {
+        peau: '#D8C789',
+        cheveux: '#EADEC0',
+        vetement1: '#A4B474',
+        vetement2: '#65734A',
+        vetement3: '#6B625B',
+        vetement4: '#8E8C5D'
+      },
+      items: {
+        coiffe: "Bandeau d'Exécuteur Miséreux",
+        cape: "Cape du Sinistrofu",
+        bouclier: "Bouclier Invisible",
+        familier: "Flâme",
+        epaulieres: "Épaulières parfumées",
+        costume: "Ailes Chimèrivan 1",
+        armes: "Jugement de Thanatena"
+      }
     }
   ];
 

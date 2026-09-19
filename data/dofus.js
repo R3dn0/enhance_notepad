@@ -480,6 +480,7 @@
     }
 
     function onEsc(e) {
+      if (document.querySelector('.lightbox')) return;
       if (e.key === 'Escape') closeModal();
     }
     document.addEventListener('keydown', onEsc);

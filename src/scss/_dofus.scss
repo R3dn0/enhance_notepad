@@ -445,6 +445,10 @@ body .wrap {
    MODALE DU SKIN (Visuel, Hexadécimaux et 7 Cosmétiques dans l'ordre)
    ========================================================================== */
 
+.lightbox {
+  z-index: 2000 !important;
+}
+
 .skin-modal-overlay {
   position: fixed;
   inset: 0;

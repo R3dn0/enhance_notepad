@@ -337,12 +337,17 @@
 
     function close() {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      if (!document.querySelector(".skin-modal-overlay")) {
+        document.body.style.overflow = "";
+      }
       overlay.remove();
     }
 
     function onKey(e) {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        close();
+      }
     }
 
     overlay.addEventListener("click", (e) => {

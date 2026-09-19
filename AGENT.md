@@ -45,3 +45,79 @@ If a PNG image is provided:
 * Stage all relevant changes (`git add .`).
 * Commit with a descriptive conventional commit message (e.g., `feat(abi): add <creator> <weapon> build and assets`).
 * Push to the remote repository (`git push origin main`).
+
+---
+
+# Instructions for Integrating Dofus Skins
+
+This rule applies as soon as the user provides screenshots, a character class, and gender for Dofus skins.
+
+## Mandatory Process to Follow
+
+### 1. Screenshot Analysis
+From the user screenshot(s), extract:
+* **Character Visual:** The Dofus character model in its full outfit.
+* **Hexadecimal Colors:**
+  - `peau` (Peau)
+  - `cheveux` (Cheveux)
+  - `vetement1` (Vêtement 1)
+  - `vetement2` (Vêtement 2)
+  - `vetement3` (Vêtement 3)
+  - `vetement4` (Vêtement 4)
+* **Cosmetic Equipment (strict order):**
+  1. `coiffe`: Coiffe
+  2. `cape`: Cape
+  3. `bouclier`: Bouclier
+  4. `familier`: Familier ou montilier
+  5. `epaulieres`: Épaulières
+  6. `costume`: Costume
+  7. `armes`: Armes
+* **Class & Gender:** Class identifier (e.g., `cra`, `iop`, `ecaflip`) and gender (`male` or `female`).
+
+### 2. Image Processing
+* Save or crop the character image into `assets/dofus/skins/` using the conversion script:
+  `node scripts/convert_skin.js <path_to_image> <class_id> <skin_slug>`
+* Example: `node scripts/convert_skin.js screenshot.png cra sentinelle-sylvestre`
+* This automatically generates:
+  - Standard vignette: `assets/dofus/skins/<class_id>-<skin_slug>.webp` (600x750px)
+  - High resolution: `assets/dofus/skins/<class_id>-<skin_slug>-hd.webp` (max 1200px)
+
+### 3. Updating `data/dofus.js`
+* Add a new entry to the `SKINS` array in `data/dofus.js`:
+```javascript
+{
+  id: '<class_id>-<skin_slug>',
+  name: 'Nom du Skin',
+  class: '<class_id>', // 'cra', 'iop', 'ecaflip', etc.
+  gender: 'male', // 'male' or 'female'
+  image: 'assets/dofus/skins/<class_id>-<skin_slug>.webp',
+  imageFull: 'assets/dofus/skins/<class_id>-<skin_slug>-hd.webp',
+  colors: {
+    peau: '#...',
+    cheveux: '#...',
+    vetement1: '#...',
+    vetement2: '#...',
+    vetement3: '#...',
+    vetement4: '#...'
+  },
+  items: {
+    coiffe: '...',
+    cape: '...',
+    bouclier: '...',
+    familier: '...',
+    epaulieres: '...',
+    costume: '...',
+    armes: '...'
+  }
+}
+```
+
+### 4. Compilation and Verification
+* Run `npm run build` to compile Tailwind and Sass files.
+* Ensure exit code is 0 and no errors are reported.
+
+### 5. Commit and Push
+* Stage all relevant changes (`git add .`).
+* Commit with a descriptive message (e.g., `feat(dofus): add <class> <gender> <skin_name> skin`).
+* Push to the remote repository (`git push origin main`).
+

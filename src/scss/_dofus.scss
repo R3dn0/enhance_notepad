@@ -65,3 +65,763 @@ body {
   &.p-tool { color: var(--dofus-teal); }
 }
 
+/* ==========================================================================
+   Dofus Skins Explorer (Sidebar 1/5, Grid 4/5, Modale & Cosmétiques)
+   ========================================================================== */
+
+body .wrap {
+  max-width: 1240px;
+}
+
+.skin-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 28px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+/* Sidebar 1/5 - Liste des classes en ordre alphabétique */
+.skin-sidebar {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  position: sticky;
+  top: 16px;
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.skin-sidebar-head {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(46, 196, 134, 0.04);
+}
+
+.skin-sidebar-title {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skin-sidebar-title::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--dofus-emerald);
+}
+
+.skin-sidebar-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dofus-emerald);
+  background: rgba(46, 196, 134, 0.12);
+  border: 1px solid rgba(46, 196, 134, 0.25);
+  padding: 2px 7px;
+}
+
+.skin-class-list {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+
+  /* Custom scrollbar */
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+  }
+}
+
+.skin-class-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 15px;
+  background: transparent;
+  border: none;
+  border-left: 3px solid transparent;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: all .15s ease;
+  text-align: left;
+  width: 100%;
+
+  &:hover {
+    color: var(--color-text);
+    background: rgba(46, 196, 134, 0.04);
+  }
+
+  &.active {
+    color: var(--dofus-emerald);
+    background: rgba(46, 196, 134, 0.1);
+    border-left-color: var(--dofus-emerald);
+    font-weight: 700;
+
+    .skin-class-count {
+      background: var(--dofus-emerald);
+      color: #090e0c;
+      font-weight: 700;
+      border-color: var(--dofus-emerald);
+    }
+  }
+}
+
+.skin-class-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skin-class-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-line-soft);
+  color: var(--color-faint);
+  transition: all .15s ease;
+
+  &.has-skins {
+    color: var(--color-text);
+    background: rgba(46, 196, 134, 0.14);
+    border-color: rgba(46, 196, 134, 0.3);
+  }
+}
+
+/* Right content 4/5 */
+.skin-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.skin-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.skin-toolbar-info {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+
+  h2 {
+    font-family: var(--font-sans);
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-text);
+    letter-spacing: .03em;
+    margin: 0;
+  }
+
+  .skin-count {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--dofus-emerald);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+}
+
+/* Sélecteur Homme / Femme en haut à droite */
+.skin-sex-selector {
+  display: inline-flex;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  padding: 2px;
+  gap: 2px;
+}
+
+.skin-sex-btn {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 7px 14px;
+  background: transparent;
+  border: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  &:hover {
+    color: var(--color-text);
+  }
+
+  &.active {
+    background: var(--dofus-emerald);
+    color: #090e0c;
+  }
+}
+
+/* Grille des skins */
+.skin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.skin-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--dofus-emerald);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 18px rgba(46, 196, 134, 0.18);
+
+    .skin-card-visual img {
+      transform: scale(1.03);
+    }
+    .skin-card-cta {
+      color: var(--dofus-emerald);
+      letter-spacing: .06em;
+    }
+  }
+}
+
+.skin-card-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: radial-gradient(circle at center, rgba(46, 196, 134, 0.08) 0%, #050a08 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .3s ease;
+  }
+}
+
+.skin-card-badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.skin-badge-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 3px 8px;
+  background: rgba(9, 14, 12, 0.88);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--color-line);
+  color: var(--color-text);
+
+  &.gender-male {
+    color: var(--dofus-teal);
+    border-color: rgba(54, 199, 196, 0.3);
+  }
+  &.gender-female {
+    color: #f78da7;
+    border-color: rgba(247, 141, 167, 0.3);
+  }
+}
+
+.skin-card-info {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.skin-card-name {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--color-text);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skin-card-swatches {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.skin-swatch-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.skin-card-cta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--color-faint);
+  margin-top: auto;
+  padding-top: 6px;
+  transition: color .15s ease, letter-spacing .15s ease;
+}
+
+/* État vide */
+.skin-empty {
+  padding: 60px 20px;
+  text-align: center;
+  background: var(--color-panel);
+  border: 1px dashed var(--color-line);
+  grid-column: 1 / -1;
+
+  .skin-empty-icon {
+    font-size: 38px;
+    margin-bottom: 12px;
+  }
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 19px;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin: 0 0 6px;
+  }
+  p {
+    font-size: 13px;
+    color: var(--color-muted);
+    max-width: 440px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+}
+
+/* ==========================================================================
+   MODALE DU SKIN (Visuel, Hexadécimaux et 7 Cosmétiques dans l'ordre)
+   ========================================================================== */
+
+.skin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: skinFadeIn .18s ease;
+}
+
+.skin-modal {
+  background: #0b1411;
+  border: 1px solid var(--color-line);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(46, 196, 134, 0.12);
+  width: 100%;
+  max-width: 960px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: skinSlideUp .22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skin-modal-head {
+  padding: 16px 24px;
+  background: #060b09;
+  border-bottom: 1px solid var(--color-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skin-modal-title {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.skin-modal-subtitle {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--dofus-emerald);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-top: 4px;
+}
+
+.skin-modal-close {
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .15s ease;
+
+  &:hover {
+    border-color: var(--dofus-crimson);
+    color: var(--dofus-crimson);
+    background: rgba(224, 75, 75, 0.1);
+  }
+}
+
+.skin-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+}
+
+/* Colonne Gauche Modale: Visuel */
+.skin-modal-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skin-modal-visual {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: radial-gradient(circle at center, rgba(46, 196, 134, 0.1) 0%, #050a08 100%);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: zoom-in;
+  }
+}
+
+.skin-modal-visual-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-align: center;
+  color: var(--color-faint);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.skin-btn-copy-all {
+  width: 100%;
+  padding: 12px;
+  background: rgba(46, 196, 134, 0.08);
+  border: 1px solid var(--dofus-emerald);
+  color: var(--dofus-emerald);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  cursor: pointer;
+  transition: all .15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover {
+    background: var(--dofus-emerald);
+    color: #090e0c;
+  }
+}
+
+/* Colonne Droite Modale: Couleurs & Cosmétiques */
+.skin-modal-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.skin-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skin-block-title {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--color-text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-line-soft);
+}
+
+/* Grille des codes hexadécimaux (Peau, Cheveux, Vêtement 1, 2, 3, 4) */
+.skin-colors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.skin-color-item {
+  background: var(--color-panel-2);
+  border: 1px solid var(--color-line);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: border-color .15s ease;
+
+  &:hover {
+    border-color: rgba(46, 196, 134, 0.4);
+  }
+}
+
+.skin-color-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.skin-color-box {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.skin-color-texts {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.skin-color-zone {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  letter-spacing: .04em;
+}
+
+.skin-color-hex {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: .03em;
+}
+
+.skin-copy-btn {
+  background: transparent;
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all .15s ease;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: var(--dofus-emerald);
+    color: var(--dofus-emerald);
+  }
+
+  &.copied {
+    background: var(--dofus-emerald);
+    border-color: var(--dofus-emerald);
+    color: #090e0c;
+  }
+}
+
+/* Items cosmétiques dans l'ordre strict demandé :
+   1. Coiffe
+   2. Cape
+   3. Bouclier
+   4. Familier ou montilier
+   5. Épaulières
+   6. Costume
+   7. Armes
+*/
+.skin-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.skin-item-row {
+  background: var(--color-panel-2);
+  border: 1px solid var(--color-line);
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: border-color .15s ease;
+
+  &:hover {
+    border-color: rgba(229, 178, 45, 0.35);
+  }
+}
+
+.skin-item-slot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  letter-spacing: .05em;
+  flex-shrink: 0;
+
+  .skin-slot-icon {
+    font-size: 14px;
+  }
+}
+
+.skin-item-name {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: var(--color-text);
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &.is-empty {
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: none;
+    font-style: italic;
+  }
+}
+
+/* Animations */
+@keyframes skinFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes skinSlideUp {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 920px) {
+  .skin-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .skin-sidebar {
+    position: static;
+  }
+
+  .skin-class-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: none;
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .skin-class-btn {
+    width: auto;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    padding: 6px 10px;
+    font-size: 12px;
+
+    &.active {
+      border-left-color: transparent;
+      border-bottom-color: var(--dofus-emerald);
+    }
+  }
+
+  .skin-modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .skin-modal-visual {
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .skin-colors-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

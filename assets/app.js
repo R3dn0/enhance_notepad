@@ -10,6 +10,8 @@
     get(id) {
       return topics[id];
     },
+    renderDefault: renderTopic,
+    openLightbox: openLightbox,
     init(id) {
       const cfg = topics[id];
       if (!cfg) {
@@ -23,16 +25,16 @@
       const root = document.getElementById("stash-app");
       buildHeader(cfg, root);
 
-      const td0 = cfg.data[cfg.tabs[0].id];
+      const td0 = cfg.data[cfg.tabs[0].id] || {};
       const state = {
         tab: cfg.tabs[0].id,
         sub: null,
         filter: null,
       };
-      if (td0.videos) {
+      if (td0.videos && td0.videos.length) {
         state.sub = td0.videos[0].id;
         state.filter = td0.videos[0].filters[0].id;
-      } else {
+      } else if (td0.filters && td0.filters.length) {
         state.filter = td0.filters[0].id;
       }
 
@@ -42,12 +44,12 @@
         if (parts[0] && cfg.data[parts[0]]) {
           state.tab = parts[0];
           const ht = cfg.data[state.tab];
-          if (ht.videos) {
+          if (ht.videos && ht.videos.length) {
             state.sub = parts[1] || ht.videos[0].id;
             const vid = ht.videos.find((v) => v.id === state.sub);
             state.filter = vid ? vid.filters[0].id : ht.videos[0].filters[0].id;
-          } else {
-            state.filter = ht.filters[0].id;
+          } else if (ht.filters && ht.filters.length) {
+            state.filter = parts[1] || ht.filters[0].id;
           }
         }
       }
@@ -79,13 +81,16 @@
     root.querySelectorAll(".maintab").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.tab = btn.dataset.tab;
-        const td = cfg.data[state.tab];
-        if (td.videos) {
+        const td = cfg.data[state.tab] || {};
+        if (td.videos && td.videos.length) {
           state.sub = td.videos[0].id;
           state.filter = td.videos[0].filters[0].id;
-        } else {
+        } else if (td.filters && td.filters.length) {
           state.sub = null;
           state.filter = td.filters[0].id;
+        } else {
+          state.sub = null;
+          state.filter = null;
         }
         location.hash = "/" + state.tab + (state.sub ? "/" + state.sub : "");
         render(cfg, state, root);

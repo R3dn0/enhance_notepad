@@ -57,6 +57,7 @@ This rule applies as soon as the user provides screenshots, a character class, a
 ### 1. Screenshot Analysis
 From the user screenshot(s), extract:
 * **Character Visual:** The Dofus character model in its full outfit.
+* **Chosen Head / Face:** The selected face preset visual (cropped thumbnail) and number/label (e.g., "Tête 1").
 * **Hexadecimal Colors:**
   - `peau` (Peau)
   - `cheveux` (Cheveux)
@@ -72,26 +73,30 @@ From the user screenshot(s), extract:
   5. `epaulieres`: Épaulières
   6. `costume`: Costume
   7. `armes`: Armes
-* **Class & Gender:** Class identifier (e.g., `cra`, `iop`, `ecaflip`) and gender (`male` or `female`).
+* **Class & Gender:** Class identifier (e.g., `sram`, `cra`, `iop`) and gender (`f` for female / `m` for male).
 
-### 2. Image Processing
-* Save or crop the character image into `assets/dofus/skins/` using the conversion script:
-  `node scripts/convert_skin.js <path_to_image> <class_id> <skin_slug>`
-* Example: `node scripts/convert_skin.js screenshot.png cra sentinelle-sylvestre`
+### 2. Image Processing & File Naming
+* Always name skin files according to the format: `[classe]-[f/m]-[nombre]` (e.g. `sram-f-001`, `cra-m-001`).
+* Run the conversion script:
+  `node scripts/convert_skin.js <path_to_image> <class_id> <gender: f|m> [head_image_path]`
+* Example: `node scripts/convert_skin.js sram.png sram f sram_head.png`
 * This automatically generates:
-  - Standard vignette: `assets/dofus/skins/<class_id>-<skin_slug>.webp` (600x750px)
-  - High resolution: `assets/dofus/skins/<class_id>-<skin_slug>-hd.webp` (max 1200px)
+  - Standard vignette: `assets/dofus/skins/<class_id>-<gender>-<num>.webp` (600x750px)
+  - High resolution: `assets/dofus/skins/<class_id>-<gender>-<num>-hd.webp` (max 1200px)
+  - Head thumbnail (if provided): `assets/dofus/skins/<class_id>-<gender>-<num>-head.webp` (160x160px)
 
 ### 3. Updating `data/dofus.js`
 * Add a new entry to the `SKINS` array in `data/dofus.js`:
 ```javascript
 {
-  id: '<class_id>-<skin_slug>',
+  id: '<class_id>-<gender>-<num>',
   name: 'Nom du Skin',
-  class: '<class_id>', // 'cra', 'iop', 'ecaflip', etc.
-  gender: 'male', // 'male' or 'female'
-  image: 'assets/dofus/skins/<class_id>-<skin_slug>.webp',
-  imageFull: 'assets/dofus/skins/<class_id>-<skin_slug>-hd.webp',
+  class: '<class_id>', // 'sram', 'cra', 'iop', etc.
+  gender: 'female', // 'male' or 'female'
+  head: 'Tête 1', // Nom ou numéro de la tête
+  headImage: 'assets/dofus/skins/<class_id>-<gender>-<num>-head.webp', // Visuel de la tête
+  image: 'assets/dofus/skins/<class_id>-<gender>-<num>.webp',
+  imageFull: 'assets/dofus/skins/<class_id>-<gender>-<num>-hd.webp',
   colors: {
     peau: '#...',
     cheveux: '#...',

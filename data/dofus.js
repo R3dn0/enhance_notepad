@@ -290,11 +290,12 @@
     // Texte à copier pour tout exporter
     const fullCopyText = [
       `Skin: ${skin.name} (${getClassName(skin.class)} ${genderLabel})`,
+      skin.head ? `Tête choisie: ${skin.head}` : '',
       '--- Couleurs ---',
       COLOR_ZONES.map(function(z) { return `${z.label}: ${colors[z.id] || '-'}`; }).join('\n'),
       '--- Cosmétiques ---',
       COSMETIC_SLOTS.map(function(s) { return `${s.label}: ${items[s.id] || 'Aucun'}`; }).join('\n')
-    ].join('\n');
+    ].filter(Boolean).join('\n');
 
     modalOverlay.innerHTML = `
       <div class="skin-modal" role="dialog" aria-modal="true">
@@ -307,12 +308,27 @@
         </div>
 
         <div class="skin-modal-body">
-          <!-- Colonne Gauche : Rappel du visuel grand format -->
+          <!-- Colonne Gauche : Rappel du visuel grand format + Tête choisie -->
           <div class="skin-modal-col-left">
             <div class="skin-modal-visual" id="skin-modal-image-wrap">
               <img src="${skin.imageFull || skin.image}" alt="${skin.name}" title="Cliquer pour zoomer">
             </div>
             <div class="skin-modal-visual-hint">🔍 Cliquez sur l'image pour agrandir</div>
+
+            ${(skin.headImage || skin.head) ? `
+              <div class="skin-modal-head-box">
+                ${skin.headImage ? `
+                  <div class="skin-modal-head-avatar">
+                    <img src="${skin.headImage}" alt="Tête choisie">
+                  </div>
+                ` : ''}
+                <div class="skin-modal-head-meta">
+                  <span class="skin-modal-head-label">Tête sélectionnée</span>
+                  <span class="skin-modal-head-val">${skin.head || 'Tête 1'}</span>
+                </div>
+              </div>
+            ` : ''}
+
             <button class="skin-btn-copy-all" id="skin-btn-copy-all">
               📋 Copier toutes les infos
             </button>

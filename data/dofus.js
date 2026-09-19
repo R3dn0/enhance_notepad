@@ -185,10 +185,52 @@
     }
   ];
 
+  // =========================================================================
+  // GESTION DES FAVORIS (LocalStorage & Tri prioritaire)
+  // =========================================================================
+  const FAV_STORAGE_KEY = 'dofus_favorite_skins';
+
+  function getFavorites() {
+    try {
+      const stored = localStorage.getItem(FAV_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) return new Set(parsed);
+      }
+    } catch (e) {
+      console.warn('LocalStorage inaccessible pour les favoris Dofus', e);
+    }
+    return new Set();
+  }
+
+  function saveFavorites(favSet) {
+    try {
+      localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(Array.from(favSet)));
+    } catch (e) {
+      console.warn('Impossible de sauvegarder les favoris', e);
+    }
+  }
+
+  const favoritesSet = getFavorites();
+
+  function isFavorite(skinId) {
+    return favoritesSet.has(skinId);
+  }
+
+  function toggleFavorite(skinId) {
+    if (favoritesSet.has(skinId)) {
+      favoritesSet.delete(skinId);
+    } else {
+      favoritesSet.add(skinId);
+    }
+    saveFavorites(favoritesSet);
+  }
+
   // État local pour les filtres du module Skins
   const skinState = {
-    selectedClass: 'all', // 'all' ou id de la classe ('cra', 'iop', ...)
+    selectedClass: 'all', // 'all', 'favorites' ou id de la classe ('sram', ...)
     selectedGender: 'all', // 'all', 'male', 'female'
+    favoritesOnly: false   // filtre rapide "Favoris uniquement"
   };
 
   function getClassName(classId) {
@@ -201,18 +243,19 @@
     return c ? c.icon : '🛡️';
   }
 
-  function countSkinsByClass(classId, gender) {
+  function countSkinsByClass(classId, gender, favOnly) {
     return SKINS.filter(function(s) {
-      const matchClass = classId === 'all' || s.class === classId;
+      const matchFav = (classId === 'favorites' || favOnly) ? isFavorite(s.id) : true;
+      const matchClass = (classId === 'all' || classId === 'favorites') ? true : s.class === classId;
       const matchGender = gender === 'all' || s.gender === gender;
-      return matchClass && matchGender;
+      return matchFav && matchClass && matchGender;
     }).length;
   }
 
   function renderSkinsApp(mainEl) {
     mainEl.innerHTML = `
       <div class="skin-layout">
-        <!-- Colonne Gauche (1/5) : Liste alphabétique des classes -->
+        <!-- Colonne Gauche (1/5) : Liste alphabétique des classes + Favoris -->
         <aside class="skin-sidebar">
           <div class="skin-sidebar-head">
             <span class="skin-sidebar-title">Classes</span>
@@ -221,17 +264,23 @@
           <div class="skin-class-list" id="skin-class-list"></div>
         </aside>
 
-        <!-- Colonne Droite (4/5) : En-tête avec sélecteur Homme / Femme + Grille des skins -->
+        <!-- Colonne Droite (4/5) : Toolbar avec filtres & Sélecteur + Grille des skins -->
         <section class="skin-content">
           <div class="skin-toolbar">
             <div class="skin-toolbar-info">
               <h2 id="skin-current-class-title">Toutes les classes</h2>
               <span class="skin-count" id="skin-filtered-count"></span>
             </div>
-            <div class="skin-sex-selector" id="skin-sex-selector">
-              <button class="skin-sex-btn ${skinState.selectedGender === 'all' ? 'active' : ''}" data-gender="all">Tous</button>
-              <button class="skin-sex-btn ${skinState.selectedGender === 'male' ? 'active' : ''}" data-gender="male">♂ Homme</button>
-              <button class="skin-sex-btn ${skinState.selectedGender === 'female' ? 'active' : ''}" data-gender="female">♀ Femme</button>
+            <div class="skin-toolbar-actions">
+              <button class="skin-fav-filter-btn ${skinState.favoritesOnly ? 'active' : ''}" id="skin-fav-filter-toggle" title="Filtrer uniquement les skins favoris">
+                <span>⭐</span>
+                <span>Favoris uniquement</span>
+              </button>
+              <div class="skin-sex-selector" id="skin-sex-selector">
+                <button class="skin-sex-btn ${skinState.selectedGender === 'all' ? 'active' : ''}" data-gender="all">Tous</button>
+                <button class="skin-sex-btn ${skinState.selectedGender === 'male' ? 'active' : ''}" data-gender="male">♂ Homme</button>
+                <button class="skin-sex-btn ${skinState.selectedGender === 'female' ? 'active' : ''}" data-gender="female">♀ Femme</button>
+              </div>
             </div>
           </div>
 
@@ -249,16 +298,23 @@
     const listEl = mainEl.querySelector('#skin-class-list');
     if (!listEl) return;
 
-    const totalCount = countSkinsByClass('all', skinState.selectedGender);
+    const totalCount = countSkinsByClass('all', skinState.selectedGender, false);
+    const favCount = countSkinsByClass('favorites', skinState.selectedGender, false);
+
     let html = `
-      <button class="skin-class-btn ${skinState.selectedClass === 'all' ? 'active' : ''}" data-class="all">
+      <button class="skin-class-btn ${skinState.selectedClass === 'all' && !skinState.favoritesOnly ? 'active' : ''}" data-class="all">
         <span class="skin-class-name">✨ Toutes les classes</span>
         <span class="skin-class-count ${totalCount > 0 ? 'has-skins' : ''}">${totalCount}</span>
       </button>
+      <button class="skin-class-btn skin-fav-class-btn ${skinState.selectedClass === 'favorites' ? 'active' : ''}" data-class="favorites">
+        <span class="skin-class-name">⭐ Mes favoris</span>
+        <span class="skin-class-count skin-fav-count ${favCount > 0 ? 'has-skins' : ''}">${favCount}</span>
+      </button>
+      <div class="skin-sidebar-divider"></div>
     `;
 
     DOFUS_CLASSES.forEach(function(cls) {
-      const cnt = countSkinsByClass(cls.id, skinState.selectedGender);
+      const cnt = countSkinsByClass(cls.id, skinState.selectedGender, skinState.favoritesOnly);
       const isActive = skinState.selectedClass === cls.id;
       html += `
         <button class="skin-class-btn ${isActive ? 'active' : ''}" data-class="${cls.id}">
@@ -276,26 +332,40 @@
     listEl.querySelectorAll('.skin-class-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         skinState.selectedClass = btn.dataset.class;
+        if (skinState.selectedClass === 'favorites') {
+          skinState.favoritesOnly = false;
+        }
         renderSidebar(mainEl);
         renderGrid(mainEl);
+        bindToolbarEvents(mainEl);
       });
     });
   }
 
   function bindToolbarEvents(mainEl) {
     const sexSelector = mainEl.querySelector('#skin-sex-selector');
-    if (!sexSelector) return;
-
-    sexSelector.querySelectorAll('.skin-sex-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        skinState.selectedGender = btn.dataset.gender;
-        sexSelector.querySelectorAll('.skin-sex-btn').forEach(function(b) {
-          b.classList.toggle('active', b === btn);
+    if (sexSelector) {
+      sexSelector.querySelectorAll('.skin-sex-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          skinState.selectedGender = btn.dataset.gender;
+          sexSelector.querySelectorAll('.skin-sex-btn').forEach(function(b) {
+            b.classList.toggle('active', b === btn);
+          });
+          renderSidebar(mainEl);
+          renderGrid(mainEl);
         });
+      });
+    }
+
+    const favToggle = mainEl.querySelector('#skin-fav-filter-toggle');
+    if (favToggle) {
+      favToggle.addEventListener('click', function() {
+        skinState.favoritesOnly = !skinState.favoritesOnly;
+        favToggle.classList.toggle('active', skinState.favoritesOnly);
         renderSidebar(mainEl);
         renderGrid(mainEl);
       });
-    });
+    }
   }
 
   function renderGrid(mainEl) {
@@ -304,24 +374,51 @@
     const countEl = mainEl.querySelector('#skin-filtered-count');
     if (!gridEl) return;
 
-    // Titre de la classe active
-    if (skinState.selectedClass === 'all') {
-      titleEl.textContent = "Toutes les classes";
+    // Titre de la vue active
+    if (skinState.selectedClass === 'favorites') {
+      titleEl.textContent = "⭐ Mes favoris";
+    } else if (skinState.selectedClass === 'all') {
+      titleEl.textContent = skinState.favoritesOnly ? "✨ Toutes les classes (Favoris)" : "Toutes les classes";
     } else {
       const cls = DOFUS_CLASSES.find(function(c) { return c.id === skinState.selectedClass; });
-      titleEl.textContent = cls ? `${cls.icon} ${cls.name}` : skinState.selectedClass;
+      const baseName = cls ? `${cls.icon} ${cls.name}` : skinState.selectedClass;
+      titleEl.textContent = skinState.favoritesOnly ? `${baseName} (Favoris)` : baseName;
     }
 
     // Filtrage des skins
     const filtered = SKINS.filter(function(skin) {
-      const matchClass = skinState.selectedClass === 'all' || skin.class === skinState.selectedClass;
+      const matchFav = (skinState.selectedClass === 'favorites' || skinState.favoritesOnly)
+        ? isFavorite(skin.id)
+        : true;
+      const matchClass = (skinState.selectedClass === 'all' || skinState.selectedClass === 'favorites')
+        ? true
+        : skin.class === skinState.selectedClass;
       const matchGender = skinState.selectedGender === 'all' || skin.gender === skinState.selectedGender;
-      return matchClass && matchGender;
+      return matchFav && matchClass && matchGender;
+    });
+
+    // Tri : les skins favoris sont TOUJOURS affichés EN PREMIER dans la liste !
+    filtered.sort(function(a, b) {
+      const favA = isFavorite(a.id) ? 1 : 0;
+      const favB = isFavorite(b.id) ? 1 : 0;
+      if (favA !== favB) return favB - favA;
+      return 0; // Préserve l'ordre initial
     });
 
     countEl.textContent = `${filtered.length} skin${filtered.length > 1 ? 's' : ''}`;
 
     if (filtered.length === 0) {
+      if (skinState.selectedClass === 'favorites' || skinState.favoritesOnly) {
+        gridEl.innerHTML = `
+          <div class="skin-empty">
+            <div class="skin-empty-icon">⭐</div>
+            <h3>Aucun skin favori</h3>
+            <p>Clique sur l'étoile <strong>★</strong> sur n'importe quel skin pour l'ajouter à tes favoris et le voir apparaître en premier !</p>
+          </div>
+        `;
+        return;
+      }
+
       const genderLabel = skinState.selectedGender === 'male' ? 'homme' : (skinState.selectedGender === 'female' ? 'femme' : '');
       const classLabel = skinState.selectedClass === 'all' ? 'dans cette catégorie' : `pour la classe ${getClassName(skinState.selectedClass)}`;
 
@@ -336,6 +433,7 @@
     }
 
     gridEl.innerHTML = filtered.map(function(skin) {
+      const isFav = isFavorite(skin.id);
       const genderLabel = skin.gender === 'male' ? '♂ Homme' : '♀ Femme';
       const genderClass = skin.gender === 'male' ? 'gender-male' : 'gender-female';
       const colors = skin.colors || {};
@@ -346,22 +444,40 @@
       }).join('');
 
       return `
-        <div class="skin-card" data-skin-id="${skin.id}">
+        <div class="skin-card ${isFav ? 'is-favorite' : ''}" data-skin-id="${skin.id}">
           <div class="skin-card-visual">
             <div class="skin-card-badges">
-              <span class="skin-badge-tag">${getClassIcon(skin.class)} ${getClassName(skin.class)}</span>
-              <span class="skin-badge-tag ${genderClass}">${genderLabel}</span>
+              <div class="skin-badge-tags">
+                <span class="skin-badge-tag">${getClassIcon(skin.class)} ${getClassName(skin.class)}</span>
+                <span class="skin-badge-tag ${genderClass}">${genderLabel}</span>
+              </div>
+              <button class="skin-fav-btn ${isFav ? 'active' : ''}" data-skin-id="${skin.id}" title="${isFav ? 'Retirer des favoris' : 'Ajouter aux favoris'}" aria-label="Favori">
+                ${isFav ? '★' : '☆'}
+              </button>
             </div>
             <img src="${skin.image}" alt="${skin.name}" loading="lazy">
           </div>
           <div class="skin-card-info">
-            <h4 class="skin-card-name">${skin.name}</h4>
+            <div class="skin-card-name-row">
+              <h4 class="skin-card-name">${skin.name}</h4>
+              ${isFav ? '<span class="skin-fav-indicator" title="Favori">★</span>' : ''}
+            </div>
             <div class="skin-card-swatches">${swatchesHtml}</div>
             <div class="skin-card-cta">Détails & couleurs →</div>
           </div>
         </div>
       `;
     }).join('');
+
+    gridEl.querySelectorAll('.skin-fav-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation(); // Évite d'ouvrir la modale du skin
+        const skinId = btn.dataset.skinId;
+        toggleFavorite(skinId);
+        renderSidebar(mainEl);
+        renderGrid(mainEl);
+      });
+    });
 
     gridEl.querySelectorAll('.skin-card').forEach(function(card) {
       card.addEventListener('click', function() {
@@ -436,8 +552,14 @@
     modalOverlay.innerHTML = `
       <div class="skin-modal" role="dialog" aria-modal="true">
         <div class="skin-modal-head">
-          <div>
-            <h3 class="skin-modal-title">${skin.name}</h3>
+          <div class="skin-modal-head-info">
+            <div class="skin-modal-title-row">
+              <h3 class="skin-modal-title">${skin.name}</h3>
+              <button class="skin-modal-fav-btn ${isFavorite(skin.id) ? 'is-fav' : ''}" id="modal-fav-btn" data-skin-id="${skin.id}" title="${isFavorite(skin.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
+                <span class="skin-modal-fav-star">${isFavorite(skin.id) ? '★' : '☆'}</span>
+                <span class="skin-modal-fav-label">${isFavorite(skin.id) ? 'Favori' : 'Ajouter aux favoris'}</span>
+              </button>
+            </div>
             <div class="skin-modal-subtitle">${getClassIcon(skin.class)} ${getClassName(skin.class)} • ${genderLabel}</div>
           </div>
           <button class="skin-modal-close" aria-label="Fermer la modale">✕</button>
@@ -554,6 +676,25 @@
         });
       });
     }
+
+    // Gestion du favori depuis la modale
+    const modalFavBtn = modalOverlay.querySelector('#modal-fav-btn');
+    if (modalFavBtn) {
+      modalFavBtn.addEventListener('click', function() {
+        toggleFavorite(skin.id);
+        const nowFav = isFavorite(skin.id);
+        modalFavBtn.classList.toggle('is-fav', nowFav);
+        modalFavBtn.querySelector('.skin-modal-fav-star').textContent = nowFav ? '★' : '☆';
+        modalFavBtn.querySelector('.skin-modal-fav-label').textContent = nowFav ? 'Favori' : 'Ajouter aux favoris';
+        modalFavBtn.setAttribute('title', nowFav ? 'Retirer des favoris' : 'Ajouter aux favoris');
+        // Mise à jour de la grille et de la sidebar en arrière-plan
+        const mainEl = document.querySelector('#main');
+        if (mainEl) {
+          renderSidebar(mainEl);
+          renderGrid(mainEl);
+        }
+      });
+    }
   }
 
   function copyToClipboard(text, onSuccess) {
@@ -590,36 +731,16 @@
       theme: 'dofus',
       eyebrow: "📦 Stash // Personal memo",
       title: "<span>R3dn0</span>'s Notes",
-      sub: "Notes, outils, récapitulatifs et galerie de skins pour Dofus.",
-      footer: "R3dn0 — Dofus notes & skins · mis à jour au fil des aventures dans le Monde des Douze"
+      sub: "Galerie de skins, codes couleurs hexadécimaux et équipements cosmétiques pour Dofus.",
+      footer: "R3dn0 — Dofus skins & guides · mis à jour au fil des aventures dans le Monde des Douze"
     },
     tabs: [
-      { id: 'skins', label: '🎨 Skins' },
-      { id: 'tools', label: '🛠️ Tools' }
+      { id: 'skins', label: '🎨 Skins' }
     ],
     data: {
       skins: {
         filters: [{ id: 'all', label: 'All' }],
         categories: []
-      },
-      tools: {
-        filters: [
-          { id: 'all', label: 'All' },
-          { id: 'tools', label: 'Tools' }
-        ],
-        categories: [
-          {
-            id: 'tools',
-            label: 'Tools',
-            subcats: [
-              {
-                label: '🛠️ Outils & Utilitaires',
-                recap: 'Section en préparation. Les prochains outils et notes pour Dofus apparaîtront ici.',
-                items: []
-              }
-            ]
-          }
-        ]
       }
     },
     render: function(state, root, cfg) {
@@ -637,24 +758,18 @@
         subtabs.innerHTML = '';
       }
 
-      if (state.tab === 'skins') {
-        if (filterbar) {
-          filterbar.style.display = 'none';
-          filterbar.innerHTML = '';
-        }
-        renderSkinsApp(main);
-      } else {
-        if (filterbar) {
-          filterbar.style.display = '';
-        }
-        if (window.StashApp && typeof window.StashApp.renderDefault === 'function') {
-          window.StashApp.renderDefault(cfg, state, root);
-        }
+      if (filterbar) {
+        filterbar.style.display = 'none';
+        filterbar.innerHTML = '';
       }
+
+      renderSkinsApp(main);
     },
     // Expose pour ajout futur programmatique ou tests
     skinsList: SKINS,
-    classesList: DOFUS_CLASSES
+    classesList: DOFUS_CLASSES,
+    isFavorite: isFavorite,
+    toggleFavorite: toggleFavorite
   });
 
 })();

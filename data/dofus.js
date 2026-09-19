@@ -1,121 +1,9 @@
-// Dofus Skinator Module
+// Dofus Skinator Module - Native Visuals & Local Storage
 (function() {
   "use strict";
 
-  const SLOT_ORDER = ["coiffe", "cape", "bouclier", "costume", "epauliere", "ailes", "familier", "montilier", "monture", "harnachement", "arme"];
-
-  const putVarInt = function(arr, val) {
-    var r = val >>> 0;
-    do {
-      var t = r & 127;
-      r = Math.floor(r / 128);
-      arr.push(r ? t | 128 : t);
-    } while (r);
-  };
-
-  const readVarInt = function(arr, cursor) {
-    var r = 0, t = 0, i;
-    do {
-      i = arr[cursor.i++];
-      r += (i & 127) * Math.pow(2, t);
-      t += 7;
-    } while (i & 128);
-    return r;
-  };
-
-  const toBase64Url = function(bytes) {
-    var s = "";
-    for (var i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
-    return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-  };
-
-  const fromBase64Url = function(str) {
-    var s = atob(str.replace(/-/g, "+").replace(/_/g, "/"));
-    var bytes = new Uint8Array(s.length);
-    for (var i = 0; i < s.length; i++) bytes[i] = s.charCodeAt(i);
-    return bytes;
-  };
-
-  function encodeSkinCode(skin) {
-    if (!skin || !skin.breedId) return "";
-    var bId = Number(skin.breedId) & 31;
-    var genderBit = skin.gender === "female" ? 32 : 0;
-    var bKey = (Number(skin.bodyKey) || 0) & 7;
-    var hKey = ((Number(skin.headKey) || 0) & 31) << 3;
-    var bytes = [2, bId | genderBit, bKey | hKey];
-
-    var colors = skin.couleurs || {};
-    var colorMask = 0;
-    var activeColorIndices = [];
-    for (var i = 0; i < 6; i++) {
-      if (colors[i] != null) {
-        colorMask |= 1 << i;
-        activeColorIndices.push(i);
-      }
-    }
-    bytes.push(colorMask);
-    for (var j = 0; j < activeColorIndices.length; j++) {
-      var c = Number(colors[activeColorIndices[j]]) >>> 0;
-      bytes.push((c >> 16) & 255, (c >> 8) & 255, c & 255);
-    }
-
-    var slots = skin.slots || {};
-    var slotMask = 0;
-    var activeSlotValues = [];
-    SLOT_ORDER.forEach(function(slotName, idx) {
-      if (slots[slotName] != null) {
-        slotMask |= 1 << idx;
-        activeSlotValues.push(Number(slots[slotName]));
-      }
-    });
-    bytes.push(slotMask & 255, (slotMask >> 8) & 255);
-    for (var k = 0; k < activeSlotValues.length; k++) {
-      putVarInt(bytes, activeSlotValues[k]);
-    }
-
-    return toBase64Url(Uint8Array.from(bytes));
-  }
-
-  function decodeSkinCode(rawCode) {
-    if (!rawCode) return null;
-    var code = rawCode.trim();
-    if (code.indexOf("/skinator/") !== -1) {
-      code = code.split("/skinator/")[1].split(/[?#]/)[0];
-    }
-    try {
-      var bytes = fromBase64Url(code);
-      if (bytes[0] !== 2) return null;
-      var cursor = { i: 3 };
-      var res = {
-        breedId: bytes[1] & 31,
-        gender: (bytes[1] & 32) ? "female" : "male",
-        bodyKey: String(bytes[2] & 7),
-        headKey: String((bytes[2] >> 3) & 31),
-        couleurs: {},
-        slots: {}
-      };
-      var colorMask = bytes[cursor.i++];
-      for (var s = 0; s < 6; s++) {
-        if (colorMask & (1 << s)) {
-          res.couleurs[s] = (bytes[cursor.i] << 16) | (bytes[cursor.i + 1] << 8) | bytes[cursor.i + 2];
-          cursor.i += 3;
-        }
-      }
-      var slotMask = bytes[cursor.i] | (bytes[cursor.i + 1] << 8);
-      cursor.i += 2;
-      SLOT_ORDER.forEach(function(slotName, idx) {
-        if (slotMask & (1 << idx)) {
-          res.slots[slotName] = readVarInt(bytes, cursor);
-        }
-      });
-      return res;
-    } catch (e) {
-      console.warn("Invalid skin code:", e);
-      return null;
-    }
-  }
-
   const STORAGE_KEY = "stash_dofus_saved_skins";
+
   function loadSavedSkins() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
@@ -157,6 +45,12 @@
     return parseInt(hex.replace("#", ""), 16) || 0;
   }
 
+  function strToHex(str) {
+    return Array.from(String(str)).map(function(c) {
+      return c.charCodeAt(0).toString(16).padStart(2, "0");
+    }).join("");
+  }
+
   const SLOTS = [
     { id: "coiffe", label: "Coiffe", icon: "🎩" },
     { id: "cape", label: "Cape", icon: "🦸" },
@@ -184,10 +78,11 @@
     itemsById: {},
     itemsBySlot: {},
 
+    // Current skin state
     skin: {
       id: null,
       name: "Nouveau Skin",
-      breedId: 8,
+      breedId: 8, // Iop
       gender: "male",
       headKey: "0",
       bodyKey: "1",
@@ -195,8 +90,9 @@
       slots: {}
     },
 
-    activeView: "studio",
-    show3D: false,
+    direction: 1, // 0 to 7 (1 = 3/4 face standard)
+    viewMode: "full", // 'full' or 'head'
+    activeView: "studio", // 'studio' or 'gallery'
     modalSlot: null,
     modalSearch: "",
 
@@ -217,6 +113,45 @@
       } catch (err) {
         console.error("Failed to load skinator-items.json:", err);
       }
+    },
+
+    getRenderUrl: function(skinObj, opts) {
+      opts = opts || {};
+      var dir = opts.direction != null ? opts.direction : this.direction;
+      var mode = opts.mode || this.viewMode;
+      var size = opts.size || (mode === "head" ? "200_200" : "350_350");
+
+      var s = skinObj || this.skin;
+      var breed = this.breeds.find(function(b) { return b.id === s.breedId; });
+      var isFemale = s.gender === "female";
+      var bodySkin = breed ? (isFemale ? breed.femaleBody : breed.maleBody) : 80;
+      var headSkin = breed ? (isFemale ? breed.femaleHead : breed.maleHead) : 2124;
+
+      var skins = [bodySkin, headSkin];
+
+      if (s.slots) {
+        var self = this;
+        Object.keys(s.slots).forEach(function(slotName) {
+          var itId = s.slots[slotName];
+          var it = self.itemsById[itId];
+          if (it) {
+            var asset = isFemale ? (it.femaleAssetId || it.assetId) : it.assetId;
+            if (asset) skins.push(asset);
+          }
+        });
+      }
+
+      var colors = s.couleurs || {};
+      var colorParts = [];
+      for (var i = 0; i < 5; i++) {
+        if (colors[i] != null) {
+          colorParts.push((i + 1) + "=" + Number(colors[i]));
+        }
+      }
+
+      var lookStr = "{1|" + skins.join(",") + "|" + colorParts.join(",") + "|100}";
+      var hexLook = strToHex(lookStr);
+      return "https://renderer.dofusdb.fr/look/" + hexLook + "/" + mode + "/" + dir + "/" + size + ".png";
     },
 
     setBreed: function(breedId) {
@@ -250,6 +185,16 @@
       this.render();
     },
 
+    rotateCharacter: function(delta) {
+      this.direction = (this.direction + delta + 8) % 8;
+      this.updateAvatarImage();
+    },
+
+    toggleViewMode: function() {
+      this.viewMode = this.viewMode === "full" ? "head" : "full";
+      this.render();
+    },
+
     equipItem: function(slot, itemId) {
       this.skin.slots[slot] = itemId;
       this.modalSlot = null;
@@ -270,25 +215,6 @@
       showToast("Skin réinitialisé");
     },
 
-    importSkinPrompt: function() {
-      var codeOrUrl = prompt("Collez le code de skin ou l\'URL Duffus.fr :");
-      if (!codeOrUrl) return;
-      var decoded = decodeSkinCode(codeOrUrl);
-      if (!decoded) {
-        alert("Code de skin invalide ou non reconnu.");
-        return;
-      }
-      this.skin.id = null;
-      this.skin.breedId = decoded.breedId || 8;
-      this.skin.gender = decoded.gender || "male";
-      this.skin.headKey = decoded.headKey || "0";
-      this.skin.bodyKey = decoded.bodyKey || "1";
-      this.skin.couleurs = Object.assign({}, decoded.couleurs);
-      this.skin.slots = Object.assign({}, decoded.slots);
-      this.render();
-      showToast("Skin importé avec succès !");
-    },
-
     saveCurrentSkin: function() {
       var self = this;
       var breed = this.breeds.find(function(b) { return b.id === self.skin.breedId; });
@@ -297,7 +223,6 @@
       if (!name) return;
 
       var saved = loadSavedSkins();
-      var code = encodeSkinCode(this.skin);
       var skinEntry = {
         id: this.skin.id || "skin_" + Date.now(),
         name: name.trim(),
@@ -305,7 +230,6 @@
         gender: this.skin.gender,
         couleurs: Object.assign({}, this.skin.couleurs),
         slots: Object.assign({}, this.skin.slots),
-        code: code,
         updatedAt: new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" })
       };
 
@@ -355,7 +279,7 @@
       var url = URL.createObjectURL(blob);
       var a = document.createElement("a");
       a.href = url;
-      a.download = "dofus-skins-backup.json";
+      a.download = "dofus-skins-collection.json";
       a.click();
       URL.revokeObjectURL(url);
     },
@@ -382,13 +306,6 @@
       reader.readAsText(file);
     },
 
-    copySkinCode: function() {
-      var code = encodeSkinCode(this.skin);
-      navigator.clipboard.writeText(code).then(function() {
-        showToast("Code de skin copié !");
-      });
-    },
-
     copyDofusColors: function() {
       var self = this;
       var parts = COLOR_CHANNELS.map(function(ch) {
@@ -398,6 +315,27 @@
       navigator.clipboard.writeText(text).then(function() {
         showToast("Codes couleurs copiés : " + text);
       });
+    },
+
+    downloadCurrentPng: function() {
+      var url = this.getRenderUrl(this.skin, { size: "600_600" });
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = (this.skin.name || "dofus-skin").replace(/[^a-zA-Z0-9-_]/g, "_") + ".png";
+      a.target = "_blank";
+      a.click();
+      showToast("Téléchargement du PNG haute résolution...");
+    },
+
+    updateAvatarImage: function() {
+      var img = this.mountEl ? this.mountEl.querySelector("#live-avatar-img") : null;
+      if (img) {
+        img.classList.add("loading");
+        var newUrl = this.getRenderUrl();
+        img.src = newUrl;
+        img.onload = function() { img.classList.remove("loading"); };
+        img.onerror = function() { img.classList.remove("loading"); };
+      }
     },
 
     mount: async function(mountEl) {
@@ -411,7 +349,6 @@
 
     render: function() {
       if (!this.mountEl) return;
-      var skinCode = encodeSkinCode(this.skin);
       var self = this;
       var currentBreed = this.breeds.find(function(b) { return b.id === self.skin.breedId; }) || { name: "Iop" };
       var savedCount = loadSavedSkins().length;
@@ -425,7 +362,7 @@
 
       html += '<div class="skinator-btn-group">';
       html += '<button class="skinator-btn primary" id="btn-save-skin">💾 Sauvegarder</button>';
-      html += '<button class="skinator-btn" id="btn-import-code">🔗 Importer code</button>';
+      html += '<button class="skinator-btn" id="btn-download-png">📸 Télécharger PNG</button>';
       html += '<button class="skinator-btn" id="btn-reset-skin">🔄 Nouveau</button>';
       html += '</div>';
       html += '</div>';
@@ -433,7 +370,7 @@
       if (this.activeView === "gallery") {
         html += this.renderGallery();
       } else {
-        html += this.renderStudio(skinCode, currentBreed);
+        html += this.renderStudio(currentBreed);
       }
 
       html += '</div>';
@@ -446,8 +383,9 @@
       this.attachEvents();
     },
 
-    renderStudio: function(skinCode, currentBreed) {
+    renderStudio: function(currentBreed) {
       var self = this;
+      var avatarUrl = this.getRenderUrl();
       var html = '<div class="skinator-studio">';
 
       // Colonne 1 : Personnage & Equipements
@@ -506,9 +444,25 @@
       html += '</div>';
       html += '</div>';
 
-      // Colonne 2 : Couleurs & Code & 3D
+      // Colonne 2 : Rendu Visuel Natif & Couleurs
       html += '<div class="skinator-panel">';
-      html += '<h3 class="skinator-panel-title">2. Couleurs & Partage <button class="skinator-btn sm" id="btn-copy-dofus-colors" title="Format: #HEX1, #HEX2...">📋 Copier pour Dofus</button></h3>';
+      html += '<h3 class="skinator-panel-title">2. Rendu Visuel en Direct</h3>';
+
+      // Visual stage with character render
+      html += '<div class="skinator-preview-stage">';
+      html += '<div class="avatar-render-wrap">';
+      html += '<img id="live-avatar-img" class="avatar-img" src="' + avatarUrl + '" alt="Rendu de ' + this.skin.name + '">';
+      html += '</div>';
+
+      html += '<div class="avatar-controls">';
+      html += '<button class="skinator-btn sm" id="btn-rot-left" title="Tourner à gauche">⟲ Tourner</button>';
+      html += '<button class="skinator-btn sm" id="btn-rot-right" title="Tourner à droite">Tourner ⟳</button>';
+      html += '<button class="skinator-btn sm" id="btn-toggle-zoom" title="Changer le zoom">' + (this.viewMode === "full" ? "🔍 Zoom Visage" : "👤 Corps Entier") + '</button>';
+      html += '</div>';
+      html += '</div>';
+
+      // Palette de couleurs
+      html += '<h3 class="skinator-panel-title" style="margin-top:4px;">3. Palette de Couleurs <button class="skinator-btn sm" id="btn-copy-dofus-colors" title="Format: #HEX1, #HEX2...">📋 Copier pour Dofus</button></h3>';
 
       html += '<div class="skinator-colors">';
       COLOR_CHANNELS.forEach(function(ch) {
@@ -521,25 +475,6 @@
         html += '</div>';
       });
       html += '</div>';
-
-      html += '<div class="skinator-code-box">';
-      html += '<div style="font-family:Oswald,sans-serif; font-size:13px; text-transform:uppercase; color:var(--color-text);">Code Skin Duffus</div>';
-      html += '<div class="code-field-group">';
-      html += '<input type="text" readonly value="' + skinCode + '" id="input-skin-code">';
-      html += '<button class="skinator-btn primary" id="btn-copy-skin-code">Copier</button>';
-      html += '</div>';
-
-      html += '<div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;">';
-      html += '<a href="https://duffus.fr/skinator/' + skinCode + '" target="_blank" class="skinator-btn gold" style="text-decoration:none;">🚀 Ouvrir sur Duffus.fr ↗</a>';
-      html += '<button class="skinator-btn" id="btn-toggle-3d">' + (this.show3D ? '👁️ Masquer la 3D' : '👁️ Visualiser la 3D ici') + '</button>';
-      html += '</div>';
-      html += '</div>';
-
-      if (this.show3D) {
-        html += '<div class="skinator-3d-box">';
-        html += '<iframe src="https://duffus.fr/skinator/' + skinCode + '" title="Rendu 3D Duffus" allow="fullscreen"></iframe>';
-        html += '</div>';
-      }
 
       html += '</div>';
       html += '</div>';
@@ -571,8 +506,13 @@
         var breed = self.breeds.find(function(b) { return b.id === item.breedId; });
         var breedName = breed ? breed.name : "Classe";
         var colors = item.couleurs || {};
+        var cardRenderUrl = self.getRenderUrl(item, { direction: 1, mode: "full", size: "260_260" });
 
         html += '<div class="gallery-card">';
+        html += '<div class="g-preview-wrap">';
+        html += '<img src="' + cardRenderUrl + '" alt="' + item.name + '" loading="lazy">';
+        html += '</div>';
+
         html += '<div class="g-head">';
         html += '<div><h4 class="g-title">' + item.name + '</h4>';
         html += '<div class="g-meta">' + breedName + ' ' + (item.gender === "female" ? "♀" : "♂") + ' · ' + (item.updatedAt || '') + '</div>';
@@ -595,8 +535,7 @@
 
         html += '<div class="g-actions">';
         html += '<button class="skinator-btn primary sm" data-load-skin="' + item.id + '">⚡ Charger</button>';
-        html += '<a href="https://duffus.fr/skinator/' + item.code + '" target="_blank" class="skinator-btn gold sm" style="text-decoration:none;">🌐 3D ↗</a>';
-        html += '<button class="skinator-btn sm" data-copy-code="' + item.code + '">📋 Code</button>';
+        html += '<button class="skinator-btn sm" data-copy-saved-colors="' + item.id + '">🎨 Couleurs</button>';
         html += '<button class="skinator-btn danger sm" data-delete-skin="' + item.id + '" style="margin-left:auto;">🗑️</button>';
         html += '</div>';
 
@@ -659,20 +598,23 @@
       var btnSave = root.querySelector("#btn-save-skin");
       if (btnSave) btnSave.addEventListener("click", function() { self.saveCurrentSkin(); });
 
-      var btnImport = root.querySelector("#btn-import-code");
-      if (btnImport) btnImport.addEventListener("click", function() { self.importSkinPrompt(); });
+      var btnDownload = root.querySelector("#btn-download-png");
+      if (btnDownload) btnDownload.addEventListener("click", function() { self.downloadCurrentPng(); });
 
       var btnReset = root.querySelector("#btn-reset-skin");
       if (btnReset) btnReset.addEventListener("click", function() { self.resetSkin(); });
 
-      var btnCopyCode = root.querySelector("#btn-copy-skin-code");
-      if (btnCopyCode) btnCopyCode.addEventListener("click", function() { self.copySkinCode(); });
-
       var btnCopyColors = root.querySelector("#btn-copy-dofus-colors");
       if (btnCopyColors) btnCopyColors.addEventListener("click", function() { self.copyDofusColors(); });
 
-      var btnToggle3d = root.querySelector("#btn-toggle-3d");
-      if (btnToggle3d) btnToggle3d.addEventListener("click", function() { self.show3D = !self.show3D; self.render(); });
+      var btnRotLeft = root.querySelector("#btn-rot-left");
+      if (btnRotLeft) btnRotLeft.addEventListener("click", function() { self.rotateCharacter(-1); });
+
+      var btnRotRight = root.querySelector("#btn-rot-right");
+      if (btnRotRight) btnRotRight.addEventListener("click", function() { self.rotateCharacter(1); });
+
+      var btnToggleZoom = root.querySelector("#btn-toggle-zoom");
+      if (btnToggleZoom) btnToggleZoom.addEventListener("click", function() { self.toggleViewMode(); });
 
       var btnExport = root.querySelector("#btn-export-skins");
       if (btnExport) btnExport.addEventListener("click", function() { self.exportAllSkins(); });
@@ -688,9 +630,14 @@
         btn.addEventListener("click", function() { self.deleteSavedSkin(btn.dataset.deleteSkin); });
       });
 
-      root.querySelectorAll("[data-copy-code]").forEach(function(btn) {
+      root.querySelectorAll("[data-copy-saved-colors]").forEach(function(btn) {
         btn.addEventListener("click", function() {
-          navigator.clipboard.writeText(btn.dataset.copyCode).then(function() { showToast("Code copié !"); });
+          var target = loadSavedSkins().find(function(s) { return s.id === btn.dataset.copySavedColors; });
+          if (target && target.couleurs) {
+            var parts = COLOR_CHANNELS.map(function(ch) { return numToHex(target.couleurs[ch.id] || 0); });
+            var text = parts.join(", ");
+            navigator.clipboard.writeText(text).then(function() { showToast("Codes couleurs copiés : " + text); });
+          }
         });
       });
 
@@ -727,7 +674,11 @@
 
       root.querySelectorAll(".color-picker").forEach(function(inp) {
         inp.addEventListener("input", function(e) {
-          self.setColor(Number(e.target.dataset.channel), e.target.value);
+          var ch = Number(e.target.dataset.channel);
+          self.skin.couleurs[ch] = hexToNum(e.target.value);
+          var txt = root.querySelector('[data-hex-channel="' + ch + '"]');
+          if (txt) txt.value = e.target.value;
+          self.updateAvatarImage();
         });
       });
 
@@ -834,7 +785,7 @@
                 id: "skinator-app",
                 type: "skinator",
                 label: "Skinator",
-                recap: "Créez, personnalisez et sauvegardez vos skins d'apparat Dofus. Compatible avec les codes de partage <a href='https://duffus.fr/skinator/' target='_blank'>Duffus.fr</a>, avec recherche parmi 3 800+ équipements officiels, suggestions de teintes d'harmonie et coffre-fort de skins personnel.",
+                recap: "Créez, personnalisez et sauvegardez vos skins d\'apparat Dofus. Rendu visuel en direct avec rotation à 360°, recherche parmi plus de 3 800 équipements officiels et coffre-fort de skins personnel.",
                 items: []
               }
             ]

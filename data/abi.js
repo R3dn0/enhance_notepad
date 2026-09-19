@@ -321,6 +321,46 @@ window.StashApp.register('abi', {
           legend:[
             {label:'Budget — ~85k weapon build', color:'var(--color-accent)'},
           ]
+        },
+        {
+          id:'m4a1-budget',
+          label:'🎬 Budget M4A1 (~200k)',
+          filters:[
+            {id:'all', label:'All'},
+            {id:'budget', label:'Budget'},
+          ],
+          categories:[
+            {
+              id:'m4a1-header',
+              label:'Budget M4A1',
+              subcats:[{
+                label:'',
+                recap:"A mid-range budget <b>M4A1</b> by <b>Andrew Z</b> — a very effective ~200k weapon build (~550k total kit) designed for Lockdown, combining high-value attachments (AR modern stock, 2k pistol grip, meta grip on AR special universal handguard) with A1 ammo.<br><br>🎬 <a href='https://www.youtube.com/watch?v=9BYpFT_EkdA'>Watch the video — This BUDGET M4A1 Is All You Need In Arena Breakout Infinite</a>",
+                items:[]
+              }]
+            },
+            {
+              id:'budget',
+              label:'💋 Budget',
+              subcats:[{
+                label:'Mid-Range Budget M4A1 + Armored Rig',
+                recap:'Balanced recoil and ergo for ~200k weapon cost (~550k total kit). Medium barrel with AR special universal handguard and red dot sight.',
+                items:[
+                  { cat:'budget', name:"M4A1 — Andrew Z's 200k Budget Build",
+                    img:'assets/abi/andrewz/m4a1-budget/M4A1.webp',
+                    imgFull:'assets/abi/andrewz/m4a1-budget/M4A1-hd.webp',
+                    weapon:'M4A1 mid-range budget build (~200k)',
+                    ammo:'5.56x45mm A1 (Tier 4)',
+                    rig:'Armored rig (e.g. 926 rig)',
+                    total:'~200k weapon (~550k kit)',
+                    note:"AR modern stock (2k Koen, great value stats), 2k pistol grip (+5 ergo), meta grip on AR special universal handguard, medium barrel, simple red dot, and AR 30-round mags (or 60-rounders). Perm-regen stim meta when overweight. 4.4M extract with full lobby wipe (7 kills)." }
+                ]
+              }]
+            }
+          ],
+          legend:[
+            {label:'Budget — ~200k weapon build', color:'var(--color-accent)'},
+          ]
         }
       ]
     },

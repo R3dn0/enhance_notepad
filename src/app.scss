@@ -3,6 +3,7 @@
 @source "../index.html";
 @source "../stalzone.html";
 @source "../abi.html";
+@source "../dofus.html";
 @source "../assets/app.js";
 @source "../data/**/*.js";
 
@@ -317,6 +318,13 @@ footer {
   --card-accent: #93a84e;
   --card-text: #e9e6d6;
   --card-muted: #949582;
+}
+.theme-card[data-theme="dofus"] {
+  --card-bg: #0c1411;
+  --card-line: #1c3329;
+  --card-accent: #2ec486;
+  --card-text: #e6f4ed;
+  --card-muted: #83a598;
 }
 
 @media (max-width:600px){

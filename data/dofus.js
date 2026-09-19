@@ -47,7 +47,35 @@
   ];
 
   // Base de données des skins Dofus (alimentée par vos ajouts)
-  const SKINS = [];
+  const SKINS = [
+    {
+      id: 'sram-f-001',
+      name: 'Sram Krosmoz & Chevalier Noir',
+      class: 'sram',
+      gender: 'female',
+      head: 'Visage Sram F',
+      headImage: 'assets/dofus/skins/sram-f-001-head.webp',
+      image: 'assets/dofus/skins/sram-f-001.webp',
+      imageFull: 'assets/dofus/skins/sram-f-001-hd.webp',
+      colors: {
+        peau: '#A16F4D',
+        cheveux: '#26221A',
+        vetement1: '#EFE8CC',
+        vetement2: '#6B4134',
+        vetement3: '#6D423A',
+        vetement4: '#492C24'
+      },
+      items: {
+        coiffe: "Cache-œil des 25 ans du Krosmoz",
+        cape: "Cape glorieuse polykrome 2",
+        bouclier: "Aucun",
+        familier: "Tofookie",
+        epaulieres: "Aucune",
+        costume: "Plastron de Chevalier Noir",
+        armes: "Aucune"
+      }
+    }
+  ];
 
   // État local pour les filtres du module Skins
   const skinState = {

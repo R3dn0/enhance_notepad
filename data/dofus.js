@@ -86,7 +86,7 @@
       gender: "male",
       headKey: "0",
       bodyKey: "1",
-      couleurs: { 0: 16110515, 1: 16737792, 2: 3355443, 3: 16777215, 4: 11149858 },
+      couleurs: { 0: 15704172, 1: 15301153, 2: 14736065, 3: 12200764, 4: 484225 },
       slots: {}
     },
 
@@ -123,9 +123,17 @@
 
       var s = skinObj || this.skin;
       var breed = this.breeds.find(function(b) { return b.id === s.breedId; });
-      var isFemale = s.gender === "female";
-      var bodySkin = breed ? (isFemale ? breed.femaleBody : breed.maleBody) : 80;
-      var headSkin = breed ? (isFemale ? breed.femaleHead : breed.maleHead) : 2124;
+      var gender = s.gender === "female" ? "female" : "male";
+      var isFemale = gender === "female";
+
+      var headsMap = (breed && breed.heads) ? breed.heads[gender] : null;
+      var bodiesMap = (breed && breed.bodies) ? breed.bodies[gender] : null;
+
+      var headKey = String(s.headKey != null ? s.headKey : "0");
+      var bodyKey = String(s.bodyKey != null ? s.bodyKey : "1");
+
+      var bodySkin = (bodiesMap && bodiesMap[bodyKey]) || (bodiesMap && bodiesMap["1"]) || (isFemale ? 11 : 10);
+      var headSkin = (headsMap && headsMap[headKey]) || (headsMap && headsMap["0"]) || (isFemale ? 2020 : 2012);
 
       var skins = [bodySkin, headSkin];
 
@@ -159,10 +167,18 @@
       var self = this;
       var breed = this.breeds.find(function(b) { return b.id === self.skin.breedId; });
       if (breed) {
-        var colors = breed.colors[this.skin.gender] || breed.colors.male || [];
-        colors.forEach(function(c, idx) {
-          if (idx < 5) self.skin.couleurs[idx] = c;
-        });
+        if (breed.colors) {
+          var colors = breed.colors[this.skin.gender] || breed.colors.male || [];
+          colors.forEach(function(c, idx) {
+            if (idx < 5) self.skin.couleurs[idx] = c;
+          });
+        }
+        var gender = this.skin.gender === "female" ? "female" : "male";
+        var headsMap = breed.heads ? breed.heads[gender] : null;
+        if (headsMap && !headsMap[this.skin.headKey]) {
+          var keys = Object.keys(headsMap);
+          this.skin.headKey = keys.length ? keys[0] : "0";
+        }
       }
       this.render();
     },
@@ -172,11 +188,43 @@
       var self = this;
       var breed = this.breeds.find(function(b) { return b.id === self.skin.breedId; });
       if (breed) {
-        var colors = breed.colors[gender] || [];
-        colors.forEach(function(c, idx) {
-          if (idx < 5) self.skin.couleurs[idx] = c;
-        });
+        if (breed.colors) {
+          var colors = breed.colors[gender] || [];
+          colors.forEach(function(c, idx) {
+            if (idx < 5) self.skin.couleurs[idx] = c;
+          });
+        }
+        var headsMap = breed.heads ? breed.heads[gender] : null;
+        if (headsMap && !headsMap[this.skin.headKey]) {
+          var keys = Object.keys(headsMap);
+          this.skin.headKey = keys.length ? keys[0] : "0";
+        }
       }
+      this.render();
+    },
+
+    setHeadKey: function(key) {
+      this.skin.headKey = String(key);
+      this.render();
+    },
+
+    cycleHead: function(delta) {
+      var self = this;
+      var breed = this.breeds.find(function(b) { return b.id === self.skin.breedId; });
+      var gender = this.skin.gender === "female" ? "female" : "male";
+      var headsMap = (breed && breed.heads) ? breed.heads[gender] : null;
+      if (!headsMap) return;
+      var keys = Object.keys(headsMap);
+      if (!keys.length) return;
+      var currentIdx = keys.indexOf(String(this.skin.headKey));
+      if (currentIdx === -1) currentIdx = 0;
+      var nextIdx = (currentIdx + delta + keys.length) % keys.length;
+      this.skin.headKey = keys[nextIdx];
+      this.render();
+    },
+
+    setBodyKey: function(key) {
+      this.skin.bodyKey = String(key);
       this.render();
     },
 
@@ -211,6 +259,8 @@
       this.skin.id = null;
       this.skin.name = "Nouveau Skin";
       this.skin.slots = {};
+      this.skin.headKey = "0";
+      this.skin.bodyKey = "1";
       this.setBreed(this.skin.breedId);
       showToast("Skin réinitialisé");
     },
@@ -228,6 +278,8 @@
         name: name.trim(),
         breedId: this.skin.breedId,
         gender: this.skin.gender,
+        headKey: String(this.skin.headKey != null ? this.skin.headKey : "0"),
+        bodyKey: String(this.skin.bodyKey != null ? this.skin.bodyKey : "1"),
         couleurs: Object.assign({}, this.skin.couleurs),
         slots: Object.assign({}, this.skin.slots),
         updatedAt: new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" })
@@ -255,8 +307,8 @@
         name: target.name,
         breedId: target.breedId,
         gender: target.gender,
-        headKey: "0",
-        bodyKey: "1",
+        headKey: String(target.headKey != null ? target.headKey : "0"),
+        bodyKey: String(target.bodyKey != null ? target.bodyKey : "1"),
         couleurs: Object.assign({}, target.couleurs),
         slots: Object.assign({}, target.slots)
       };
@@ -402,6 +454,45 @@
       html += '<div class="gender-toggle">';
       html += '<button type="button" class="' + (this.skin.gender === "male" ? "active" : "") + '" id="btn-gender-male">♂ Homme</button>';
       html += '<button type="button" class="' + (this.skin.gender === "female" ? "active" : "") + '" id="btn-gender-female">♀ Femme</button>';
+      html += '</div>';
+      html += '</div>';
+
+      var gender = this.skin.gender === "female" ? "female" : "male";
+      var headsMap = (currentBreed && currentBreed.heads) ? currentBreed.heads[gender] : null;
+      var headKeys = headsMap ? Object.keys(headsMap) : ["0"];
+      var currentHead = String(this.skin.headKey != null ? this.skin.headKey : "0");
+      var currentBody = String(this.skin.bodyKey != null ? this.skin.bodyKey : "1");
+
+      var headOptionsHtml = "";
+      headKeys.forEach(function(k, index) {
+        var isSel = (String(k) === currentHead) ? ' selected' : '';
+        headOptionsHtml += '<option value="' + k + '"' + isSel + '>Visage ' + (index + 1) + '</option>';
+      });
+
+      var bodyTypes = [
+        { key: "1", label: "Standard" },
+        { key: "2", label: "Fin" },
+        { key: "3", label: "Musclé" }
+      ];
+      var bodyButtonsHtml = "";
+      bodyTypes.forEach(function(bt) {
+        var isActive = (currentBody === bt.key) ? ' active' : '';
+        bodyButtonsHtml += '<button type="button" class="' + isActive + '" data-body-key="' + bt.key + '">' + bt.label + '</button>';
+      });
+
+      html += '<div class="skinator-morph-meta">';
+      html += '<div class="morph-group">';
+      html += '<span class="morph-label">Visage</span>';
+      html += '<div class="morph-controls">';
+      html += '<button type="button" class="skinator-btn sm" id="btn-head-prev" title="Visage précédent">◀</button>';
+      html += '<select id="select-head">' + headOptionsHtml + '</select>';
+      html += '<button type="button" class="skinator-btn sm" id="btn-head-next" title="Visage suivant">▶</button>';
+      html += '</div>';
+      html += '</div>';
+
+      html += '<div class="morph-group">';
+      html += '<span class="morph-label">Corpulence</span>';
+      html += '<div class="body-buttons">' + bodyButtonsHtml + '</div>';
       html += '</div>';
       html += '</div>';
 
@@ -649,6 +740,33 @@
 
       var btnFemale = root.querySelector("#btn-gender-female");
       if (btnFemale) btnFemale.addEventListener("click", function() { self.setGender("female"); });
+
+      var selectHead = root.querySelector("#select-head");
+      if (selectHead) {
+        selectHead.addEventListener("change", function(e) {
+          self.setHeadKey(e.target.value);
+        });
+      }
+
+      var btnHeadPrev = root.querySelector("#btn-head-prev");
+      if (btnHeadPrev) {
+        btnHeadPrev.addEventListener("click", function() {
+          self.cycleHead(-1);
+        });
+      }
+
+      var btnHeadNext = root.querySelector("#btn-head-next");
+      if (btnHeadNext) {
+        btnHeadNext.addEventListener("click", function() {
+          self.cycleHead(1);
+        });
+      }
+
+      root.querySelectorAll("[data-body-key]").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          self.setBodyKey(btn.dataset.bodyKey);
+        });
+      });
 
       root.querySelectorAll("[data-open-slot]").forEach(function(btn) {
         btn.addEventListener("click", function() {

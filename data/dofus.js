@@ -724,6 +724,411 @@
   }
 
   // =========================================================================
+  // DONNÉES DES GUIDES DOFUS (DAIGO & MÉTIERS)
+  // =========================================================================
+  const GUIDES_DATA = {
+    videos: [
+      {
+        id: 'metiers-economie',
+        label: '⚒️ Métiers — Du 0 Kamas au 200 (Daigo)',
+        filters: [
+          { id: 'all', label: 'Tout voir' },
+          { id: 'theorie', label: '💡 Principes Économiques' },
+          { id: 'paliers', label: '⚡ Paliers & Synergies' },
+          { id: 'route', label: '🗺️ Roadmap 0 Kamas' },
+          { id: 'passifs', label: '📦 Routine Passive' },
+          { id: 'tierlist', label: '🏆 Tier List' }
+        ],
+        categories: [
+          {
+            id: 'guide-header',
+            label: 'Guide Métiers Dofus — Économie & Optimisation',
+            subcats: [
+              {
+                label: 'Tout ce que vous devez savoir pour monter vos métiers sans perte',
+                recap: "Monter ses métiers dans Dofus fonctionne comme une <b>véritable entreprise de production</b> : stratégie, logistique, offre et demande. Plutôt que de subir des pertes financières, cette méthode repose sur la maximisation de la <b>liquidité</b>, l'anticipation des <b>synergies</b> (intégration verticale) et l'exploitation des <b>rentes de marché</b> pour amener tous ses métiers au niveau 200 en partant de 0 kamas.<br><br>🎬 <a href='https://www.youtube.com/watch?v=u2eHffxtrBw'>Voir la vidéo originale sur YouTube — Tout ce que vous devez savoir pour monter vos métiers (Daigo)</a>",
+                items: []
+              }
+            ]
+          },
+          {
+            id: 'theorie',
+            label: '💡 Principes Économiques Fondamentaux',
+            subcats: [
+              {
+                label: 'Les 4 Règles d\'Or de l\'Économie Dofusienne',
+                recap: "Pour éviter d'immobiliser ses kamas et optimiser son temps de jeu, 4 concepts économiques doivent guider chaque décision : la liquidité des ventes, le coût d'opportunité, la vélocité du capital et la gestion de trésorerie.",
+                items: [
+                  {
+                    tag: 'opti',
+                    name: 'Volume de transaction & Liquidité',
+                    desc: "Un objet très liquide s'échange rapidement sans déstabiliser son cours. Un objet à faible rotation fait peser le risque du <b>stock mort</b> : vos kamas restent bloqués en HDV sans générer de valeur."
+                  },
+                  {
+                    tag: 'opti',
+                    name: "Coût d'opportunité (Le piège du faux gratuit)",
+                    desc: "Passer 1h à récolter soi-même ses ressources pour un craft rapportant 50 000 k/h alors qu'une autre activité rapporte 150 000 k/h équivaut à <b>perdre 100 000 k/h</b>. Farmez l'activité la plus lucrative et achetez les composants en HDV."
+                  },
+                  {
+                    tag: 'metier',
+                    name: 'Intégration verticale & Synergies',
+                    desc: "Posséder les maillons en amont de sa chaîne de production élimine les marges payées aux intermédiaires (ex. : l'Alchimiste fabrique les potions pour le Bûcheron qui fournit le bois au Forgeron)."
+                  },
+                  {
+                    tag: 'kamas',
+                    name: 'Vélocité du capital (Cycle Achat → Craft → Vente)',
+                    desc: "Vitesse à laquelle vos kamas investis reviennent avec leur bénéfice. Mieux vaut un cycle court de 2 heures avec 15% de marge (ex. substrats) qu'un item avec 80% de marge qui met une semaine à partir."
+                  },
+                  {
+                    tag: 'base',
+                    name: 'Gestion de trésorerie 80 / 20 (Loi de Pareto)',
+                    desc: "<b>80% de vos kamas doivent être réinvestis</b> dans des flux de production ou en HDV (un kama qui dort rapporte 0%). Gardez <b>20% de cash liquide</b> pour saisir les opportunités imprévues (erreurs de prix, canal commerce)."
+                  }
+                ]
+              },
+              {
+                label: 'Formules de Décision : Quoi Fabriquer ?',
+                recap: "Ne regardez jamais la marge en pourcentage seule (un item à 80% de marge vendu 1x/semaine perd face à un item à 20% vendu 50x/jour). Raisonnez toujours en <b>moyenne sur les 30 derniers jours</b> pour lisser la volatilité :<br><br>• <b>Vente journalière moyenne :</b> <code>Volume 30 jours / 30</code><br>• <b>Marge journalière brute :</b> <code>Ventes/j × Marge nette unitaire en kamas</code> (indique le cash générable par jour)<br>• <b>Indice de profitabilité :</b> <code>Ventes/j × Marge en %</code> (arbitre le meilleur retour sur investissement sans immobiliser trop de capital)<br><br><div class='guide-callout'><b>Exemple concret :</b> L'Huile de coude génère plus de marge brute potentielle (+530k k/j vs 384k k/j), mais l'Épée de boisaille a un meilleur indice de profitabilité (13 400 vs 9 700) car elle nécessite un investissement initial bien plus faible.</div>",
+                items: [
+                  {
+                    tag: 'kamas',
+                    name: 'Marge Journalière Brute',
+                    desc: "Multiplie les ventes journalières par la marge nette en kamas. C'est l'indicateur direct du cash que le produit peut injecter dans votre trésorerie chaque jour."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Indice de Profitabilité',
+                    desc: "Multiplie les ventes journalières par la marge en %. À gain brut similaire, choisissez toujours l'indice le plus haut pour engager un minimum de capital."
+                  },
+                  {
+                    tag: 'base',
+                    name: 'Actualisation des prix & Taxes de vente',
+                    desc: "Baisser un prix coûte une taxe de 2% (1% sans baisse). N'actualisez que si le cours s'écarte nettement de sa moyenne sur 30 jours. Sur un marché stable, modifier sans cesse son prix détruit vos profits."
+                  }
+                ]
+              },
+              {
+                label: 'D\'où Vient le Profit ? (Les 3 Socles Réels)',
+                recap: "Le risque et l'innovation n'étant pas protégés dans un jeu vidéo (pas de propriété intellectuelle), le bénéfice durable repose sur 3 leviers : l'information, la compétence et la puissance financière.",
+                items: [
+                  {
+                    tag: 'kamas',
+                    name: 'Rente Informationnelle (Le Brisage)',
+                    desc: "Vous payez l'information en brisant des équipements à l'aveugle. Dès qu'un bon coefficient de runes est déniché, vous captez une rente temporaire jusqu'à ce que d'autres joueurs découvrent le filon."
+                  },
+                  {
+                    tag: 'metier',
+                    name: 'Compétence Technique (Forgemagie & Élevage)',
+                    desc: "Maîtriser les calculs de puits, poids de runes et over-stats constitue une <b>barrière à l'entrée durable</b>. Ce savoir-faire ne se copie pas d'un simple clic : sa marge reste pérenne dans le temps."
+                  },
+                  {
+                    tag: 'kamas',
+                    name: 'Puissance du Capital (Activité de Grossiste)',
+                    desc: "Acheter en gros volumes permet de négocier des prix bas et de revendre au détail ou par lots (1, 10, 100) avec une surprime unitaire, apportant de la liquidité tout en dégageant un profit automatique."
+                  }
+                ]
+              },
+              {
+                label: 'Diversification des Ventes en HDV',
+                recap: "Ne mettez pas tous vos œufs dans le même panier. Pour que vos rentrées de kamas soient constantes même quand un secteur ralentit, diversifiez votre capital selon la vitesse de vente des marchés :<table><thead><tr><th>Marché HDV</th><th>Allocation</th><th>Comportement & Intérêt</th></tr></thead><tbody><tr><td><b>HDV Ressources</b></td><td>50 %</td><td>Rotation ultra-rapide, flux de kamas continu au quotidien</td></tr><tr><td><b>HDV Runes</b></td><td>30 %</td><td>Issu du brisage régulier, très grosse liquidité</td></tr><tr><td><b>HDV Équipements</b></td><td>15 %</td><td>Items de quête BL et pièces FM à forte plus-value</td></tr><tr><td><b>Divers / Consommables</b></td><td>5 %</td><td>Pierres d'âmes, potions, huiles, cosmétiques</td></tr></tbody></table>",
+                items: []
+              }
+            ]
+          },
+          {
+            id: 'paliers',
+            label: '⚡ Paliers de Puissance & Synergies',
+            subcats: [
+              {
+                label: 'Power Spikes : La Progression Non-Linéaire',
+                recap: "Dans Dofus, monter un métier niveau par niveau sans plan est une perte de temps et de kamas. Il faut cibler des <b>paliers stratégiques</b> qui débloquent des crafts très rentables ou des recettes à ratio XP/kamas imbattable.",
+                items: [
+                  {
+                    tag: 'opti',
+                    name: 'Métiers de Craft d\'équipements',
+                    desc: "<b>Inutiles avant le niveau 60.</b> Au niveau 60, accès au brisage BL qui débloque quasi toutes les runes du jeu. Nouveaux pics au niveau 110 (forte demande de stuff) et 150-200."
+                  },
+                  {
+                    tag: 'metier',
+                    name: 'Métiers de Forgemagie (Costumage, Cordo...)',
+                    desc: "Suivent la demande d'équipement des joueurs. Le <b>palier 110 est roi</b> : forte demande, coût abordable et FM accessible pour sortir des over-stats très recherchées."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Alchimiste (Paliers 30 / 60 / 100)',
+                    desc: "<b>30 :</b> Potions de souvenir (clé des substrats). <b>60 :</b> Potion TP village éleveurs (ratio record de 1100 XP / 1000 k) et teinture rouge. <b>100 :</b> Edelweiss (1ère récolte rentable)."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Bûcheron (Paliers 40 / 90+)',
+                    desc: "<b>40 :</b> Substrat de bocage (premier substrat très rentable). <b>90+ :</b> Pins et bois nobles dont la récolte rapporte gros. Progression naturelle ensuite tous les 20 niveaux via les substrats."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Mineur (Paliers 40 / 100-120)',
+                    desc: "<b>40 :</b> Alliage Ébonite. <b>100-120 :</b> Étain, bauxite et minerais nobles. Métier autarcique : peu de synergies au début, explose en récolte à haut niveau."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Paysan (Paliers 32 / 100 / 160)',
+                    desc: "<b>32 :</b> Huiles de coude et de noix (pierres d'âmes). <b>100 :</b> Seigle. <b>160 :</b> Céréales rares. Démarrage très accessible, synergies permanentes avec l'alchimiste."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Pêcheur (Paliers 80 / 95 / 120+)',
+                    desc: "<b>80 & 120 :</b> Brandades (craft full XP à très bas coût). <b>95 :</b> Jus de poisson (1er craft rentable). Très faible avant le niveau 100, à monter plus tardivement.",
+                    warn: true
+                  }
+                ]
+              },
+              {
+                label: 'Le Réseau de Synergies Croisées',
+                recap: "Les métiers s'alimentent mutuellement en boucle fermée :<br><br>• <b>Le couple Alchimiste ↔ Paysan :</b> Doit progresser avec 20 à 40 niveaux d'écart. L'Alchimiste fournit des ressources pour le craft Paysan à n+20 (le craft Paysan 120 demande des récoltes Alchi 100). En retour, le Paysan 100/120 fournit les céréales pour les potions Alchi 95/135.<br>• <b>La chaîne Alchimiste → Bûcheron :</b> Alchi 30 (souvenir) → Substrats Bûch 40/60 ; Alchi 95 (vieillesse) → Substrats Bûch 100 ; Alchi 135 (ancêtres) → Substrats Bûch 140/160 ; Alchi 175 (glandage) → Substrats Bûch 180/200.<br>• <b>XP Dégressive (Dofus 3 / Unity) :</b> Plus votre niveau dépasse celui d'une recette, plus l'XP accordée baisse drastiquement. Utilisez le calculateur DofusDB pour optimiser vos quantités de crafts.",
+                items: []
+              }
+            ]
+          },
+          {
+            id: 'route',
+            label: '🗺️ Roadmap 0 Kamas : Progression Étape par Étape',
+            subcats: [
+              {
+                label: 'Phase 1 : Le Démarrage à Nu — Incarnam & Début Astrub (0k)',
+                recap: "Objectif : Créer le premier apport de trésorerie sans aucun investissement.<br><br>1. Équipez une arme de chasse dès Incarnam. Farmez les mobs pour préparer <b>77 bouillons de chair</b> → <b>Chasseur niv. 10</b>. Vendez les drops pour constituer votre premier capital.<br>2. Montez <b>Mineur niv. 10</b> sur les filons regroupés d'Incarnam.<br>3. Récoltez blé et orties sur les maps communes. Vendez les orties brutes en HDV. Craftez du pain avec le blé (même à perte) pour <b>rusher Paysan niv. 32</b>.<br>4. <span class='guide-badge-pill kamas'>Flux Passif #1</span> Dès le niveau 32 Paysan atteint, craftez et mettez en vente des <b>Huiles de coude et de noix</b> (ingrédients incontournables des pierres d'âmes). Réapprovisionnez dès que vendu.",
+                items: [
+                  {
+                    tag: 'farming',
+                    name: 'Chasseur niv. 10 (77 bouillons)',
+                    desc: "Le farm Incarnam génère viandes et drops vendables pour amorcer la trésorerie de départ sans aucun coût."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Rush Paysan 32 (Pain à perte assumée)',
+                    desc: "Le pain est produit à perte contrôlée dans l'unique but de franchir immédiatement le cap des huiles lucratives."
+                  },
+                  {
+                    tag: 'kamas',
+                    name: 'Flux Passif 1 : Huiles de coude & noix',
+                    desc: "Premier investissement passif à réapprovisionner en permanence en HDV consommables."
+                  }
+                ]
+              },
+              {
+                label: 'Phase 2 : Le Moteur Alchimiste & Bûcheron (Forêt d\'Astrub)',
+                recap: "Objectif : Débloquer la boucle des substrats de bois.<br><br>1. Récoltez en Forêt d'Astrub (maps combinant bois et plantes) et cueillez de l'orge. Vendez orties, frêne et orge jusqu'à <b>Alchi niv. 20</b>.<br>2. <b>Investissez 30 000 k</b> pour rusher <b>Alchi niv. 30</b> : craftez 100 potions chasseur de trésor OU 190 potions destination inconnue.<br>3. <b>Stockage :</b> Arrêtez de vendre vos orties et sauges : conservez-les pour fabriquer vos <b>potions de souvenir</b> gratuites.<br>4. Montez <b>Bûcheron niv. 20 → 40</b> grâce à ces substrats faits maison.<br>5. <span class='guide-badge-pill kamas'>Flux Passif #2</span> Déblocage des <b>Substrats de bocage (niv. 40)</b>. Achetez les matières premières en HDV, craftez et revendez directement.<br>6. Farmez les <i>Souterrains d'Astrub</i> (viandes niveau 10 + ressources) pour amener votre capital à <b>200 000 kamas</b>.",
+                items: [
+                  {
+                    tag: 'opti',
+                    name: 'Injection 30k k : Alchimiste niv. 20 → 30',
+                    desc: "100 potions chasseur de trésor ou 190 destination inconnue pour déverrouiller immédiatement les potions de souvenir."
+                  },
+                  {
+                    tag: 'kamas',
+                    name: 'Flux Passif 2 : Substrats de bocage 40',
+                    desc: "Cycle d'achat-craft-vente ultra-court sur 5 ressources très liquides (orties, sauge, frêne, châtaignier, noyer)."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Souterrains d\'Astrub (Chasseur 10)',
+                    desc: "Farm des viandes niveau 10 et drops de valeur pour franchir le palier d'entrée de 200 000 kamas."
+                  }
+                ]
+              },
+              {
+                label: 'Phase 3 : Bonta, Métiers de Craft & Brisage BL (Seuil : 200 000 k)',
+                recap: "Objectif : Transformer des équipements à bas coût en runes à forte valeur.<br><br>1. Rendez-vous aux ateliers de Bonta avec vos 200k k. Choisissez un premier métier (ex. : <b>Bijoutier</b>) :<br>   • <b>Niv. 1 à 25 :</b> Recettes purement axées sur l'XP à coût minimal.<br>   • <b>Niv. 25 à 50 :</b> Craftez des séries d'amulettes/anneaux BL et <b>brisez-les</b>. Vendez les runes en HDV.<br>2. Dès que les runes sont vendues et que les 200k k sont reconstitués, dupliquez sur les autres métiers : <b>Tailleur → Cordonnier → Sculpteur → Forgeron</b>.<br>3. <span class='guide-badge-pill kamas'>Flux Passif #3</span> Vos métiers de craft sont niveau 50. Réalisez chaque jour quelques tests de brisage BL pour dénicher les coefficients cachés.<br>4. La fabrication répétée des substrats 40 fait naturellement passer votre <b>Bûcheron niveau 60</b> → activez les <b>Substrats 60</b> en passif.",
+                items: [
+                  {
+                    tag: 'metier',
+                    name: 'Bijoutier, Tailleur, Cordonnier niv. 50',
+                    desc: "Leveling 1-25 craft XP, 25-50 brisage BL. Les runes se vendent rapidement et financent les métiers suivants."
+                  },
+                  {
+                    tag: 'kamas',
+                    name: 'Flux Passif 3 : Brisage BL quotidien',
+                    desc: "Séance de brisage quotidienne pour approvisionner l'HDV runes et capter la rente informationnelle."
+                  },
+                  {
+                    tag: 'metier',
+                    name: 'Bûcheron niv. 60 (Substrats 60)',
+                    desc: "Montée automatique grâce aux ventes de substrats 40. Vous ajoutez les substrats 60 à vos flux passifs."
+                  }
+                ]
+              },
+              {
+                label: 'Phase 4 : L\'Effet de Levier du Million & Mineur 40 (Seuil : 1M k)',
+                recap: "Objectif : Débloquer les alliages de mineur via un investissement à perte contrôlée.<br><br>1. Faites tourner vos flux passifs (huiles, substrats 40/60, brisage BL) jusqu'à atteindre <b>1 000 000 k</b>.<br>2. Vérifiez en HDV que l'<b>Ébonite</b> offre une marge positive (idéalement 20-25%).<br>3. Investissez 500k à 600k k à perte pour propulser le Mineur :<br>   • 59 Féneuses/Ferrites (niv. 10 → 20)<br>   • 65 Aluminites (niv. 20 → 30)<br>   • 171 Aluminites (niv. 30 → 40)<br>4. <span class='guide-badge-pill kamas'>Flux Passif #4</span> Craftez et vendez l'<b>Ébonite</b> (Mineur 40) en continu jusqu'au up 60 pour débloquer l'alliage suivant.<br><div class='guide-callout'>À ce stade, le potentiel théorique de marge de vos métiers dépasse largement les <b>10 millions de kamas par jour</b>.</div>",
+                items: [
+                  {
+                    tag: 'opti',
+                    name: 'Rush Mineur niv. 10 → 40 (-500k k)',
+                    desc: "Perte délibérée et entièrement amortie par les autres passifs pour débloquer l'Ébonite au niveau 40."
+                  },
+                  {
+                    tag: 'kamas',
+                    name: 'Flux Passif 4 : Alliage Ébonite 40',
+                    desc: "Mise en vente en continu en HDV Mineur jusqu'au déblocage du palier d'alliage 60+."
+                  }
+                ]
+              },
+              {
+                label: 'Phase 5 : Façonneur, Trophées & Écosystème Niv. 100',
+                recap: "Objectif : Boucler les synergies avancées Paysan/Alchimiste/Bûcheron.<br><br>1. <b>La boucle Alchi / Paysan / Bûcheron :</b><br>   • Up <b>Alchimiste 80</b> → permet <b>Paysan 100</b>.<br>   • Céréales Paysan 100 → Potions de vieillesse (<b>Alchimiste 95</b>).<br>   • Potions de vieillesse → <b>Substrats Bûcheron 100</b>.<br>2. Montez <b>Façonneur niv. 1 à 50</b> via des boucliers BL, puis craftez et vendez les <b>Trophées niveau 50</b> (très forte rotation en HDV).<br>3. Vos métiers de craft atteignent le <b>niveau 100</b> grâce à vos séances régulières de brisage, élargissant votre catalogue d'objets testables.",
+                items: [
+                  {
+                    tag: 'metier',
+                    name: 'Façonneur 50 & Trophées 50',
+                    desc: "Boucliers BL pour up 50, puis vente en continu des Trophées 50 très prisés des joueurs en leveling."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Boucle Alchi 95 / Bûcheron 100',
+                    desc: "Les potions de vieillesse ouvrent les substrats 100 en boucle fermée sans dépendre du marché."
+                  }
+                ]
+              },
+              {
+                label: 'Phase 6 : L\'Assaut sur la Forgemagie (Seuil : 5M k)',
+                recap: "Objectif : Conquérir la rente de compétence la plus rentable du jeu.<br><br>1. <b>Ne commencez pas la FM avec de petites économies :</b> Attendez d'avoir accumulé 5 millions de kamas en trésorerie.<br>2. <b>Règle du One-Shot :</b> Montez un premier métier de FM <b>directement au niveau 110 d'une seule traite</b> (commencez par <b>Costumage</b>).<br>3. Réalisez des over-stats propres sur les équipements du palier 110 (gros volume de vente, FM facile et marge très élevée).<br>4. <b>Règle d'or :</b> Attendez de vendre vos équipements FM et de reconstituer vos 5M k de base avant de monter le métier suivant (Cordomage, puis Joaillomage).",
+                items: [
+                  {
+                    tag: 'kamas',
+                    name: 'Rush FM Direct Niv. 110 (Costumage)',
+                    desc: "Monter d'un coup au niveau 110 pour attaquer directement la tranche de stuff la plus demandée du jeu."
+                  },
+                  {
+                    tag: 'base',
+                    name: 'Reconstitution stricte du capital',
+                    desc: "Ne lancez le 2e métier de FM qu'après avoir retrouvé vos 5M de trésorerie initiale via les ventes FM."
+                  }
+                ]
+              },
+              {
+                label: 'Phase 7 : Finition 200 & Métiers Secondaires',
+                recap: "Objectif : Clôturer les niveaux 200 et maximiser les flux passifs.<br><br>1. <b>Derniers substrats Bûcheron :</b> Paysan 120 → Alchi 135 (ancêtres) → Substrats 140/160. Alchi 140 → Paysan 180 → Alchi 175 (glandage) → Substrats 180/200.<br>2. <b>Mineur 120 à 200 :</b> L'étain, la bauxite et les minerais nobles transforment la récolte pure en jackpot.<br>3. <b>Façonneur 100+ :</b> Trophées 100 et boucliers HL.<br>4. <b>Métiers secondaires :</b> Pêcheur 100+ (jus de poisson 95), Chasseur HL, et FM d'armes (Forgemage, Sculptemage, Façonmage).",
+                items: [
+                  {
+                    tag: 'metier',
+                    name: 'Potions Ancêtres & Glandage',
+                    desc: "Alimente les substrats 140 à 200 pour finaliser le Bûcheron en profit total."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Mineur Récolte 120-200',
+                    desc: "L'étain et les minerais précieux transforment le mineur en formidable pourvoyeur de kamas bruts."
+                  },
+                  {
+                    tag: 'metier',
+                    name: 'FM d\'Armes & Trophées 100',
+                    desc: "Sculptemage, Forgemage et Façonmage complètent la collection pour capter chaque besoin du serveur."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'passifs',
+            label: '📦 Routine des Flux Passifs Quotidiens',
+            subcats: [
+              {
+                label: 'Votre Magasin Automatique en HDV',
+                recap: "Une fois la machine en place, vous ne perdez plus votre temps à farmer manuellement. Votre routine quotidienne se résume à réapprovisionner vos rayons dès que les ventes tombent :<table><thead><tr><th>Catégorie</th><th>Items prioritaires</th><th>Métier & Palier requis</th></tr></thead><tbody><tr><td><b>Consommables</b></td><td>Huile de coude, Huile de noix, Jus de poisson</td><td>Paysan 32, Pêcheur 95</td></tr><tr><td><b>Substrats</b></td><td>Bocage (40), puis 60, 100, 140, 180, 200</td><td>Bûcheron + Alchimiste</td></tr><tr><td><b>Alliages</b></td><td>Ébonite (40), puis alliages 60+</td><td>Mineur</td></tr><tr><td><b>Trophées</b></td><td>Trophées 50 & 100, Boucliers prisés</td><td>Façonneur 50+</td></tr><tr><td><b>Runes</b></td><td>Runes de brisage BL/ML découvertes</td><td>Bijoutier, Tailleur, Cordo 50+</td></tr><tr><td><b>Équipements FM</b></td><td>Items 110 over-stats à forte rotation</td><td>Costumage, Cordomage, Joaillomage</td></tr></tbody></table>",
+                items: [
+                  {
+                    tag: 'kamas',
+                    name: 'Huiles de coude & noix',
+                    desc: "Vente en continu pour les éleveurs et captureurs d'âmes. Production instantanée, composants très accessibles."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Substrats de bois (40 à 200)',
+                    desc: "Le meilleur cycle d'achat-craft-vente de Dofus. Des millions de volume mensuel, zéro variable aléatoire."
+                  },
+                  {
+                    tag: 'metier',
+                    name: 'Alliages de mineur (Ébonite 40+)',
+                    desc: "À produire en flux tendu dès que la marge nette en HDV Mineur est supérieure à 20%."
+                  },
+                  {
+                    tag: 'kamas',
+                    name: 'Trophées 50 & 100',
+                    desc: "Indispensables pour tous les joueurs en cours de leveling. Rotation rapide à cours très stable."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Runes issues du brisage',
+                    desc: "Catalogue de runes alimenté chaque jour par vos tests de brisage sur les équipements BL/ML."
+                  },
+                  {
+                    tag: 'kamas',
+                    name: 'Items FM 110 over-stats',
+                    desc: "Le sommet de la valeur ajoutée : convertir des runes et des items bruts en une rentabilité colossale."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'tierlist',
+            label: '🏆 Tier List des Métiers (Départ de Zéro)',
+            subcats: [
+              {
+                label: 'Classement selon Accessibilité, Facilité, Rentabilité et Synergies',
+                recap: "Évaluation globale pour un personnage débutant sans capital. Avec un gros compte déjà riche, les métiers de récolte baissent et les métiers de Forgemagie occupent sans conteste le sommet absolu.",
+                items: [
+                  {
+                    tier: 'S',
+                    name: 'Chasseur',
+                    desc: "Investissement zéro, leveling passif en combattant des monstres. Génère un flux de kamas constant sans coûter la moindre ressource. Le meilleur revenu passif du jeu."
+                  },
+                  {
+                    tier: 'S',
+                    name: 'Joaillomage, Costumage, Cordomage',
+                    desc: "Rente de compétence durable protégée par une vraie barrière à l'entrée. Demande colossale sur les items 110, 150 et 190+. Les rois incontestés du profit."
+                  },
+                  {
+                    tier: 'A',
+                    name: 'Bûcheron',
+                    desc: "Au cœur de l'économie grâce aux substrats ultra-liquides. Devient extrêmement rémunérateur en récolte pure dès le niveau 90+ (bois de pin, etc.)."
+                  },
+                  {
+                    tier: 'A',
+                    name: 'Paysan & Alchimiste',
+                    desc: "Démarrage rapide et gratuit. Synergies croisées indispensables pour alimenter les potions et substrats. Très faciles d'accès en début de serveur."
+                  },
+                  {
+                    tier: 'B',
+                    name: 'Façonneur & Métiers de Craft (Bijoutier, Tailleur...)',
+                    desc: "Nécessitent un capital initial mais ouvrent la voie aux trophées et au brisage d'items BL/ML générateur de runes dès le niveau 50-60."
+                  },
+                  {
+                    tier: 'B',
+                    name: 'Mineur',
+                    desc: "Évolue en autarcie. Pénible et coûteux avant le niveau 40 (Ébonite), mais devient une mine d'or en récolte pure aux niveaux 120-160+ (étain, bauxite)."
+                  },
+                  {
+                    tier: 'D',
+                    name: 'Pêcheur',
+                    desc: "Progression lente, aucun craft rentable avant le niveau 95 (jus de poisson). Les poissons rares sur protecteurs ont un ratio temps/kamas trop défavorable.",
+                    warn: true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        legend: [
+          { label: 'Tier S — Métier indispensable / rentabilité maximale', color: 'var(--dofus-gold)' },
+          { label: 'Tier A — Pilier économique / synergies fortes', color: 'var(--dofus-emerald)' },
+          { label: 'Tier B — Métier de transition / investissement requis', color: 'var(--dofus-teal)' },
+          { label: 'Tier D — Faible rentabilité horaire / secondaire', color: 'var(--dofus-crimson)' },
+          { label: 'Opti / Kamas — Leviers financiers et rentes', color: 'var(--dofus-gold)' }
+        ]
+      }
+    ]
+  };
+
+  // =========================================================================
   // ENREGISTREMENT DU THÈME DOFUS AUPRÈS DE STASHAPP
   // =========================================================================
   window.StashApp.register('dofus', {
@@ -731,17 +1136,27 @@
       theme: 'dofus',
       eyebrow: "📦 Stash // Personal memo",
       title: "<span>R3dn0</span>'s Notes",
-      sub: "Galerie de skins, codes couleurs hexadécimaux et équipements cosmétiques pour Dofus.",
+      sub: "Galerie de skins, guides d'optimisation et mémos pour Dofus.",
       footer: "R3dn0 — Dofus skins & guides · mis à jour au fil des aventures dans le Monde des Douze"
     },
     tabs: [
-      { id: 'skins', label: '🎨 Skins' }
+      { id: 'skins', label: '🎨 Skins' },
+      { id: 'guides', label: '📖 Guides' }
     ],
     data: {
       skins: {
         filters: [{ id: 'all', label: 'All' }],
         categories: []
-      }
+      },
+      guides: GUIDES_DATA
+    },
+    tagLabels: {
+      opti: 'Opti',
+      kamas: 'Kamas',
+      metier: 'Métier',
+      farming: 'Farm',
+      dofus: 'Dofus',
+      base: 'Base'
     },
     render: function(state, root, cfg) {
       const main = root.querySelector('#main');
@@ -753,23 +1168,33 @@
         b.classList.toggle('active', b.dataset.tab === state.tab);
       });
 
-      if (subtabs) {
-        subtabs.style.display = 'none';
-        subtabs.innerHTML = '';
+      if (state.tab === 'skins') {
+        if (subtabs) {
+          subtabs.style.display = 'none';
+          subtabs.innerHTML = '';
+        }
+        if (filterbar) {
+          filterbar.style.display = 'none';
+          filterbar.innerHTML = '';
+        }
+        renderSkinsApp(main);
+      } else {
+        if (filterbar) {
+          filterbar.style.display = '';
+        }
+        if (subtabs) {
+          subtabs.style.display = '';
+        }
+        window.StashApp.renderDefault(cfg, state, root);
       }
-
-      if (filterbar) {
-        filterbar.style.display = 'none';
-        filterbar.innerHTML = '';
-      }
-
-      renderSkinsApp(main);
     },
     // Expose pour ajout futur programmatique ou tests
     skinsList: SKINS,
     classesList: DOFUS_CLASSES,
+    guidesData: GUIDES_DATA,
     isFavorite: isFavorite,
     toggleFavorite: toggleFavorite
   });
 
 })();
+

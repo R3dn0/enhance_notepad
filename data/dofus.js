@@ -130,9 +130,9 @@
       var bodiesMap = (breed && breed.bodies) ? breed.bodies[gender] : null;
 
       var headKey = String(s.headKey != null ? s.headKey : "0");
-      var bodyKey = String(s.bodyKey != null ? s.bodyKey : "1");
 
-      var bodySkin = (bodiesMap && bodiesMap[bodyKey]) || (bodiesMap && bodiesMap["1"]) || (isFemale ? 11 : 10);
+      // Always use the valid base body skin ("1") for the server renderer so the body is always rendered
+      var bodySkin = (bodiesMap && bodiesMap["1"]) || (isFemale ? 11 : 10);
       var headSkin = (headsMap && headsMap[headKey]) || (headsMap && headsMap["0"]) || (isFemale ? 2020 : 2012);
 
       var skins = [bodySkin, headSkin];
@@ -382,6 +382,8 @@
     updateAvatarImage: function() {
       var img = this.mountEl ? this.mountEl.querySelector("#live-avatar-img") : null;
       if (img) {
+        img.classList.remove("morph-body-1", "morph-body-2", "morph-body-3");
+        img.classList.add("morph-body-" + (this.skin.bodyKey || "1"));
         img.classList.add("loading");
         var newUrl = this.getRenderUrl();
         img.src = newUrl;
@@ -459,40 +461,61 @@
 
       var gender = this.skin.gender === "female" ? "female" : "male";
       var headsMap = (currentBreed && currentBreed.heads) ? currentBreed.heads[gender] : null;
+      var bodiesMap = (currentBreed && currentBreed.bodies) ? currentBreed.bodies[gender] : null;
       var headKeys = headsMap ? Object.keys(headsMap) : ["0"];
       var currentHead = String(this.skin.headKey != null ? this.skin.headKey : "0");
       var currentBody = String(this.skin.bodyKey != null ? this.skin.bodyKey : "1");
+      var currentHeadIdx = headKeys.indexOf(currentHead);
+      if (currentHeadIdx === -1) currentHeadIdx = 0;
 
-      var headOptionsHtml = "";
+      var headsHtml = "";
       headKeys.forEach(function(k, index) {
-        var isSel = (String(k) === currentHead) ? ' selected' : '';
-        headOptionsHtml += '<option value="' + k + '"' + isSel + '>Visage ' + (index + 1) + '</option>';
+        var headSkinId = headsMap ? headsMap[k] : null;
+        var isActive = (String(k) === currentHead) ? " active" : "";
+        var thumbUrl = headSkinId ? ("https://duffus.fr/head-previews/" + headSkinId + ".png") : "";
+        headsHtml += '<button type="button" class="head-cell-btn' + isActive + '" data-head-key="' + k + '" title="Visage ' + (index + 1) + '">';
+        if (thumbUrl) {
+          headsHtml += '<img src="' + thumbUrl + '" alt="Visage ' + (index + 1) + '" loading="lazy" onerror="this.style.display=\'none\';">';
+        }
+        headsHtml += '<span class="head-cell-num">' + (index + 1) + '</span>';
+        headsHtml += '</button>';
       });
 
-      var bodyTypes = [
+      var bodyDefs = [
         { key: "1", label: "Standard" },
         { key: "2", label: "Fin" },
         { key: "3", label: "Musclé" }
       ];
-      var bodyButtonsHtml = "";
-      bodyTypes.forEach(function(bt) {
-        var isActive = (currentBody === bt.key) ? ' active' : '';
-        bodyButtonsHtml += '<button type="button" class="' + isActive + '" data-body-key="' + bt.key + '">' + bt.label + '</button>';
+      var bodiesHtml = "";
+      bodyDefs.forEach(function(bd) {
+        var bodySkinId = bodiesMap ? bodiesMap[bd.key] : null;
+        var isActive = (currentBody === bd.key) ? " active" : "";
+        var thumbUrl = bodySkinId ? ("https://duffus.fr/body-previews/" + bodySkinId + ".png") : "";
+        bodiesHtml += '<button type="button" class="body-card-btn' + isActive + '" data-body-key="' + bd.key + '" title="' + bd.label + '">';
+        if (thumbUrl) {
+          bodiesHtml += '<img src="' + thumbUrl + '" alt="' + bd.label + '" class="body-thumb" loading="lazy" onerror="this.style.display=\'none\';">';
+        }
+        bodiesHtml += '<span class="body-card-name">' + bd.label + '</span>';
+        bodiesHtml += '</button>';
       });
 
       html += '<div class="skinator-morph-meta">';
       html += '<div class="morph-group">';
-      html += '<span class="morph-label">Visage</span>';
-      html += '<div class="morph-controls">';
+      html += '<div class="morph-header">';
+      html += '<span class="morph-label">Visage (<span class="head-current-num">' + (currentHeadIdx + 1) + '</span> / ' + headKeys.length + ')</span>';
+      html += '<div class="morph-nav-btns">';
       html += '<button type="button" class="skinator-btn sm" id="btn-head-prev" title="Visage précédent">◀</button>';
-      html += '<select id="select-head">' + headOptionsHtml + '</select>';
       html += '<button type="button" class="skinator-btn sm" id="btn-head-next" title="Visage suivant">▶</button>';
       html += '</div>';
       html += '</div>';
+      html += '<div class="heads-visual-grid">' + headsHtml + '</div>';
+      html += '</div>';
 
       html += '<div class="morph-group">';
+      html += '<div class="morph-header">';
       html += '<span class="morph-label">Corpulence</span>';
-      html += '<div class="body-buttons">' + bodyButtonsHtml + '</div>';
+      html += '</div>';
+      html += '<div class="body-visual-grid">' + bodiesHtml + '</div>';
       html += '</div>';
       html += '</div>';
 
@@ -542,7 +565,7 @@
       // Visual stage with character render
       html += '<div class="skinator-preview-stage">';
       html += '<div class="avatar-render-wrap">';
-      html += '<img id="live-avatar-img" class="avatar-img" src="' + avatarUrl + '" alt="Rendu de ' + this.skin.name + '">';
+      html += '<img id="live-avatar-img" class="avatar-img morph-body-' + (this.skin.bodyKey || "1") + '" src="' + avatarUrl + '" alt="Rendu de ' + this.skin.name + '">';
       html += '</div>';
 
       html += '<div class="avatar-controls">';
@@ -741,12 +764,11 @@
       var btnFemale = root.querySelector("#btn-gender-female");
       if (btnFemale) btnFemale.addEventListener("click", function() { self.setGender("female"); });
 
-      var selectHead = root.querySelector("#select-head");
-      if (selectHead) {
-        selectHead.addEventListener("change", function(e) {
-          self.setHeadKey(e.target.value);
+      root.querySelectorAll("[data-head-key]").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          self.setHeadKey(btn.dataset.headKey);
         });
-      }
+      });
 
       var btnHeadPrev = root.querySelector("#btn-head-prev");
       if (btnHeadPrev) {

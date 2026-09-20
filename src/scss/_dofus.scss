@@ -999,10 +999,31 @@ body .wrap {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  transition: border-color .15s ease;
+  cursor: pointer;
+  user-select: none;
+  transition: all .15s ease;
 
   &:hover {
-    border-color: rgba(46, 196, 134, 0.4);
+    border-color: var(--dofus-emerald);
+    background: rgba(46, 196, 134, 0.06);
+
+    .skin-copy-tag {
+      color: var(--dofus-emerald);
+      border-color: rgba(46, 196, 134, 0.5);
+    }
+  }
+
+  &.copied {
+    border-color: var(--dofus-emerald);
+    background: rgba(46, 196, 134, 0.15);
+    box-shadow: 0 0 10px rgba(46, 196, 134, 0.25);
+
+    .skin-copy-tag {
+      background: var(--dofus-emerald);
+      border-color: var(--dofus-emerald);
+      color: #090e0c;
+      font-weight: 700;
+    }
   }
 }
 
@@ -1043,29 +1064,19 @@ body .wrap {
   letter-spacing: .03em;
 }
 
-.skin-copy-btn {
-  background: transparent;
-  border: 1px solid var(--color-line);
-  color: var(--color-muted);
+.skin-copy-tag {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  padding: 4px 8px;
-  cursor: pointer;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
   transition: all .15s ease;
   white-space: nowrap;
-
-  &:hover {
-    border-color: var(--dofus-emerald);
-    color: var(--dofus-emerald);
-  }
-
-  &.copied {
-    background: var(--dofus-emerald);
-    border-color: var(--dofus-emerald);
-    color: #090e0c;
-  }
+  flex-shrink: 0;
 }
 
 /* Items cosmétiques dans l'ordre strict demandé :
@@ -1091,10 +1102,38 @@ body .wrap {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  transition: border-color .15s ease;
+  transition: all .15s ease;
 
-  &:hover {
-    border-color: rgba(229, 178, 45, 0.35);
+  &.is-clickable {
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      border-color: var(--dofus-emerald);
+      background: rgba(46, 196, 134, 0.06);
+
+      .skin-item-name {
+        color: #fff;
+      }
+
+      .skin-copy-tag {
+        color: var(--dofus-emerald);
+        border-color: rgba(46, 196, 134, 0.5);
+      }
+    }
+
+    &.copied {
+      border-color: var(--dofus-emerald);
+      background: rgba(46, 196, 134, 0.15);
+      box-shadow: 0 0 10px rgba(46, 196, 134, 0.25);
+
+      .skin-copy-tag {
+        background: var(--dofus-emerald);
+        border-color: var(--dofus-emerald);
+        color: #090e0c;
+        font-weight: 700;
+      }
+    }
   }
 }
 
@@ -1112,6 +1151,14 @@ body .wrap {
   .skin-slot-icon {
     font-size: 14px;
   }
+}
+
+.skin-item-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  justify-content: flex-end;
 }
 
 .skin-item-name {

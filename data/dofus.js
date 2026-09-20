@@ -50,6 +50,174 @@
   // Base de données des skins Dofus (alimentée par vos ajouts)
   const SKINS = [
     {
+        "id": "sram-f-012",
+        "name": "Gany (Aslaaks)",
+        "class": "sram",
+        "gender": "female",
+        "head": "Tête 2",
+        "headImage": "assets/dofus/skins/sram-f-012-head.webp",
+        "image": "assets/dofus/skins/sram-f-012.webp",
+        "imageFull": "assets/dofus/skins/sram-f-012-hd.webp",
+        "colors": {
+            "peau": "#FFB378",
+            "cheveux": "#E2DECA",
+            "vetement1": "#D2A229",
+            "vetement2": "#D2A229",
+            "vetement3": "#F3F4EF",
+            "vetement4": "#5A8028"
+        },
+        "items": {
+            "coiffe": "Diadème de Ganymède",
+            "cape": "Voile Féca",
+            "bouclier": "Bouclier d'Aur",
+            "costume": "Costume Siquitoure",
+            "ailes": "Aucune",
+            "epaulieres": "Épaulières Aegis",
+            "armes": "Atours d'Aur",
+            "familier": "Dième"
+        }
+    },
+{
+        "id": "sram-f-011",
+        "name": "Spiritrap (Pandaddy-choco)",
+        "class": "sram",
+        "gender": "female",
+        "head": "Tête 2",
+        "headImage": "assets/dofus/skins/sram-f-011-head.webp",
+        "image": "assets/dofus/skins/sram-f-011.webp",
+        "imageFull": "assets/dofus/skins/sram-f-011-hd.webp",
+        "colors": {
+            "peau": "#EAB366",
+            "cheveux": "#FFFEF0",
+            "vetement1": "#8D9B5B",
+            "vetement2": "#FFFEF0",
+            "vetement3": "#4D6235",
+            "vetement4": "#FFFEF0"
+        },
+        "items": {
+            "coiffe": "Masque Brûlâme",
+            "cape": "Cape diaprée du Démon I",
+            "bouclier": "Bouclier Chimèrivan 9",
+            "costume": "Costume Chimèrivan 3",
+            "ailes": "Aucune",
+            "epaulieres": "Épaulières diaprées de la Démone II",
+            "armes": "Aucun",
+            "familier": "Flâme"
+        }
+    },
+{
+        "id": "sram-f-010",
+        "name": " (Sneuneu)",
+        "class": "sram",
+        "gender": "female",
+        "head": "Tête 16",
+        "headImage": "assets/dofus/skins/sram-f-010-head.webp",
+        "image": "assets/dofus/skins/sram-f-010.webp",
+        "imageFull": "assets/dofus/skins/sram-f-010-hd.webp",
+        "colors": {
+            "peau": "#DA9566",
+            "cheveux": "#EADEC0",
+            "vetement1": "#FFFFFF",
+            "vetement2": "#EEAAAA",
+            "vetement3": "#E3AB8C",
+            "vetement4": "#EEAAAA"
+        },
+        "items": {
+            "coiffe": "Chapeau Colorivant 2",
+            "cape": "Écharpe de Ricola Flanelle",
+            "bouclier": "Écu Colorivant 2",
+            "costume": "Costume Shushivan 2",
+            "ailes": "Aucune",
+            "epaulieres": "Épaulières malicieuses",
+            "armes": "Ailes Chimèrivan 1",
+            "familier": "Le père Hoquet"
+        }
+    },
+{
+        "id": "sram-f-009",
+        "name": " (Aikso)",
+        "class": "sram",
+        "gender": "female",
+        "head": "Tête 14",
+        "headImage": "assets/dofus/skins/sram-f-009-head.webp",
+        "image": "assets/dofus/skins/sram-f-009.webp",
+        "imageFull": "assets/dofus/skins/sram-f-009-hd.webp",
+        "colors": {
+            "peau": "#D18458",
+            "cheveux": "#D4C29B",
+            "vetement1": "#171522",
+            "vetement2": "#641336",
+            "vetement3": "#641336",
+            "vetement4": "#D4C29B"
+        },
+        "items": {
+            "coiffe": "Oreilles du Chtigre",
+            "cape": "Cape Hétale",
+            "bouclier": "Aucun",
+            "costume": "Aucun",
+            "ailes": "Aucune",
+            "epaulieres": "Spalla Carnavalo",
+            "armes": "Ailes Chimèrivan 6",
+            "familier": "Fuyutora"
+        }
+    },
+{
+        "id": "sram-f-007",
+        "name": " (Nayera)",
+        "class": "sram",
+        "gender": "female",
+        "head": "Tête 14",
+        "headImage": "assets/dofus/skins/sram-f-007-head.webp",
+        "image": "assets/dofus/skins/sram-f-007.webp",
+        "imageFull": "assets/dofus/skins/sram-f-007-hd.webp",
+        "colors": {
+            "peau": "#E59B68",
+            "cheveux": "#D4C29B",
+            "vetement1": "#641827",
+            "vetement2": "#292323",
+            "vetement3": "#D4C29B",
+            "vetement4": "#D5A12E"
+        },
+        "items": {
+            "coiffe": "Oreilles du Chtigre",
+            "cape": "Pèlerine Colorivante 10",
+            "bouclier": "Écu Colorivant 7",
+            "costume": "Aucun",
+            "ailes": "Aucune",
+            "epaulieres": "Spalla Carnavalo",
+            "armes": "Ailes Chimèrivan 2",
+            "familier": "Kinryu"
+        }
+    },
+{
+        "id": "sram-f-006",
+        "name": "Chtigre (Kronk811)",
+        "class": "sram",
+        "gender": "female",
+        "head": "Tête 1",
+        "headImage": "assets/dofus/skins/sram-f-006-head.webp",
+        "image": "assets/dofus/skins/sram-f-006.webp",
+        "imageFull": "assets/dofus/skins/sram-f-006-hd.webp",
+        "colors": {
+            "peau": "#A2744C",
+            "cheveux": "#212121",
+            "vetement1": "#D8C8A5",
+            "vetement2": "#4A3822",
+            "vetement3": "#2B3236",
+            "vetement4": "#493821"
+        },
+        "items": {
+            "coiffe": "Oreilles du Chtigre",
+            "cape": "Cape du Chtigre",
+            "bouclier": "Aucun",
+            "costume": "Costume Chimèrivan 3",
+            "ailes": "Aucune",
+            "epaulieres": "Brassards du Chtigre",
+            "armes": "Aucun",
+            "familier": "Aucun"
+        }
+    },
+{
         "id": "forgelance-f-007",
         "name": "La nonne (Francois-l-Olonnais)",
         "class": "forgelance",
@@ -217,6 +385,13 @@
             "familier": "Chiminou"
         }
     }
+  
+  
+  
+  
+  
+  
+  
   
   
   
@@ -842,7 +1017,7 @@
     const colorsHtml = COLOR_ZONES.map(function(zone) {
       const hex = colors[zone.id] || '#000000';
       return `
-        <div class="skin-color-item">
+        <div class="skin-color-item" data-copy="${hex}" title="Cliquer pour copier ${hex}">
           <div class="skin-color-left">
             <div class="skin-color-box" style="background-color:${hex};"></div>
             <div class="skin-color-texts">
@@ -850,7 +1025,7 @@
               <span class="skin-color-hex">${hex}</span>
             </div>
           </div>
-          <button class="skin-copy-btn" data-copy="${hex}" title="Copier le code">Copier</button>
+          <span class="skin-copy-tag">Copier</span>
         </div>
       `;
     }).join('');
@@ -860,12 +1035,15 @@
       const val = items[slot.id];
       const isNone = !val || val.toLowerCase() === 'aucun' || val.toLowerCase() === 'aucune' || val === '—';
       return `
-        <div class="skin-item-row">
+        <div class="skin-item-row ${!isNone ? 'is-clickable' : ''}" ${!isNone ? `data-copy="${val}" title="Cliquer pour copier ${val}"` : ''}>
           <span class="skin-item-slot">
             <span class="skin-slot-icon">${slot.icon}</span>
             <span>${slot.label}</span>
           </span>
-          <span class="skin-item-name ${isNone ? 'is-empty' : ''}">${val || '—'}</span>
+          <div class="skin-item-right">
+            <span class="skin-item-name ${isNone ? 'is-empty' : ''}">${val || '—'}</span>
+            ${!isNone ? '<span class="skin-copy-tag">Copier</span>' : ''}
+          </div>
         </div>
       `;
     }).join('');
@@ -1000,19 +1178,36 @@
       });
     }
 
-    // Copie individuelle des codes hexadécimaux
-    modalOverlay.querySelectorAll('.skin-copy-btn').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const textToCopy = btn.dataset.copy;
+    // Copie au clic sur toute la div couleur (.skin-color-item)
+    modalOverlay.querySelectorAll('.skin-color-item').forEach(function(itemEl) {
+      itemEl.addEventListener('click', function() {
+        const textToCopy = itemEl.dataset.copy;
+        if (!textToCopy) return;
+        const tag = itemEl.querySelector('.skin-copy-tag');
         copyToClipboard(textToCopy, function() {
-          const original = btn.textContent;
-          btn.textContent = '✓ Copié';
-          btn.classList.add('copied');
+          itemEl.classList.add('copied');
+          if (tag) tag.textContent = '✓ Copié !';
           setTimeout(function() {
-            btn.textContent = original;
-            btn.classList.remove('copied');
-          }, 1600);
+            itemEl.classList.remove('copied');
+            if (tag) tag.textContent = 'Copier';
+          }, 1400);
+        });
+      });
+    });
+
+    // Copie au clic sur toute la div item cosmétique (.skin-item-row.is-clickable)
+    modalOverlay.querySelectorAll('.skin-item-row.is-clickable').forEach(function(rowEl) {
+      rowEl.addEventListener('click', function() {
+        const textToCopy = rowEl.dataset.copy;
+        if (!textToCopy) return;
+        const tag = rowEl.querySelector('.skin-copy-tag');
+        copyToClipboard(textToCopy, function() {
+          rowEl.classList.add('copied');
+          if (tag) tag.textContent = '✓ Copié !';
+          setTimeout(function() {
+            rowEl.classList.remove('copied');
+            if (tag) tag.textContent = 'Copier';
+          }, 1400);
         });
       });
     });

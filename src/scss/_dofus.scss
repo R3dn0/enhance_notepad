@@ -677,6 +677,45 @@ body .wrap {
   }
 }
 
+.skin-modal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.skin-modal-delete-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 4px 10px;
+  background: rgba(224, 75, 75, 0.08);
+  border: 1px solid rgba(224, 75, 75, 0.35);
+  color: var(--dofus-crimson);
+  cursor: pointer;
+  transition: all .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+
+  &:hover {
+    background: rgba(224, 75, 75, 0.2);
+    border-color: var(--dofus-crimson);
+    color: #ff8585;
+    box-shadow: 0 0 10px rgba(224, 75, 75, 0.3);
+  }
+
+  &.confirming {
+    background: var(--dofus-crimson);
+    border-color: #ff5c5c;
+    color: #ffffff;
+    animation: skinPulse .8s infinite alternate ease-in-out;
+  }
+}
+
 .skin-modal-subtitle {
   font-family: var(--font-mono);
   font-size: 11.5px;
@@ -1012,6 +1051,11 @@ body .wrap {
 @keyframes skinSlideUp {
   from { opacity: 0; transform: translateY(12px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes skinPulse {
+  from { transform: scale(1); box-shadow: 0 0 4px rgba(224, 75, 75, 0.4); }
+  to { transform: scale(1.04); box-shadow: 0 0 12px rgba(224, 75, 75, 0.8); }
 }
 
 /* Responsive */

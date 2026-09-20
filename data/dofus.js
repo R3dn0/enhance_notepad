@@ -279,6 +279,7 @@
 
   function saveCustomSkin(skin) {
     try {
+      unDeleteSkinId(skin.id);
       const current = getCustomSkins();
       const existingIdx = current.findIndex(function(s) { return s.id === skin.id; });
       if (existingIdx >= 0) {
@@ -292,20 +293,95 @@
     }
   }
 
+  // Clé pour les skins supprimés par l'utilisateur (persistance locale)
+  const DELETED_SKINS_STORAGE_KEY = 'dofus_deleted_skins';
+
+  function getDeletedSkinIds() {
+    try {
+      const stored = localStorage.getItem(DELETED_SKINS_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) return new Set(parsed);
+      }
+    } catch (e) {
+      console.warn('LocalStorage inaccessible pour les skins supprimés', e);
+    }
+    return new Set();
+  }
+
+  function addDeletedSkinId(skinId) {
+    try {
+      const set = getDeletedSkinIds();
+      set.add(skinId);
+      localStorage.setItem(DELETED_SKINS_STORAGE_KEY, JSON.stringify(Array.from(set)));
+    } catch (e) {
+      console.warn('Impossible de sauvegarder la suppression', e);
+    }
+  }
+
+  function unDeleteSkinId(skinId) {
+    try {
+      const set = getDeletedSkinIds();
+      if (set.has(skinId)) {
+        set.delete(skinId);
+        localStorage.setItem(DELETED_SKINS_STORAGE_KEY, JSON.stringify(Array.from(set)));
+      }
+    } catch (e) {}
+  }
+
+  function deleteSkin(skinId) {
+    // 1. Enregistrer dans les skins supprimés pour persister localement
+    addDeletedSkinId(skinId);
+
+    // 2. Retirer des skins personnalisés si présent
+    try {
+      const custom = getCustomSkins().filter(function(s) { return s.id !== skinId; });
+      localStorage.setItem(CUSTOM_SKINS_STORAGE_KEY, JSON.stringify(custom));
+    } catch (e) {
+      console.warn('Erreur nettoyage custom_skins', e);
+    }
+
+    // 3. Retirer de la mémoire vive SKINS si présent
+    const idx = SKINS.findIndex(function(s) { return s.id === skinId; });
+    if (idx >= 0) {
+      SKINS.splice(idx, 1);
+    }
+
+    // 4. Retirer des favoris si présent
+    if (favoritesSet.has(skinId)) {
+      favoritesSet.delete(skinId);
+      saveFavorites(favoritesSet);
+    }
+
+    // 5. Demander au serveur local la suppression sur disque si actif
+    const apiUrl = (window.location.port === '3000' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? '/api/delete-skin'
+      : 'http://localhost:3000/api/delete-skin';
+
+    fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: skinId })
+    }).catch(function() {
+      // Ignorer silencieusement si serveur offline (suppression déjà effective dans le navigateur)
+    });
+  }
+
   function getAllSkins() {
+    const deletedIds = getDeletedSkinIds();
     const custom = getCustomSkins();
     const ids = new Set();
     const result = [];
-    // Priorité aux skins personnalisés locaux
+    // Priorité aux skins personnalisés locaux non supprimés
     custom.forEach(function(s) {
-      if (!ids.has(s.id)) {
+      if (!deletedIds.has(s.id) && !ids.has(s.id)) {
         ids.add(s.id);
         result.push(s);
       }
     });
-    // Compléter avec la base statique
+    // Compléter avec la base statique non supprimée
     SKINS.forEach(function(s) {
-      if (!ids.has(s.id)) {
+      if (!deletedIds.has(s.id) && !ids.has(s.id)) {
         ids.add(s.id);
         result.push(s);
       }
@@ -661,10 +737,16 @@
           <div class="skin-modal-head-info">
             <div class="skin-modal-title-row">
               <h3 class="skin-modal-title">${skin.name}</h3>
-              <button class="skin-modal-fav-btn ${isFavorite(skin.id) ? 'is-fav' : ''}" id="modal-fav-btn" data-skin-id="${skin.id}" title="${isFavorite(skin.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
-                <span class="skin-modal-fav-star">${isFavorite(skin.id) ? '★' : '☆'}</span>
-                <span class="skin-modal-fav-label">${isFavorite(skin.id) ? 'Favori' : 'Ajouter aux favoris'}</span>
-              </button>
+              <div class="skin-modal-header-actions">
+                <button class="skin-modal-fav-btn ${isFavorite(skin.id) ? 'is-fav' : ''}" id="modal-fav-btn" data-skin-id="${skin.id}" title="${isFavorite(skin.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
+                  <span class="skin-modal-fav-star">${isFavorite(skin.id) ? '★' : '☆'}</span>
+                  <span class="skin-modal-fav-label">${isFavorite(skin.id) ? 'Favori' : 'Ajouter aux favoris'}</span>
+                </button>
+                <button class="skin-modal-delete-btn" id="modal-delete-btn" data-skin-id="${skin.id}" title="Supprimer ce skin">
+                  <span class="skin-modal-delete-icon">🗑️</span>
+                  <span class="skin-modal-delete-label">Supprimer</span>
+                </button>
+              </div>
             </div>
             <div class="skin-modal-subtitle">${getClassIcon(skin.class)} ${getClassName(skin.class)} • ${genderLabel}</div>
           </div>
@@ -798,6 +880,35 @@
         if (mainEl) {
           renderSidebar(mainEl);
           renderGrid(mainEl);
+        }
+      });
+    }
+
+    // Gestion de la suppression depuis la modale
+    const modalDeleteBtn = modalOverlay.querySelector('#modal-delete-btn');
+    if (modalDeleteBtn) {
+      let confirmTimeout = null;
+      modalDeleteBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (!modalDeleteBtn.classList.contains('confirming')) {
+          modalDeleteBtn.classList.add('confirming');
+          modalDeleteBtn.querySelector('.skin-modal-delete-label').textContent = 'Confirmer ?';
+          modalDeleteBtn.setAttribute('title', 'Cliquez à nouveau pour confirmer la suppression définitive');
+
+          confirmTimeout = setTimeout(function() {
+            modalDeleteBtn.classList.remove('confirming');
+            modalDeleteBtn.querySelector('.skin-modal-delete-label').textContent = 'Supprimer';
+            modalDeleteBtn.setAttribute('title', 'Supprimer ce skin');
+          }, 3500);
+        } else {
+          clearTimeout(confirmTimeout);
+          deleteSkin(skin.id);
+          closeModal();
+          const mainEl = document.querySelector('#main');
+          if (mainEl) {
+            renderSidebar(mainEl);
+            renderGrid(mainEl);
+          }
         }
       });
     }
@@ -1759,6 +1870,7 @@
     getAllSkins: getAllSkins,
     getCustomSkins: getCustomSkins,
     saveCustomSkin: saveCustomSkin,
+    deleteSkin: deleteSkin,
     openImportBarbofusModal: openImportBarbofusModal,
     classesList: DOFUS_CLASSES,
     guidesData: GUIDES_DATA,

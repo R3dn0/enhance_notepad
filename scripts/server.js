@@ -18,6 +18,33 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon'
 };
 
+function removeSkinFromDofusJs(content, skinId) {
+  const idRegex = new RegExp(`['"]?id['"]?\\s*:\\s*['"]${skinId}['"]`);
+  const idMatch = content.match(idRegex);
+  if (!idMatch) return content;
+  const idIndex = idMatch.index;
+  let openBraceIndex = content.lastIndexOf('{', idIndex);
+  let depth = 0;
+  let closeBraceIndex = -1;
+  for (let i = openBraceIndex; i < content.length; i++) {
+    if (content[i] === '{') depth++;
+    else if (content[i] === '}') {
+      depth--;
+      if (depth === 0) {
+        closeBraceIndex = i;
+        break;
+      }
+    }
+  }
+  if (closeBraceIndex === -1) return content;
+  let start = openBraceIndex;
+  while (start > 0 && (content[start - 1] === ' ' || content[start - 1] === '\t')) start--;
+  if (start > 0 && content[start - 1] === '\n') start--;
+  let end = closeBraceIndex + 1;
+  if (end < content.length && content[end] === ',') end++;
+  return content.slice(0, start) + content.slice(end);
+}
+
 const server = http.createServer(async (req, res) => {
   // Enable CORS for local dev
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -86,7 +113,54 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 3. Static Files Server
+  // 3. API Delete Skin endpoint
+  if (pathname === '/api/delete-skin' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const data = JSON.parse(body || '{}');
+        const skinId = data.id;
+        if (!skinId) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: "ID manquant." }));
+          return;
+        }
+
+        console.log(`[Server] Suppression demandée pour le skin : ${skinId}`);
+
+        // Retirer de data/dofus.js si présent
+        const dofusJsPath = path.join(ROOT_DIR, 'data', 'dofus.js');
+        if (fs.existsSync(dofusJsPath)) {
+          let content = fs.readFileSync(dofusJsPath, 'utf8');
+          content = removeSkinFromDofusJs(content, skinId);
+          fs.writeFileSync(dofusJsPath, content, 'utf8');
+        }
+
+        // Supprimer les fichiers WebP associés si présents
+        const skinsDir = path.join(ROOT_DIR, 'assets', 'dofus', 'skins');
+        if (fs.existsSync(skinsDir)) {
+          const files = [`${skinId}.webp`, `${skinId}-hd.webp`, `${skinId}-head.webp`];
+          files.forEach(f => {
+            const p = path.join(skinsDir, f);
+            if (fs.existsSync(p)) {
+              try { fs.unlinkSync(p); } catch (e) {}
+            }
+          });
+        }
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, id: skinId }));
+      } catch (err) {
+        console.error('[Server] Erreur lors de la suppression :', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 4. Static Files Server
   let filePath = path.join(ROOT_DIR, pathname === '/' ? 'index.html' : pathname);
   // Prevent directory traversal
   if (!filePath.startsWith(ROOT_DIR)) {

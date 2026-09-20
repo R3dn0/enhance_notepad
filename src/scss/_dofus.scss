@@ -994,7 +994,7 @@ body .wrap {
 .skin-color-item {
   background: var(--color-panel-2);
   border: 1px solid var(--color-line);
-  padding: 8px 12px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1005,24 +1005,18 @@ body .wrap {
 
   &:hover {
     border-color: var(--dofus-emerald);
-    background: rgba(46, 196, 134, 0.06);
-
-    .skin-copy-tag {
-      color: var(--dofus-emerald);
-      border-color: rgba(46, 196, 134, 0.5);
-    }
+    background: rgba(46, 196, 134, 0.08);
+    transform: translateY(-1px);
   }
 
   &.copied {
     border-color: var(--dofus-emerald);
-    background: rgba(46, 196, 134, 0.15);
-    box-shadow: 0 0 10px rgba(46, 196, 134, 0.25);
+    background: rgba(46, 196, 134, 0.2);
+    box-shadow: 0 0 12px rgba(46, 196, 134, 0.35);
+    transform: scale(1.02);
 
-    .skin-copy-tag {
-      background: var(--dofus-emerald);
-      border-color: var(--dofus-emerald);
-      color: #090e0c;
-      font-weight: 700;
+    .skin-color-hex {
+      color: var(--dofus-emerald);
     }
   }
 }
@@ -1062,32 +1056,10 @@ body .wrap {
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: .03em;
+  transition: color .15s ease;
 }
 
-.skin-copy-tag {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--color-line);
-  color: var(--color-muted);
-  transition: all .15s ease;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* Items cosmétiques dans l'ordre strict demandé :
-   1. Coiffe
-   2. Cape
-   3. Bouclier
-   4. Familier ou montilier
-   5. Épaulières
-   6. Costume
-   7. Armes
-*/
+/* Items cosmétiques dans l'ordre strict demandé */
 .skin-items-list {
   display: flex;
   flex-direction: column;
@@ -1097,7 +1069,7 @@ body .wrap {
 .skin-item-row {
   background: var(--color-panel-2);
   border: 1px solid var(--color-line);
-  padding: 9px 14px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1110,28 +1082,22 @@ body .wrap {
 
     &:hover {
       border-color: var(--dofus-emerald);
-      background: rgba(46, 196, 134, 0.06);
+      background: rgba(46, 196, 134, 0.08);
+      transform: translateY(-1px);
 
       .skin-item-name {
         color: #fff;
-      }
-
-      .skin-copy-tag {
-        color: var(--dofus-emerald);
-        border-color: rgba(46, 196, 134, 0.5);
       }
     }
 
     &.copied {
       border-color: var(--dofus-emerald);
-      background: rgba(46, 196, 134, 0.15);
-      box-shadow: 0 0 10px rgba(46, 196, 134, 0.25);
+      background: rgba(46, 196, 134, 0.2);
+      box-shadow: 0 0 12px rgba(46, 196, 134, 0.35);
+      transform: scale(1.01);
 
-      .skin-copy-tag {
-        background: var(--dofus-emerald);
-        border-color: var(--dofus-emerald);
-        color: #090e0c;
-        font-weight: 700;
+      .skin-item-name {
+        color: var(--dofus-emerald);
       }
     }
   }

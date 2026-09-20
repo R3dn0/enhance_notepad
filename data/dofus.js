@@ -1001,7 +1001,6 @@
               <span class="skin-color-hex">${hex}</span>
             </div>
           </div>
-          <span class="skin-copy-tag">Copier</span>
         </div>
       `;
     }).join('');
@@ -1016,10 +1015,7 @@
             <span class="skin-slot-icon">${slot.icon}</span>
             <span>${slot.label}</span>
           </span>
-          <div class="skin-item-right">
-            <span class="skin-item-name ${isNone ? 'is-empty' : ''}">${val || '—'}</span>
-            ${!isNone ? '<span class="skin-copy-tag">Copier</span>' : ''}
-          </div>
+          <span class="skin-item-name ${isNone ? 'is-empty' : ''}">${val || '—'}</span>
         </div>
       `;
     }).join('');
@@ -1159,14 +1155,11 @@
       itemEl.addEventListener('click', function() {
         const textToCopy = itemEl.dataset.copy;
         if (!textToCopy) return;
-        const tag = itemEl.querySelector('.skin-copy-tag');
         copyToClipboard(textToCopy, function() {
           itemEl.classList.add('copied');
-          if (tag) tag.textContent = '✓ Copié !';
           setTimeout(function() {
             itemEl.classList.remove('copied');
-            if (tag) tag.textContent = 'Copier';
-          }, 1400);
+          }, 1200);
         });
       });
     });
@@ -1176,14 +1169,11 @@
       rowEl.addEventListener('click', function() {
         const textToCopy = rowEl.dataset.copy;
         if (!textToCopy) return;
-        const tag = rowEl.querySelector('.skin-copy-tag');
         copyToClipboard(textToCopy, function() {
           rowEl.classList.add('copied');
-          if (tag) tag.textContent = '✓ Copié !';
           setTimeout(function() {
             rowEl.classList.remove('copied');
-            if (tag) tag.textContent = 'Copier';
-          }, 1400);
+          }, 1200);
         });
       });
     });

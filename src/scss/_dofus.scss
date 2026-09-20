@@ -203,6 +203,28 @@ body .wrap {
       }
     }
   }
+
+  &.skin-trash-class-btn {
+    color: var(--dofus-crimson);
+
+    &:hover {
+      color: #fff;
+      background: rgba(224, 75, 75, 0.08);
+    }
+
+    &.active {
+      color: var(--dofus-crimson);
+      background: rgba(224, 75, 75, 0.14);
+      border-left-color: var(--dofus-crimson);
+
+      .skin-trash-count {
+        background: var(--dofus-crimson);
+        color: #fff;
+        font-weight: 700;
+        border-color: var(--dofus-crimson);
+      }
+    }
+  }
 }
 
 .skin-sidebar-divider {
@@ -237,6 +259,12 @@ body .wrap {
     color: var(--dofus-gold);
     background: rgba(229, 178, 45, 0.16);
     border-color: rgba(229, 178, 45, 0.35);
+  }
+
+  &.skin-trash-count.has-skins {
+    color: var(--dofus-crimson);
+    background: rgba(224, 75, 75, 0.16);
+    border-color: rgba(224, 75, 75, 0.35);
   }
 }
 
@@ -467,6 +495,32 @@ body .wrap {
   }
 }
 
+.skin-restore-btn {
+  pointer-events: auto;
+  width: 28px;
+  height: 28px;
+  background: rgba(9, 14, 12, 0.88);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(46, 196, 134, 0.4);
+  color: var(--dofus-emerald);
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s ease;
+
+  &:hover {
+    color: #090e0c;
+    background: var(--dofus-emerald);
+    border-color: var(--dofus-emerald);
+    transform: scale(1.14);
+    box-shadow: 0 0 10px rgba(46, 196, 134, 0.4);
+  }
+}
+
 .skin-badge-tag {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -486,6 +540,11 @@ body .wrap {
   &.gender-female {
     color: #f78da7;
     border-color: rgba(247, 141, 167, 0.3);
+  }
+  &.badge-trash {
+    color: #ff7575;
+    background: rgba(224, 75, 75, 0.18);
+    border-color: rgba(224, 75, 75, 0.4);
   }
 }
 
@@ -677,6 +736,30 @@ body .wrap {
     border-color: var(--dofus-gold);
     color: var(--dofus-gold);
     box-shadow: 0 0 10px rgba(229, 178, 45, 0.2);
+  }
+}
+
+.skin-modal-restore-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 4px 10px;
+  background: rgba(46, 196, 134, 0.12);
+  border: 1px solid var(--dofus-emerald);
+  color: var(--dofus-emerald);
+  cursor: pointer;
+  transition: all .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 3px;
+
+  &:hover {
+    background: var(--dofus-emerald);
+    color: #090e0c;
+    box-shadow: 0 0 10px rgba(46, 196, 134, 0.35);
   }
 }
 

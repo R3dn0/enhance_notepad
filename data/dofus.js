@@ -49,6 +49,90 @@
 
   // Base de données des skins Dofus (alimentée par vos ajouts)
   const SKINS = [
+    {
+        "id": "forgelance-f-004",
+        "name": "Chtigre (Red R3dn0 No)",
+        "class": "forgelance",
+        "gender": "female",
+        "head": "Tête 14",
+        "headImage": "assets/dofus/skins/forgelance-f-004-head.webp",
+        "image": "assets/dofus/skins/forgelance-f-004.webp",
+        "imageFull": "assets/dofus/skins/forgelance-f-004-hd.webp",
+        "colors": {
+            "peau": "#A2744C",
+            "cheveux": "#212121",
+            "vetement1": "#D8C8A5",
+            "vetement2": "#4A3822",
+            "vetement3": "#2B3236",
+            "vetement4": "#493821"
+        },
+        "items": {
+            "coiffe": "Oreilles du Chtigre",
+            "cape": "Cape du Chtigre",
+            "bouclier": "Égide du Chtigre",
+            "costume": "Costume Chimèrivan 3",
+            "ailes": "Aucune",
+            "epaulieres": "Brassards du Chtigre",
+            "armes": "Aucun",
+            "familier": "Garudania Crépitant"
+        }
+    },
+{
+        "id": "forgelance-f-003",
+        "name": " (Red R3dn0 No)",
+        "class": "forgelance",
+        "gender": "female",
+        "head": "Tête 4",
+        "headImage": "assets/dofus/skins/forgelance-f-003-head.webp",
+        "image": "assets/dofus/skins/forgelance-f-003.webp",
+        "imageFull": "assets/dofus/skins/forgelance-f-003-hd.webp",
+        "colors": {
+            "peau": "#BA7F56",
+            "cheveux": "#232323",
+            "vetement1": "#2B2F30",
+            "vetement2": "#46C5C7",
+            "vetement3": "#59FEF8",
+            "vetement4": "#525458"
+        },
+        "items": {
+            "coiffe": "Casque Chimèrivan 8",
+            "cape": "Manteau Colorivant 5",
+            "bouclier": "Égide du Dieu Cerf",
+            "costume": "Aucun",
+            "ailes": "Aucune",
+            "epaulieres": "Épaulières parfumées",
+            "armes": "Ailes Chimèrivan 3",
+            "familier": "Eliabou"
+        }
+    },
+{
+        "id": "forgelance-f-002",
+        "name": "Forja (Raampardox)",
+        "class": "forgelance",
+        "gender": "female",
+        "head": "Tête 13",
+        "headImage": "assets/dofus/skins/forgelance-f-002-head.webp",
+        "image": "assets/dofus/skins/forgelance-f-002.webp",
+        "imageFull": "assets/dofus/skins/forgelance-f-002-hd.webp",
+        "colors": {
+            "peau": "#E59B68",
+            "cheveux": "#E4DFD1",
+            "vetement1": "#20282C",
+            "vetement2": "#E9D7AA",
+            "vetement3": "#20282C",
+            "vetement4": "#E9D7AA"
+        },
+        "items": {
+            "coiffe": "Casque Chimèrivan 10",
+            "cape": "Cape du Chtigre",
+            "bouclier": "Bouclier Chimèrivan 6",
+            "costume": "Costume Chimèrivan 2",
+            "ailes": "Aucune",
+            "epaulieres": "Épaulières Chimèrivan 6",
+            "armes": "Lames ailées Corpo",
+            "familier": "Chiminou"
+        }
+    },
 {
         "id": "forgelance-f-001",
         "name": "Forja (Raampardox)",
@@ -77,146 +161,12 @@
             "familier": "Chiminou"
         }
     },
-    {
-      id: 'sram-f-001',
-      name: 'Sram Krosmoz & Chevalier Noir',
-      class: 'sram',
-      gender: 'female',
-      head: 'Visage Sram F',
-      headImage: 'assets/dofus/skins/sram-f-001-head.webp',
-      image: 'assets/dofus/skins/sram-f-001.webp',
-      imageFull: 'assets/dofus/skins/sram-f-001-hd.webp',
-      colors: {
-        peau: '#A16F4D',
-        cheveux: '#26221A',
-        vetement1: '#EFE8CC',
-        vetement2: '#6B4134',
-        vetement3: '#6D423A',
-        vetement4: '#492C24'
-      },
-      items: {
-        coiffe: "Cache-œil des 25 ans du Krosmoz",
-        cape: "Cape glorieuse polykrome 2",
-        bouclier: "Aucun",
-        costume: "Plastron de Chevalier Noir",
-        ailes: "Aucune",
-        epaulieres: "Aucune",
-        armes: "Aucune",
-        familier: "Tofookie"
-      }
-    },
-    {
-      id: 'sram-f-002',
-      name: 'Sram Brûlâme & Flâme',
-      class: 'sram',
-      gender: 'female',
-      head: 'Visage Sram F',
-      headImage: 'assets/dofus/skins/sram-f-002-head.webp',
-      image: 'assets/dofus/skins/sram-f-002.webp',
-      imageFull: 'assets/dofus/skins/sram-f-002-hd.webp',
-      colors: {
-        peau: '#EAB366',
-        cheveux: '#FFFEF0',
-        vetement1: '#8D9B5B',
-        vetement2: '#FFFEF0',
-        vetement3: '#4D6235',
-        vetement4: '#FFFEF0'
-      },
-      items: {
-        coiffe: "Masque Brûlâme",
-        cape: "Cape diaprée du Démon I",
-        bouclier: "Bouclier Chimèrivan 9",
-        costume: "Costume Chimèrivan 3",
-        ailes: "Aucune",
-        epaulieres: "Épaulières diaprées de la Démone II",
-        armes: "Aucune",
-        familier: "Flâme"
-      }
-    },
-    {
-      id: 'sram-f-003',
-      name: 'Sram Spairance & Gekokar',
-      class: 'sram',
-      gender: 'female',
-      head: 'Visage Capuche Sram',
-      headImage: 'assets/dofus/skins/sram-f-003-head.webp',
-      image: 'assets/dofus/skins/sram-f-003.webp',
-      imageFull: 'assets/dofus/skins/sram-f-003-hd.webp',
-      colors: {
-        peau: '#D5CBA4',
-        cheveux: '#EADEC0',
-        vetement1: '#8D6434',
-        vetement2: '#5E4320',
-        vetement3: '#929172',
-        vetement4: '#E5E4C2'
-      },
-      items: {
-        coiffe: "Bonnet Spairance",
-        cape: "Cape Routh",
-        bouclier: "Aucun",
-        costume: "Aucun",
-        ailes: "Aucune",
-        epaulieres: "Épaulières Chimèrivan 6",
-        armes: "Dagues Aerdala",
-        familier: "Gekokar"
-      }
-    },
-    {
-      id: 'sram-f-004',
-      name: 'Sram Panoplie du Chtigre',
-      class: 'sram',
-      gender: 'female',
-      head: 'Visage Capuche Crâne',
-      headImage: 'assets/dofus/skins/sram-f-004-head.webp',
-      image: 'assets/dofus/skins/sram-f-004.webp',
-      imageFull: 'assets/dofus/skins/sram-f-004-hd.webp',
-      colors: {
-        peau: '#A2744C',
-        cheveux: '#212121',
-        vetement1: '#D8C8A5',
-        vetement2: '#4A3822',
-        vetement3: '#2B3236',
-        vetement4: '#493821'
-      },
-      items: {
-        coiffe: "Oreilles du Chtigre",
-        cape: "Cape du Chtigre",
-        bouclier: "Aucun",
-        costume: "Costume Chimèrivan 3",
-        ailes: "Aucune",
-        epaulieres: "Brassards du Chtigre",
-        armes: "Aucune",
-        familier: "Aucun"
-      }
-    },
-    {
-      id: 'sram-f-005',
-      name: 'Sram Thanatena & Flâme',
-      class: 'sram',
-      gender: 'female',
-      head: 'Visage Squelette Couronné',
-      headImage: 'assets/dofus/skins/sram-f-005-head.webp',
-      image: 'assets/dofus/skins/sram-f-005.webp',
-      imageFull: 'assets/dofus/skins/sram-f-005-hd.webp',
-      colors: {
-        peau: '#D8C789',
-        cheveux: '#EADEC0',
-        vetement1: '#A4B474',
-        vetement2: '#65734A',
-        vetement3: '#6B625B',
-        vetement4: '#8E8C5D'
-      },
-      items: {
-        coiffe: "Bandeau d'Exécuteur Miséreux",
-        cape: "Cape du Sinistrofu",
-        bouclier: "Bouclier Invisible",
-        costume: "Aucun",
-        ailes: "Ailes Chimèrivan 1",
-        epaulieres: "Épaulières parfumées",
-        armes: "Jugement de Thanatena",
-        familier: "Flâme"
-      }
-    }
+  
+  
+  
+  
+  
+  
   
   
   
@@ -296,92 +246,172 @@
   }
 
   // Clé pour les skins supprimés par l'utilisateur (persistance locale)
-  const DELETED_SKINS_STORAGE_KEY = 'dofus_deleted_skins';
+  const TRASH_STORAGE_KEY = 'dofus_trash_skins';
+  const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
-  function getDeletedSkinIds() {
+  function getTrashList() {
     try {
-      const stored = localStorage.getItem(DELETED_SKINS_STORAGE_KEY);
+      const stored = localStorage.getItem(TRASH_STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) return new Set(parsed);
+        if (Array.isArray(parsed)) return parsed;
       }
     } catch (e) {
-      console.warn('LocalStorage inaccessible pour les skins supprimés', e);
+      console.warn('LocalStorage inaccessible pour la corbeille', e);
     }
-    return new Set();
+    return [];
   }
 
-  function addDeletedSkinId(skinId) {
+  function saveTrashList(list) {
     try {
-      const set = getDeletedSkinIds();
-      set.add(skinId);
-      localStorage.setItem(DELETED_SKINS_STORAGE_KEY, JSON.stringify(Array.from(set)));
+      localStorage.setItem(TRASH_STORAGE_KEY, JSON.stringify(list));
     } catch (e) {
-      console.warn('Impossible de sauvegarder la suppression', e);
+      console.warn('Impossible de sauvegarder la corbeille', e);
     }
   }
 
-  function unDeleteSkinId(skinId) {
-    try {
-      const set = getDeletedSkinIds();
-      if (set.has(skinId)) {
-        set.delete(skinId);
-        localStorage.setItem(DELETED_SKINS_STORAGE_KEY, JSON.stringify(Array.from(set)));
+  function getDaysRemaining(deletedAt) {
+    const elapsed = Date.now() - (Number(deletedAt) || Date.now());
+    const remainingMs = Math.max(0, SEVEN_DAYS_MS - elapsed);
+    return Math.max(1, Math.ceil(remainingMs / (24 * 60 * 60 * 1000)));
+  }
+
+  function getTrashSkinIds() {
+    return new Set(getTrashList().map(function(t) { return t.skin ? t.skin.id : t.id; }));
+  }
+
+  function cleanupExpiredTrash() {
+    const trash = getTrashList();
+    const now = Date.now();
+    const kept = [];
+    trash.forEach(function(item) {
+      const del = item.deletedAt ? Number(item.deletedAt) : 0;
+      if (now - del > SEVEN_DAYS_MS) {
+        const skinId = item.skin ? item.skin.id : item.id;
+        fetch('/api/delete-skin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: skinId })
+        }).catch(function() {});
+      } else {
+        kept.push(item);
       }
-    } catch (e) {}
+    });
+    if (kept.length !== trash.length) {
+      saveTrashList(kept);
+    }
+  }
+
+  function syncTrashFromServer() {
+    fetch('/api/trash-skins')
+      .then(function(res) { return res.ok ? res.json() : null; })
+      .then(function(data) {
+        if (data && data.success && Array.isArray(data.trash)) {
+          saveTrashList(data.trash);
+          const mainEl = document.querySelector('#main');
+          if (mainEl && document.querySelector('#skin-class-list')) {
+            renderSidebar(mainEl);
+            if (skinState.selectedClass === 'trash') renderGrid(mainEl);
+          }
+        }
+      })
+      .catch(function() {});
   }
 
   function deleteSkin(skinId) {
-    // 1. Enregistrer dans les skins supprimés pour persister localement
-    addDeletedSkinId(skinId);
+    const skin = getAllSkins().find(function(s) { return s.id === skinId; }) ||
+                 SKINS.find(function(s) { return s.id === skinId; });
 
-    // 2. Retirer des skins personnalisés si présent
-    try {
-      const custom = getCustomSkins().filter(function(s) { return s.id !== skinId; });
-      localStorage.setItem(CUSTOM_SKINS_STORAGE_KEY, JSON.stringify(custom));
-    } catch (e) {
-      console.warn('Erreur nettoyage custom_skins', e);
-    }
-
-    // 3. Retirer de la mémoire vive SKINS si présent
-    const idx = SKINS.findIndex(function(s) { return s.id === skinId; });
-    if (idx >= 0) {
-      SKINS.splice(idx, 1);
-    }
-
-    // 4. Retirer des favoris si présent
     if (favoritesSet.has(skinId)) {
       favoritesSet.delete(skinId);
       saveFavorites(favoritesSet);
     }
 
-    // 5. Demander au serveur local la suppression sur disque si actif
-    const apiUrl = '/api/delete-skin';
+    const trash = getTrashList().filter(function(t) { return (t.skin ? t.skin.id : t.id) !== skinId; });
+    const trashItem = {
+      skin: skin || { id: skinId },
+      deletedAt: Date.now()
+    };
+    trash.unshift(trashItem);
+    saveTrashList(trash);
 
-    fetch(apiUrl, {
+    try {
+      const custom = getCustomSkins().filter(function(s) { return s.id !== skinId; });
+      localStorage.setItem(CUSTOM_SKINS_STORAGE_KEY, JSON.stringify(custom));
+    } catch (e) {}
+
+    const idx = SKINS.findIndex(function(s) { return s.id === skinId; });
+    if (idx >= 0) {
+      SKINS.splice(idx, 1);
+    }
+
+    fetch('/api/trash-skin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: skinId, skin: skin, deletedAt: trashItem.deletedAt })
+    }).catch(function() {});
+  }
+
+  function restoreSkin(skinId) {
+    const trash = getTrashList();
+    const item = trash.find(function(t) { return (t.skin ? t.skin.id : t.id) === skinId; });
+    const kept = trash.filter(function(t) { return (t.skin ? t.skin.id : t.id) !== skinId; });
+    saveTrashList(kept);
+
+    if (item && item.skin) {
+      if (!SKINS.some(function(s) { return s.id === item.skin.id; })) {
+        SKINS.unshift(item.skin);
+      }
+      saveCustomSkin(item.skin);
+    }
+
+    fetch('/api/restore-skin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: skinId, skin: item ? item.skin : null })
+    }).catch(function() {});
+  }
+
+  function purgePermanentSkin(skinId) {
+    const trash = getTrashList().filter(function(t) { return (t.skin ? t.skin.id : t.id) !== skinId; });
+    saveTrashList(trash);
+
+    const idx = SKINS.findIndex(function(s) { return s.id === skinId; });
+    if (idx >= 0) SKINS.splice(idx, 1);
+
+    try {
+      const custom = getCustomSkins().filter(function(s) { return s.id !== skinId; });
+      localStorage.setItem(CUSTOM_SKINS_STORAGE_KEY, JSON.stringify(custom));
+    } catch (e) {}
+
+    fetch('/api/delete-skin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: skinId })
-    }).catch(function() {
-      // Ignorer silencieusement si serveur offline (suppression déjà effective dans le navigateur)
-    });
+    }).catch(function() {});
+  }
+
+  function getTrashSkins() {
+    cleanupExpiredTrash();
+    return getTrashList().map(function(item) {
+      return item.skin || { id: item.id };
+    }).filter(Boolean);
   }
 
   function getAllSkins() {
-    const deletedIds = getDeletedSkinIds();
+    cleanupExpiredTrash();
+    const trashIds = getTrashSkinIds();
     const custom = getCustomSkins();
     const ids = new Set();
     const result = [];
-    // Priorité aux skins personnalisés locaux non supprimés
     custom.forEach(function(s) {
-      if (!deletedIds.has(s.id) && !ids.has(s.id)) {
+      if (!trashIds.has(s.id) && !ids.has(s.id)) {
         ids.add(s.id);
         result.push(s);
       }
     });
-    // Compléter avec la base statique non supprimée
     SKINS.forEach(function(s) {
-      if (!deletedIds.has(s.id) && !ids.has(s.id)) {
+      if (!trashIds.has(s.id) && !ids.has(s.id)) {
         ids.add(s.id);
         result.push(s);
       }
@@ -389,24 +419,33 @@
     return result;
   }
 
-  // État local pour les filtres du module Skins
+  cleanupExpiredTrash();
+  syncTrashFromServer();
+
   const skinState = {
-    selectedClass: 'all', // 'all', 'favorites' ou id de la classe ('sram', ...)
-    selectedGender: 'all', // 'all', 'male', 'female'
-    favoritesOnly: false   // filtre rapide "Favoris uniquement"
+    selectedClass: 'all', // 'all', 'favorites', 'trash', ou id de la classe ('sram', ...)
+    selectedGender: 'all',
+    favoritesOnly: false
   };
 
   function getClassName(classId) {
+    if (classId === 'trash') return 'Corbeille';
     const c = DOFUS_CLASSES.find(function(cls) { return cls.id === classId; });
     return c ? c.name : classId;
   }
 
   function getClassIcon(classId) {
+    if (classId === 'trash') return '🗑️';
     const c = DOFUS_CLASSES.find(function(cls) { return cls.id === classId; });
     return c ? c.icon : '🛡️';
   }
 
   function countSkinsByClass(classId, gender, favOnly) {
+    if (classId === 'trash') {
+      return getTrashSkins().filter(function(s) {
+        return gender === 'all' || s.gender === gender;
+      }).length;
+    }
     return getAllSkins().filter(function(s) {
       const matchFav = (classId === 'favorites' || favOnly) ? isFavorite(s.id) : true;
       const matchClass = (classId === 'all' || classId === 'favorites') ? true : s.class === classId;
@@ -472,6 +511,7 @@
 
     const totalCount = countSkinsByClass('all', skinState.selectedGender, false);
     const favCount = countSkinsByClass('favorites', skinState.selectedGender, false);
+    const trashCount = countSkinsByClass('trash', skinState.selectedGender, false);
 
     let html = `
       <button class="skin-class-btn ${skinState.selectedClass === 'all' && !skinState.favoritesOnly ? 'active' : ''}" data-class="all">
@@ -481,6 +521,10 @@
       <button class="skin-class-btn skin-fav-class-btn ${skinState.selectedClass === 'favorites' ? 'active' : ''}" data-class="favorites">
         <span class="skin-class-name">⭐ Mes favoris</span>
         <span class="skin-class-count skin-fav-count ${favCount > 0 ? 'has-skins' : ''}">${favCount}</span>
+      </button>
+      <button class="skin-class-btn skin-trash-class-btn ${skinState.selectedClass === 'trash' ? 'active' : ''}" data-class="trash">
+        <span class="skin-class-name">🗑️ Corbeille (7j)</span>
+        <span class="skin-class-count skin-trash-count ${trashCount > 0 ? 'has-skins' : ''}">${trashCount}</span>
       </button>
       <div class="skin-sidebar-divider"></div>
     `;
@@ -504,7 +548,7 @@
     listEl.querySelectorAll('.skin-class-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         skinState.selectedClass = btn.dataset.class;
-        if (skinState.selectedClass === 'favorites') {
+        if (skinState.selectedClass === 'favorites' || skinState.selectedClass === 'trash') {
           skinState.favoritesOnly = false;
         }
         renderSidebar(mainEl);
@@ -556,8 +600,12 @@
     const countEl = mainEl.querySelector('#skin-filtered-count');
     if (!gridEl) return;
 
+    const isTrashView = skinState.selectedClass === 'trash';
+
     // Titre de la vue active
-    if (skinState.selectedClass === 'favorites') {
+    if (isTrashView) {
+      titleEl.textContent = "🗑️ Corbeille (Conservation 7 jours)";
+    } else if (skinState.selectedClass === 'favorites') {
       titleEl.textContent = "⭐ Mes favoris";
     } else if (skinState.selectedClass === 'all') {
       titleEl.textContent = skinState.favoritesOnly ? "✨ Toutes les classes (Favoris)" : "Toutes les classes";
@@ -568,7 +616,11 @@
     }
 
     // Filtrage des skins
-    const filtered = getAllSkins().filter(function(skin) {
+    const sourceList = isTrashView ? getTrashSkins() : getAllSkins();
+    const filtered = sourceList.filter(function(skin) {
+      if (isTrashView) {
+        return skinState.selectedGender === 'all' || skin.gender === skinState.selectedGender;
+      }
       const matchFav = (skinState.selectedClass === 'favorites' || skinState.favoritesOnly)
         ? isFavorite(skin.id)
         : true;
@@ -579,17 +631,29 @@
       return matchFav && matchClass && matchGender;
     });
 
-    // Tri : les skins favoris sont TOUJOURS affichés EN PREMIER dans la liste !
-    filtered.sort(function(a, b) {
-      const favA = isFavorite(a.id) ? 1 : 0;
-      const favB = isFavorite(b.id) ? 1 : 0;
-      if (favA !== favB) return favB - favA;
-      return 0; // Préserve l'ordre initial
-    });
+    if (!isTrashView) {
+      filtered.sort(function(a, b) {
+        const favA = isFavorite(a.id) ? 1 : 0;
+        const favB = isFavorite(b.id) ? 1 : 0;
+        if (favA !== favB) return favB - favA;
+        return 0;
+      });
+    }
 
     countEl.textContent = `${filtered.length} skin${filtered.length > 1 ? 's' : ''}`;
 
     if (filtered.length === 0) {
+      if (isTrashView) {
+        gridEl.innerHTML = `
+          <div class="skin-empty">
+            <div class="skin-empty-icon">🗑️</div>
+            <h3>Corbeille vide</h3>
+            <p>Aucun skin supprimé dans la corbeille. Tout skin supprimé y est conservé pendant 7 jours avant d'être effacé définitivement.</p>
+          </div>
+        `;
+        return;
+      }
+
       if (skinState.selectedClass === 'favorites' || skinState.favoritesOnly) {
         gridEl.innerHTML = `
           <div class="skin-empty">
@@ -614,11 +678,33 @@
       return;
     }
 
+    const trashMap = new Map(getTrashList().map(function(t) { return [t.skin ? t.skin.id : t.id, t]; }));
+
     gridEl.innerHTML = filtered.map(function(skin) {
       const isFav = isFavorite(skin.id);
       const genderLabel = skin.gender === 'male' ? '♂ Homme' : '♀ Femme';
       const genderClass = skin.gender === 'male' ? 'gender-male' : 'gender-female';
       const colors = skin.colors || {};
+
+      let trashBadgeHtml = '';
+      let actionBtnHtml = '';
+
+      if (isTrashView) {
+        const trashRecord = trashMap.get(skin.id);
+        const daysLeft = trashRecord ? getDaysRemaining(trashRecord.deletedAt) : 7;
+        trashBadgeHtml = `<span class="skin-badge-tag badge-trash">⏳ ${daysLeft}j restant${daysLeft > 1 ? 's' : ''}</span>`;
+        actionBtnHtml = `
+          <button class="skin-restore-btn" data-skin-id="${skin.id}" title="Restaurer ce skin" aria-label="Restaurer">
+            ♻️
+          </button>
+        `;
+      } else {
+        actionBtnHtml = `
+          <button class="skin-fav-btn ${isFav ? 'active' : ''}" data-skin-id="${skin.id}" title="${isFav ? 'Retirer des favoris' : 'Ajouter aux favoris'}" aria-label="Favori">
+            ${isFav ? '★' : '☆'}
+          </button>
+        `;
+      }
 
       const swatchesHtml = COLOR_ZONES.map(function(z) {
         const hex = colors[z.id] || '#2ec486';
@@ -626,26 +712,25 @@
       }).join('');
 
       return `
-        <div class="skin-card ${isFav ? 'is-favorite' : ''}" data-skin-id="${skin.id}">
+        <div class="skin-card ${isFav && !isTrashView ? 'is-favorite' : ''}" data-skin-id="${skin.id}">
           <div class="skin-card-visual">
             <div class="skin-card-badges">
               <div class="skin-badge-tags">
                 <span class="skin-badge-tag">${getClassIcon(skin.class)} ${getClassName(skin.class)}</span>
                 <span class="skin-badge-tag ${genderClass}">${genderLabel}</span>
+                ${trashBadgeHtml}
               </div>
-              <button class="skin-fav-btn ${isFav ? 'active' : ''}" data-skin-id="${skin.id}" title="${isFav ? 'Retirer des favoris' : 'Ajouter aux favoris'}" aria-label="Favori">
-                ${isFav ? '★' : '☆'}
-              </button>
+              ${actionBtnHtml}
             </div>
             <img src="${skin.image}" alt="${skin.name}" loading="lazy">
           </div>
           <div class="skin-card-info">
             <div class="skin-card-name-row">
               <h4 class="skin-card-name">${skin.name}</h4>
-              ${isFav ? '<span class="skin-fav-indicator" title="Favori">★</span>' : ''}
+              ${isFav && !isTrashView ? '<span class="skin-fav-indicator" title="Favori">★</span>' : ''}
             </div>
             <div class="skin-card-swatches">${swatchesHtml}</div>
-            <div class="skin-card-cta">Détails & couleurs →</div>
+            <div class="skin-card-cta">${isTrashView ? 'Voir ou restaurer →' : 'Détails & couleurs →'}</div>
           </div>
         </div>
       `;
@@ -653,9 +738,19 @@
 
     gridEl.querySelectorAll('.skin-fav-btn').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
-        e.stopPropagation(); // Évite d'ouvrir la modale du skin
+        e.stopPropagation();
         const skinId = btn.dataset.skinId;
         toggleFavorite(skinId);
+        renderSidebar(mainEl);
+        renderGrid(mainEl);
+      });
+    });
+
+    gridEl.querySelectorAll('.skin-restore-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const skinId = btn.dataset.skinId;
+        restoreSkin(skinId);
         renderSidebar(mainEl);
         renderGrid(mainEl);
       });
@@ -664,9 +759,9 @@
     gridEl.querySelectorAll('.skin-card').forEach(function(card) {
       card.addEventListener('click', function() {
         const skinId = card.dataset.skinId;
-        const skin = getAllSkins().find(function(s) { return s.id === skinId; });
+        const skin = (isTrashView ? getTrashSkins() : getAllSkins()).find(function(s) { return s.id === skinId; });
         if (skin) {
-          openSkinModal(skin);
+          openSkinModal(skin, isTrashView);
         }
       });
     });
@@ -676,7 +771,7 @@
   // MODALE DÉTAILLÉE DU SKIN
   // Rappel du visuel + Hexadécimaux avec nom de zone + 7 items cosmétiques
   // =========================================================================
-  function openSkinModal(skin) {
+  function openSkinModal(skin, isTrash) {
     // Ferme toute modale existante
     const existing = document.querySelector('.skin-modal-overlay');
     if (existing) existing.remove();
@@ -705,8 +800,7 @@
       `;
     }).join('');
 
-    // 2. Liste des items cosmétiques dans l'ordre strict :
-    // Coiffe / cape / bouclier / costume / ailes / epauliere / armes / familiers - monture - montilier
+    // 2. Liste des items cosmétiques dans l'ordre strict
     const itemsHtml = COSMETIC_SLOTS.map(function(slot) {
       const val = items[slot.id];
       const isNone = !val || val.toLowerCase() === 'aucun' || val.toLowerCase() === 'aucune' || val === '—';
@@ -721,7 +815,6 @@
       `;
     }).join('');
 
-    // Texte à copier pour tout exporter
     const fullCopyText = [
       `Skin: ${skin.name} (${getClassName(skin.class)} ${genderLabel})`,
       skin.head ? `Tête choisie: ${skin.head}` : '',
@@ -731,6 +824,31 @@
       COSMETIC_SLOTS.map(function(s) { return `${s.label}: ${items[s.id] || 'Aucun'}`; }).join('\n')
     ].filter(Boolean).join('\n');
 
+    let actionsHtml = '';
+    if (isTrash) {
+      actionsHtml = `
+        <button class="skin-modal-restore-btn" id="modal-restore-btn" data-skin-id="${skin.id}" title="Restaurer ce skin dans la collection">
+          <span>♻️</span>
+          <span>Restaurer</span>
+        </button>
+        <button class="skin-modal-delete-btn" id="modal-delete-btn" data-skin-id="${skin.id}" title="Supprimer définitivement ce skin">
+          <span class="skin-modal-delete-icon">🗑️</span>
+          <span class="skin-modal-delete-label">Supprimer définitivement</span>
+        </button>
+      `;
+    } else {
+      actionsHtml = `
+        <button class="skin-modal-fav-btn ${isFavorite(skin.id) ? 'is-fav' : ''}" id="modal-fav-btn" data-skin-id="${skin.id}" title="${isFavorite(skin.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
+          <span class="skin-modal-fav-star">${isFavorite(skin.id) ? '★' : '☆'}</span>
+          <span class="skin-modal-fav-label">${isFavorite(skin.id) ? 'Favori' : 'Ajouter aux favoris'}</span>
+        </button>
+        <button class="skin-modal-delete-btn" id="modal-delete-btn" data-skin-id="${skin.id}" title="Placer dans la corbeille (7 jours)">
+          <span class="skin-modal-delete-icon">🗑️</span>
+          <span class="skin-modal-delete-label">Supprimer</span>
+        </button>
+      `;
+    }
+
     modalOverlay.innerHTML = `
       <div class="skin-modal" role="dialog" aria-modal="true">
         <div class="skin-modal-head">
@@ -738,17 +856,10 @@
             <div class="skin-modal-title-row">
               <h3 class="skin-modal-title">${skin.name}</h3>
               <div class="skin-modal-header-actions">
-                <button class="skin-modal-fav-btn ${isFavorite(skin.id) ? 'is-fav' : ''}" id="modal-fav-btn" data-skin-id="${skin.id}" title="${isFavorite(skin.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
-                  <span class="skin-modal-fav-star">${isFavorite(skin.id) ? '★' : '☆'}</span>
-                  <span class="skin-modal-fav-label">${isFavorite(skin.id) ? 'Favori' : 'Ajouter aux favoris'}</span>
-                </button>
-                <button class="skin-modal-delete-btn" id="modal-delete-btn" data-skin-id="${skin.id}" title="Supprimer ce skin">
-                  <span class="skin-modal-delete-icon">🗑️</span>
-                  <span class="skin-modal-delete-label">Supprimer</span>
-                </button>
+                ${actionsHtml}
               </div>
             </div>
-            <div class="skin-modal-subtitle">${getClassIcon(skin.class)} ${getClassName(skin.class)} • ${genderLabel}</div>
+            <div class="skin-modal-subtitle">${getClassIcon(skin.class)} ${getClassName(skin.class)} • ${genderLabel} ${isTrash ? '• 🗑️ Corbeille' : ''}</div>
           </div>
           <button class="skin-modal-close" aria-label="Fermer la modale">✕</button>
         </div>
@@ -865,6 +976,20 @@
       });
     }
 
+    // Gestion de la restauration depuis la modale
+    const modalRestoreBtn = modalOverlay.querySelector('#modal-restore-btn');
+    if (modalRestoreBtn) {
+      modalRestoreBtn.addEventListener('click', function() {
+        restoreSkin(skin.id);
+        closeModal();
+        const mainEl = document.querySelector('#main');
+        if (mainEl) {
+          renderSidebar(mainEl);
+          renderGrid(mainEl);
+        }
+      });
+    }
+
     // Gestion du favori depuis la modale
     const modalFavBtn = modalOverlay.querySelector('#modal-fav-btn');
     if (modalFavBtn) {
@@ -875,7 +1000,6 @@
         modalFavBtn.querySelector('.skin-modal-fav-star').textContent = nowFav ? '★' : '☆';
         modalFavBtn.querySelector('.skin-modal-fav-label').textContent = nowFav ? 'Favori' : 'Ajouter aux favoris';
         modalFavBtn.setAttribute('title', nowFav ? 'Retirer des favoris' : 'Ajouter aux favoris');
-        // Mise à jour de la grille et de la sidebar en arrière-plan
         const mainEl = document.querySelector('#main');
         if (mainEl) {
           renderSidebar(mainEl);
@@ -893,16 +1017,20 @@
         if (!modalDeleteBtn.classList.contains('confirming')) {
           modalDeleteBtn.classList.add('confirming');
           modalDeleteBtn.querySelector('.skin-modal-delete-label').textContent = 'Confirmer ?';
-          modalDeleteBtn.setAttribute('title', 'Cliquez à nouveau pour confirmer la suppression définitive');
+          modalDeleteBtn.setAttribute('title', isTrash ? 'Confirmer la suppression définitive sur le disque' : 'Confirmer le placement dans la corbeille pour 7 jours');
 
           confirmTimeout = setTimeout(function() {
             modalDeleteBtn.classList.remove('confirming');
-            modalDeleteBtn.querySelector('.skin-modal-delete-label').textContent = 'Supprimer';
-            modalDeleteBtn.setAttribute('title', 'Supprimer ce skin');
+            modalDeleteBtn.querySelector('.skin-modal-delete-label').textContent = isTrash ? 'Supprimer définitivement' : 'Supprimer';
+            modalDeleteBtn.setAttribute('title', isTrash ? 'Supprimer définitivement ce skin' : 'Supprimer ce skin');
           }, 3500);
         } else {
           clearTimeout(confirmTimeout);
-          deleteSkin(skin.id);
+          if (isTrash) {
+            purgePermanentSkin(skin.id);
+          } else {
+            deleteSkin(skin.id);
+          }
           closeModal();
           const mainEl = document.querySelector('#main');
           if (mainEl) {

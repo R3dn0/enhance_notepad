@@ -29,7 +29,7 @@ const CLASS_MAP = {
 const ORDER_MAP = {
   1: 'coiffe',
   2: 'epaulieres',
-  3: 'armes',
+  3: 'misc',
   4: 'cape',
   5: 'bouclier',
   6: 'costume',
@@ -114,15 +114,14 @@ function parseBarbofusHTML(html, classOverride, genderOverride) {
     colors.vetement4 = '#' + colorMatches[5][1].toUpperCase();
   }
 
-  // 7. Items (8 slots : Coiffe, Cape, Bouclier, Costume, Ailes, Épaulière, Armes, Familiers)
+  // 7. Items (7 slots Barbofus : Coiffe, Cape, Bouclier, Costume, Épaulière, Misc, Familiers)
   const items = {
     coiffe: 'Aucune',
     cape: 'Aucune',
     bouclier: 'Aucun',
     costume: 'Aucun',
-    ailes: 'Aucune',
     epaulieres: 'Aucune',
-    armes: 'Aucune',
+    misc: 'Aucun',
     familier: 'Aucun'
   };
 
@@ -131,22 +130,6 @@ function parseBarbofusHTML(html, classOverride, genderOverride) {
     const m = html.match(regex);
     const noneVal = (i === 1 || i === 2 || i === 4) ? 'Aucune' : 'Aucun';
     items[ORDER_MAP[i]] = m ? m[1].trim().replace(/&#039;/g, "'").replace(/&quot;/g, '"') : noneVal;
-  }
-
-  // Détection automatique des Ailes si placées dans armes ou costume
-  function isAilesItem(val) {
-    if (!val || typeof val !== 'string') return false;
-    const lower = val.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    if (lower === 'aucun' || lower === 'aucune' || lower === '—' || lower === '-') return false;
-    return /^ailes?\b/.test(lower) || /lames?\s+ail[eé]es?/.test(lower) || /^ailerons?\b/.test(lower) || /\bailes?\b/.test(lower);
-  }
-
-  if (isAilesItem(items.armes)) {
-    items.ailes = items.armes;
-    items.armes = 'Aucun';
-  } else if (isAilesItem(items.costume)) {
-    items.ailes = items.costume;
-    items.costume = 'Aucun';
   }
 
   return {

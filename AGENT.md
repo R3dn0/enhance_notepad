@@ -65,15 +65,14 @@ From the user screenshot(s), extract:
   - `vetement2` (Vêtement 2)
   - `vetement3` (Vêtement 3)
   - `vetement4` (Vêtement 4)
-* **Cosmetic Equipment (strict order):**
+* **Cosmetic Equipment (7 slots aligned with Barbofus):**
   1. `coiffe`: Coiffe
   2. `cape`: Cape
   3. `bouclier`: Bouclier
   4. `costume`: Costume
-  5. `ailes`: Ailes
-  6. `epaulieres`: Épaulière
-  7. `armes`: Armes
-  8. `familier`: Familiers - monture - montilier
+  5. `epaulieres`: Épaulière
+  6. `misc`: Misc (Armes, Ailes, Lames, etc.)
+  7. `familier`: Familiers - monture - montilier
 * **Class & Gender:** Class identifier (e.g., `sram`, `cra`, `iop`) and gender (`f` for female / `m` for male).
 
 ### 2. Image Processing & File Naming
@@ -113,9 +112,8 @@ From the user screenshot(s), extract:
     cape: '...',
     bouclier: '...',
     costume: '...',
-    ailes: '...',
     epaulieres: '...',
-    armes: '...',
+    misc: '...',
     familier: '...'
   }
 }

@@ -24,16 +24,15 @@
     { id: 'zobal', name: 'Zobal', icon: '🎭' }
   ];
 
-  // Ordre strict des slots cosmétiques demandé :
-  // Coiffe / cape / bouclier / costume / ailes / epauliere / armes / familiers - monture - montilier
+  // 7 slots cosmétiques alignés sur Barbofus :
+  // Coiffe / Cape / Bouclier / Costume / Épaulière / Misc / Familiers
   const COSMETIC_SLOTS = [
     { id: 'coiffe', label: 'Coiffe', icon: '🎩' },
     { id: 'cape', label: 'Cape', icon: '🧣' },
     { id: 'bouclier', label: 'Bouclier', icon: '🛡️' },
     { id: 'costume', label: 'Costume', icon: '👘' },
-    { id: 'ailes', label: 'Ailes', icon: '🪽' },
     { id: 'epaulieres', label: 'Épaulière', icon: '🥋' },
-    { id: 'armes', label: 'Armes', icon: '⚔️' },
+    { id: 'misc', label: 'Misc', icon: '⚔️' },
     { id: 'familier', label: 'Familiers - monture - montilier', icon: '🐾' }
   ];
 
@@ -71,9 +70,8 @@
             "cape": "Voile Féca",
             "bouclier": "Bouclier d'Aur",
             "costume": "Costume Siquitoure",
-            "ailes": "Aucune",
             "epaulieres": "Épaulières Aegis",
-            "armes": "Atours d'Aur",
+            "misc": "Atours d'Aur",
             "familier": "Dième"
         }
     },
@@ -99,9 +97,8 @@
             "cape": "Cape diaprée du Démon I",
             "bouclier": "Bouclier Chimèrivan 9",
             "costume": "Costume Chimèrivan 3",
-            "ailes": "Aucune",
             "epaulieres": "Épaulières diaprées de la Démone II",
-            "armes": "Aucun",
+            "misc": "Aucun",
             "familier": "Flâme"
         }
     },
@@ -127,9 +124,8 @@
             "cape": "Écharpe de Ricola Flanelle",
             "bouclier": "Écu Colorivant 2",
             "costume": "Costume Shushivan 2",
-            "ailes": "Ailes Chimèrivan 1",
             "epaulieres": "Épaulières malicieuses",
-            "armes": "Aucun",
+            "misc": "Ailes Chimèrivan 1",
             "familier": "Le père Hoquet"
         }
     },
@@ -155,9 +151,8 @@
             "cape": "Cape Hétale",
             "bouclier": "Aucun",
             "costume": "Aucun",
-            "ailes": "Ailes Chimèrivan 6",
             "epaulieres": "Spalla Carnavalo",
-            "armes": "Aucun",
+            "misc": "Ailes Chimèrivan 6",
             "familier": "Fuyutora"
         }
     },
@@ -183,9 +178,8 @@
             "cape": "Pèlerine Colorivante 10",
             "bouclier": "Écu Colorivant 7",
             "costume": "Aucun",
-            "ailes": "Ailes Chimèrivan 2",
             "epaulieres": "Spalla Carnavalo",
-            "armes": "Aucun",
+            "misc": "Ailes Chimèrivan 2",
             "familier": "Kinryu"
         }
     },
@@ -211,9 +205,8 @@
             "cape": "Cape du Chtigre",
             "bouclier": "Aucun",
             "costume": "Costume Chimèrivan 3",
-            "ailes": "Aucune",
             "epaulieres": "Brassards du Chtigre",
-            "armes": "Aucun",
+            "misc": "Aucun",
             "familier": "Aucun"
         }
     },
@@ -239,9 +232,8 @@
             "cape": "Manteau Colorivant 7",
             "bouclier": "Aucun",
             "costume": "Costume Chimèrivan 2",
-            "ailes": "Aucune",
             "epaulieres": "Épaulières Adacetra",
-            "armes": "Aucun",
+            "misc": "Aucun",
             "familier": "Chacha de Voyage"
         }
     },
@@ -267,9 +259,8 @@
             "cape": "Manteau Colorivant 7",
             "bouclier": "Aucun",
             "costume": "Costume Chimèrivan 3",
-            "ailes": "Aucune",
             "epaulieres": "Épaulières Chimèrivan 5",
-            "armes": "Aucun",
+            "misc": "Aucun",
             "familier": "Carpé"
         }
     },
@@ -295,9 +286,8 @@
             "cape": "Cape de Chevalier Noir",
             "bouclier": "Gant d'Elely",
             "costume": "Aucun",
-            "ailes": "Ailes Chimèrivan 3",
             "epaulieres": "Aucune",
-            "armes": "Aucun",
+            "misc": "Ailes Chimèrivan 3",
             "familier": "Minimou"
         }
     },
@@ -323,9 +313,8 @@
             "cape": "Voile du Maudit",
             "bouclier": "Aucun",
             "costume": "Costume du Maudit",
-            "ailes": "Aucune",
             "epaulieres": "Épaulières du Corbeau Noir",
-            "armes": "Aucun",
+            "misc": "Aucun",
             "familier": "« L'Épée »"
         }
     },
@@ -351,9 +340,8 @@
             "cape": "Cape du Chtigre",
             "bouclier": "Égide du Chtigre",
             "costume": "Costume Chimèrivan 3",
-            "ailes": "Aucune",
             "epaulieres": "Brassards du Chtigre",
-            "armes": "Aucun",
+            "misc": "Aucun",
             "familier": "Garudania Crépitant"
         }
     },
@@ -379,9 +367,8 @@
             "cape": "Cape du Chtigre",
             "bouclier": "Bouclier Chimèrivan 6",
             "costume": "Costume Chimèrivan 2",
-            "ailes": "Lames ailées Corpo",
             "epaulieres": "Épaulières Chimèrivan 6",
-            "armes": "Aucun",
+            "misc": "Lames ailées Corpo",
             "familier": "Chiminou"
         }
     }
@@ -1335,7 +1322,7 @@
   const BARBOFUS_ORDER_MAP = {
     1: 'coiffe',
     2: 'epaulieres',
-    3: 'armes',
+    3: 'misc',
     4: 'cape',
     5: 'bouclier',
     6: 'costume',
@@ -1434,15 +1421,14 @@
       colors.vetement4 = '#' + colorMatches[5][1].toUpperCase();
     }
 
-    // 7. Cosmétiques (8 slots : Coiffe, Cape, Bouclier, Costume, Ailes, Épaulière, Armes, Familiers)
+    // 7. Cosmétiques (7 slots Barbofus : Coiffe, Cape, Bouclier, Costume, Épaulière, Misc, Familiers)
     const items = {
       coiffe: 'Aucune',
       cape: 'Aucune',
       bouclier: 'Aucun',
       costume: 'Aucun',
-      ailes: 'Aucune',
       epaulieres: 'Aucune',
-      armes: 'Aucune',
+      misc: 'Aucun',
       familier: 'Aucun'
     };
 
@@ -1451,22 +1437,6 @@
       const m = html.match(regex);
       const noneVal = (i === 1 || i === 2 || i === 4) ? 'Aucune' : 'Aucun';
       items[BARBOFUS_ORDER_MAP[i]] = m ? m[1].trim().replace(/&#039;/g, "'").replace(/&quot;/g, '"') : noneVal;
-    }
-
-    // Détection automatique des Ailes si placées dans armes ou costume
-    function isAilesItem(val) {
-      if (!val || typeof val !== 'string') return false;
-      const lower = val.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      if (lower === 'aucun' || lower === 'aucune' || lower === '—' || lower === '-') return false;
-      return /^ailes?\b/.test(lower) || /lames?\s+ail[eé]es?/.test(lower) || /^ailerons?\b/.test(lower) || /\bailes?\b/.test(lower);
-    }
-
-    if (isAilesItem(items.armes)) {
-      items.ailes = items.armes;
-      items.armes = 'Aucun';
-    } else if (isAilesItem(items.costume)) {
-      items.ailes = items.costume;
-      items.costume = 'Aucun';
     }
 
     const skinId = `${classId}-${gender === 'female' ? 'f' : 'm'}-${Date.now().toString().slice(-4)}`;

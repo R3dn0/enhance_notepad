@@ -133,8 +133,18 @@ function parseBarbofusHTML(html, classOverride, genderOverride) {
     items[ORDER_MAP[i]] = m ? m[1].trim().replace(/&#039;/g, "'").replace(/&quot;/g, '"') : noneVal;
   }
 
-  // Détection automatique des Ailes si placées dans le costume
-  if (items.costume && items.costume.toLowerCase().startsWith('ailes')) {
+  // Détection automatique des Ailes si placées dans armes ou costume
+  function isAilesItem(val) {
+    if (!val || typeof val !== 'string') return false;
+    const lower = val.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    if (lower === 'aucun' || lower === 'aucune' || lower === '—' || lower === '-') return false;
+    return /^ailes?\b/.test(lower) || /lames?\s+ail[eé]es?/.test(lower) || /^ailerons?\b/.test(lower) || /\bailes?\b/.test(lower);
+  }
+
+  if (isAilesItem(items.armes)) {
+    items.ailes = items.armes;
+    items.armes = 'Aucun';
+  } else if (isAilesItem(items.costume)) {
     items.ailes = items.costume;
     items.costume = 'Aucun';
   }

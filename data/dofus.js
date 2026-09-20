@@ -77,7 +77,7 @@
             "familier": "Dième"
         }
     },
-{
+    {
         "id": "sram-f-011",
         "name": "Spiritrap (Pandaddy-choco)",
         "class": "sram",
@@ -105,7 +105,7 @@
             "familier": "Flâme"
         }
     },
-{
+    {
         "id": "sram-f-010",
         "name": " (Sneuneu)",
         "class": "sram",
@@ -127,13 +127,13 @@
             "cape": "Écharpe de Ricola Flanelle",
             "bouclier": "Écu Colorivant 2",
             "costume": "Costume Shushivan 2",
-            "ailes": "Aucune",
+            "ailes": "Ailes Chimèrivan 1",
             "epaulieres": "Épaulières malicieuses",
-            "armes": "Ailes Chimèrivan 1",
+            "armes": "Aucun",
             "familier": "Le père Hoquet"
         }
     },
-{
+    {
         "id": "sram-f-009",
         "name": " (Aikso)",
         "class": "sram",
@@ -155,13 +155,13 @@
             "cape": "Cape Hétale",
             "bouclier": "Aucun",
             "costume": "Aucun",
-            "ailes": "Aucune",
+            "ailes": "Ailes Chimèrivan 6",
             "epaulieres": "Spalla Carnavalo",
-            "armes": "Ailes Chimèrivan 6",
+            "armes": "Aucun",
             "familier": "Fuyutora"
         }
     },
-{
+    {
         "id": "sram-f-007",
         "name": " (Nayera)",
         "class": "sram",
@@ -183,13 +183,13 @@
             "cape": "Pèlerine Colorivante 10",
             "bouclier": "Écu Colorivant 7",
             "costume": "Aucun",
-            "ailes": "Aucune",
+            "ailes": "Ailes Chimèrivan 2",
             "epaulieres": "Spalla Carnavalo",
-            "armes": "Ailes Chimèrivan 2",
+            "armes": "Aucun",
             "familier": "Kinryu"
         }
     },
-{
+    {
         "id": "sram-f-006",
         "name": "Chtigre (Kronk811)",
         "class": "sram",
@@ -217,7 +217,7 @@
             "familier": "Aucun"
         }
     },
-{
+    {
         "id": "forgelance-f-007",
         "name": "La nonne (Francois-l-Olonnais)",
         "class": "forgelance",
@@ -245,7 +245,7 @@
             "familier": "Chacha de Voyage"
         }
     },
-{
+    {
         "id": "forgelance-f-006",
         "name": "blackforg (pain)",
         "class": "forgelance",
@@ -273,7 +273,7 @@
             "familier": "Carpé"
         }
     },
-{
+    {
         "id": "forgelance-f-005",
         "name": " (Tiwab)",
         "class": "forgelance",
@@ -295,13 +295,13 @@
             "cape": "Cape de Chevalier Noir",
             "bouclier": "Gant d'Elely",
             "costume": "Aucun",
-            "ailes": "Aucune",
+            "ailes": "Ailes Chimèrivan 3",
             "epaulieres": "Aucune",
-            "armes": "Ailes Chimèrivan 3",
+            "armes": "Aucun",
             "familier": "Minimou"
         }
     },
-{
+    {
         "id": "forgelance-f-004",
         "name": "Lyvs (Lyvs)",
         "class": "forgelance",
@@ -329,7 +329,7 @@
             "familier": "« L'Épée »"
         }
     },
-{
+    {
         "id": "forgelance-f-003",
         "name": "Chtigre (R3dn0)",
         "class": "forgelance",
@@ -357,7 +357,7 @@
             "familier": "Garudania Crépitant"
         }
     },
-{
+    {
         "id": "forgelance-f-002",
         "name": "Forja (Raampardox)",
         "class": "forgelance",
@@ -385,17 +385,6 @@
             "familier": "Chiminou"
         }
     }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   ];
 
   // =========================================================================
@@ -1464,8 +1453,18 @@
       items[BARBOFUS_ORDER_MAP[i]] = m ? m[1].trim().replace(/&#039;/g, "'").replace(/&quot;/g, '"') : noneVal;
     }
 
-    // Détection automatique des Ailes si placées dans le costume
-    if (items.costume && items.costume.toLowerCase().startsWith('ailes')) {
+    // Détection automatique des Ailes si placées dans armes ou costume
+    function isAilesItem(val) {
+      if (!val || typeof val !== 'string') return false;
+      const lower = val.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      if (lower === 'aucun' || lower === 'aucune' || lower === '—' || lower === '-') return false;
+      return /^ailes?\b/.test(lower) || /lames?\s+ail[eé]es?/.test(lower) || /^ailerons?\b/.test(lower) || /\bailes?\b/.test(lower);
+    }
+
+    if (isAilesItem(items.armes)) {
+      items.ailes = items.armes;
+      items.armes = 'Aucun';
+    } else if (isAilesItem(items.costume)) {
       items.ailes = items.costume;
       items.costume = 'Aucun';
     }

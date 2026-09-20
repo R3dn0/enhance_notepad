@@ -1,1 +1,33 @@
-[]
+[
+  {
+    "skin": {
+      "id": "sram-f-008",
+      "name": " (Nayera)",
+      "class": "sram",
+      "gender": "female",
+      "head": "Tête 14",
+      "headImage": "assets/dofus/skins/sram-f-008-head.webp",
+      "image": "assets/dofus/skins/sram-f-008.webp",
+      "imageFull": "assets/dofus/skins/sram-f-008-hd.webp",
+      "colors": {
+        "peau": "#E59B68",
+        "cheveux": "#D4C29B",
+        "vetement1": "#641827",
+        "vetement2": "#292323",
+        "vetement3": "#D4C29B",
+        "vetement4": "#D5A12E"
+      },
+      "items": {
+        "coiffe": "Oreilles du Chtigre",
+        "cape": "Pèlerine Colorivante 10",
+        "bouclier": "Écu Colorivant 7",
+        "costume": "Aucun",
+        "ailes": "Ailes Chimèrivan 2",
+        "epaulieres": "Spalla Carnavalo",
+        "armes": "Aucun",
+        "familier": "Kinryu"
+      }
+    },
+    "deletedAt": 1789938923510
+  }
+]

@@ -50,14 +50,14 @@
   // Base de données des skins Dofus (alimentée par vos ajouts)
   const SKINS = [
     {
-        "id": "forgelance-f-004",
-        "name": "Chtigre (Red R3dn0 No)",
+        "id": "forgelance-f-003",
+        "name": "Chtigre (R3dn0)",
         "class": "forgelance",
         "gender": "female",
         "head": "Tête 14",
-        "headImage": "assets/dofus/skins/forgelance-f-004-head.webp",
-        "image": "assets/dofus/skins/forgelance-f-004.webp",
-        "imageFull": "assets/dofus/skins/forgelance-f-004-hd.webp",
+        "headImage": "assets/dofus/skins/forgelance-f-003-head.webp",
+        "image": "assets/dofus/skins/forgelance-f-003.webp",
+        "imageFull": "assets/dofus/skins/forgelance-f-003-hd.webp",
         "colors": {
             "peau": "#A2744C",
             "cheveux": "#212121",
@@ -75,34 +75,6 @@
             "epaulieres": "Brassards du Chtigre",
             "armes": "Aucun",
             "familier": "Garudania Crépitant"
-        }
-    },
-{
-        "id": "forgelance-f-003",
-        "name": " (Red R3dn0 No)",
-        "class": "forgelance",
-        "gender": "female",
-        "head": "Tête 4",
-        "headImage": "assets/dofus/skins/forgelance-f-003-head.webp",
-        "image": "assets/dofus/skins/forgelance-f-003.webp",
-        "imageFull": "assets/dofus/skins/forgelance-f-003-hd.webp",
-        "colors": {
-            "peau": "#BA7F56",
-            "cheveux": "#232323",
-            "vetement1": "#2B2F30",
-            "vetement2": "#46C5C7",
-            "vetement3": "#59FEF8",
-            "vetement4": "#525458"
-        },
-        "items": {
-            "coiffe": "Casque Chimèrivan 8",
-            "cape": "Manteau Colorivant 5",
-            "bouclier": "Égide du Dieu Cerf",
-            "costume": "Aucun",
-            "ailes": "Aucune",
-            "epaulieres": "Épaulières parfumées",
-            "armes": "Ailes Chimèrivan 3",
-            "familier": "Eliabou"
         }
     },
 {
@@ -127,50 +99,12 @@
             "cape": "Cape du Chtigre",
             "bouclier": "Bouclier Chimèrivan 6",
             "costume": "Costume Chimèrivan 2",
-            "ailes": "Aucune",
+            "ailes": "Lames ailées Corpo",
             "epaulieres": "Épaulières Chimèrivan 6",
-            "armes": "Lames ailées Corpo",
+            "armes": "Aucun",
             "familier": "Chiminou"
         }
-    },
-{
-        "id": "forgelance-f-001",
-        "name": "Forja (Raampardox)",
-        "class": "forgelance",
-        "gender": "female",
-        "head": "Tête 13",
-        "headImage": "assets/dofus/skins/forgelance-f-001-head.webp",
-        "image": "assets/dofus/skins/forgelance-f-001.webp",
-        "imageFull": "assets/dofus/skins/forgelance-f-001-hd.webp",
-        "colors": {
-            "peau": "#E59B68",
-            "cheveux": "#E4DFD1",
-            "vetement1": "#20282C",
-            "vetement2": "#E9D7AA",
-            "vetement3": "#20282C",
-            "vetement4": "#E9D7AA"
-        },
-        "items": {
-            "coiffe": "Casque Chimèrivan 10",
-            "cape": "Cape du Chtigre",
-            "bouclier": "Bouclier Chimèrivan 6",
-            "costume": "Costume Chimèrivan 2",
-            "ailes": "Aucune",
-            "epaulieres": "Épaulières Chimèrivan 6",
-            "armes": "Lames ailées Corpo",
-            "familier": "Chiminou"
-        }
-    },
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+    }
   ];
 
   // =========================================================================

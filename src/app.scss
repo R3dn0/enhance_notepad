@@ -257,7 +257,9 @@ footer {
 }
 
 .lightbox {
-  @apply fixed inset-0 z-[2000] flex items-center justify-center bg-black/80;
+  @apply fixed inset-0 z-[2000] flex items-center justify-center bg-black/85;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   cursor: zoom-out;
 }
 .lightbox img {

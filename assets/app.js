@@ -290,11 +290,11 @@
     document.body.appendChild(overlay);
     document.body.style.overflow = "hidden";
 
-    let scale = 1;
+    let scale = 1.5;
     let tx = 0;
     let ty = 0;
-    const MIN_SCALE = 1;
-    const MAX_SCALE = 8;
+    const MIN_SCALE = 0.5;
+    const MAX_SCALE = 10;
     const pointers = new Map();
     let lastDist = 0;
     let lastMid = { x: 0, y: 0 };
@@ -406,6 +406,11 @@
     bigImg.addEventListener("pointerup", endPointer);
     bigImg.addEventListener("pointercancel", endPointer);
     bigImg.addEventListener("pointerleave", endPointer);
+
+    bigImg.addEventListener("load", () => {
+      clampPan();
+      apply();
+    });
 
     document.addEventListener("keydown", onKey);
     apply();

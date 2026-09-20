@@ -49,6 +49,33 @@
   // Base de données des skins Dofus (alimentée par vos ajouts)
   const SKINS = [
     {
+        "id": "forgelance-f-001",
+        "name": "Forja (Raampardox)",
+        "class": "forgelance",
+        "gender": "female",
+        "head": "Tête 13",
+        "headImage": "assets/dofus/skins/forgelance-f-001-head.webp",
+        "image": "assets/dofus/skins/forgelance-f-001.webp",
+        "imageFull": "assets/dofus/skins/forgelance-f-001-hd.webp",
+        "colors": {
+            "peau": "#E59B68",
+            "cheveux": "#E4DFD1",
+            "vetement1": "#20282C",
+            "vetement2": "#E9D7AA",
+            "vetement3": "#20282C",
+            "vetement4": "#E9D7AA"
+        },
+        "items": {
+            "coiffe": "Casque Chimèrivan 10",
+            "cape": "Cape du Chtigre",
+            "bouclier": "Bouclier Chimèrivan 6",
+            "familier": "Chiminou",
+            "epaulieres": "Épaulières Chimèrivan 6",
+            "costume": "Costume Chimèrivan 2",
+            "armes": "Lames ailées Corpo"
+        }
+    },
+{
       id: 'sram-f-001',
       name: 'Sram Krosmoz & Chevalier Noir',
       class: 'sram',
@@ -183,6 +210,7 @@
         armes: "Jugement de Thanatena"
       }
     }
+  
   ];
 
   // =========================================================================
@@ -226,6 +254,58 @@
     saveFavorites(favoritesSet);
   }
 
+  // Clé pour les skins personnalisés importés localement
+  const CUSTOM_SKINS_STORAGE_KEY = 'dofus_custom_skins';
+
+  function getCustomSkins() {
+    try {
+      const stored = localStorage.getItem(CUSTOM_SKINS_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.warn('LocalStorage inaccessible pour les skins personnalisés', e);
+    }
+    return [];
+  }
+
+  function saveCustomSkin(skin) {
+    try {
+      const current = getCustomSkins();
+      const existingIdx = current.findIndex(function(s) { return s.id === skin.id; });
+      if (existingIdx >= 0) {
+        current[existingIdx] = skin;
+      } else {
+        current.unshift(skin);
+      }
+      localStorage.setItem(CUSTOM_SKINS_STORAGE_KEY, JSON.stringify(current));
+    } catch (e) {
+      console.warn('Impossible de sauvegarder le skin personnalisé', e);
+    }
+  }
+
+  function getAllSkins() {
+    const custom = getCustomSkins();
+    const ids = new Set();
+    const result = [];
+    // Priorité aux skins personnalisés locaux
+    custom.forEach(function(s) {
+      if (!ids.has(s.id)) {
+        ids.add(s.id);
+        result.push(s);
+      }
+    });
+    // Compléter avec la base statique
+    SKINS.forEach(function(s) {
+      if (!ids.has(s.id)) {
+        ids.add(s.id);
+        result.push(s);
+      }
+    });
+    return result;
+  }
+
   // État local pour les filtres du module Skins
   const skinState = {
     selectedClass: 'all', // 'all', 'favorites' ou id de la classe ('sram', ...)
@@ -244,7 +324,7 @@
   }
 
   function countSkinsByClass(classId, gender, favOnly) {
-    return SKINS.filter(function(s) {
+    return getAllSkins().filter(function(s) {
       const matchFav = (classId === 'favorites' || favOnly) ? isFavorite(s.id) : true;
       const matchClass = (classId === 'all' || classId === 'favorites') ? true : s.class === classId;
       const matchGender = gender === 'all' || s.gender === gender;
@@ -259,7 +339,7 @@
         <aside class="skin-sidebar">
           <div class="skin-sidebar-head">
             <span class="skin-sidebar-title">Classes</span>
-            <span class="skin-sidebar-badge" id="skin-sidebar-total">${SKINS.length} skins</span>
+            <span class="skin-sidebar-badge" id="skin-sidebar-total">${getAllSkins().length} skins</span>
           </div>
           <div class="skin-class-list" id="skin-class-list"></div>
         </aside>
@@ -272,6 +352,10 @@
               <span class="skin-count" id="skin-filtered-count"></span>
             </div>
             <div class="skin-toolbar-actions">
+              <button class="skin-import-btn" id="skin-import-open-btn" title="Ajouter un skin depuis Barbofus">
+                <span>📥</span>
+                <span>Importer un skin</span>
+              </button>
               <button class="skin-fav-filter-btn ${skinState.favoritesOnly ? 'active' : ''}" id="skin-fav-filter-toggle" title="Filtrer uniquement les skins favoris">
                 <span>⭐</span>
                 <span>Favoris uniquement</span>
@@ -297,6 +381,11 @@
   function renderSidebar(mainEl) {
     const listEl = mainEl.querySelector('#skin-class-list');
     if (!listEl) return;
+
+    const totalBadge = mainEl.querySelector('#skin-sidebar-total');
+    if (totalBadge) {
+      totalBadge.textContent = `${getAllSkins().length} skins`;
+    }
 
     const totalCount = countSkinsByClass('all', skinState.selectedGender, false);
     const favCount = countSkinsByClass('favorites', skinState.selectedGender, false);
@@ -343,8 +432,17 @@
   }
 
   function bindToolbarEvents(mainEl) {
+    const importBtn = mainEl.querySelector('#skin-import-open-btn');
+    if (importBtn && !importBtn._bound) {
+      importBtn._bound = true;
+      importBtn.addEventListener('click', function() {
+        openImportBarbofusModal(mainEl);
+      });
+    }
+
     const sexSelector = mainEl.querySelector('#skin-sex-selector');
-    if (sexSelector) {
+    if (sexSelector && !sexSelector._bound) {
+      sexSelector._bound = true;
       sexSelector.querySelectorAll('.skin-sex-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
           skinState.selectedGender = btn.dataset.gender;
@@ -358,7 +456,8 @@
     }
 
     const favToggle = mainEl.querySelector('#skin-fav-filter-toggle');
-    if (favToggle) {
+    if (favToggle && !favToggle._bound) {
+      favToggle._bound = true;
       favToggle.addEventListener('click', function() {
         skinState.favoritesOnly = !skinState.favoritesOnly;
         favToggle.classList.toggle('active', skinState.favoritesOnly);
@@ -386,7 +485,7 @@
     }
 
     // Filtrage des skins
-    const filtered = SKINS.filter(function(skin) {
+    const filtered = getAllSkins().filter(function(skin) {
       const matchFav = (skinState.selectedClass === 'favorites' || skinState.favoritesOnly)
         ? isFavorite(skin.id)
         : true;
@@ -482,7 +581,7 @@
     gridEl.querySelectorAll('.skin-card').forEach(function(card) {
       card.addEventListener('click', function() {
         const skinId = card.dataset.skinId;
-        const skin = SKINS.find(function(s) { return s.id === skinId; });
+        const skin = getAllSkins().find(function(s) { return s.id === skinId; });
         if (skin) {
           openSkinModal(skin);
         }
@@ -721,6 +820,459 @@
       console.error('Erreur copie:', err);
     }
     document.body.removeChild(ta);
+  }
+
+  // =========================================================================
+  // IMPORTATEUR DE SKINS BARBOFUS (PARSER & MODALE)
+  // =========================================================================
+  const CLASS_MAP = {
+    'cra': 'cra', 'crâ': 'cra',
+    'ecaflip': 'ecaflip',
+    'eliotrope': 'eliotrope', 'éliotrope': 'eliotrope',
+    'eniripsa': 'eniripsa',
+    'enutrof': 'enutrof',
+    'feca': 'feca', 'féca': 'feca',
+    'forgelance': 'forgelance',
+    'huppermage': 'huppermage',
+    'iop': 'iop',
+    'osamodas': 'osamodas',
+    'ouginak': 'ouginak',
+    'pandawa': 'pandawa',
+    'roublard': 'roublard',
+    'sacrieur': 'sacrieur',
+    'sadida': 'sadida',
+    'sram': 'sram',
+    'steamer': 'steamer',
+    'xelor': 'xelor', 'xélor': 'xelor',
+    'zobal': 'zobal'
+  };
+
+  const BARBOFUS_ORDER_MAP = {
+    1: 'coiffe',
+    2: 'epaulieres',
+    3: 'armes',
+    4: 'cape',
+    5: 'bouclier',
+    6: 'costume',
+    7: 'familier'
+  };
+
+  function parseBarbofusClientHTML(html, classOverride, genderOverride) {
+    if (!html || typeof html !== 'string') {
+      throw new Error("Le contenu HTML est vide.");
+    }
+
+    // 1. Titre et Auteur
+    let name = 'Nouveau Skin';
+    const titleMatch = html.match(/<h2[^>]*>\s*([^<&]+?)\s*(?:&nbsp;)?\s*<\/h2>\s*<h2[^>]*>\s*par\s*<span[^>]*>\s*([^<]+?)\s*<\/span>\s*<\/h2>/i);
+    if (titleMatch) {
+      const skinTitle = titleMatch[1].trim();
+      const author = titleMatch[2].trim();
+      name = author ? `${skinTitle} (${author})` : skinTitle;
+    } else {
+      const singleTitle = html.match(/<h2[^>]*>\s*([^<&]+?)\s*(?:&nbsp;)?\s*<\/h2>/i);
+      if (singleTitle) name = singleTitle[1].trim();
+    }
+
+    // 2. Classe
+    let classId = (classOverride && classOverride !== 'auto' && CLASS_MAP[classOverride.toLowerCase()]) || null;
+    if (!classId) {
+      const classMatch = html.match(/<p class="font-thin text-\[min\(6vw,1\.25rem\)\] text-secondary">\s*([A-Za-zéèÉÈêÊëËïÏîÎôÔûÛçÇ]+)\s*<\/p>/i);
+      if (classMatch) {
+        const rawClass = classMatch[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        if (CLASS_MAP[rawClass]) classId = CLASS_MAP[rawClass];
+      }
+    }
+    if (!classId) {
+      for (const rawName in CLASS_MAP) {
+        const regex = new RegExp(`>\\s*${rawName}\\s*<`, 'i');
+        if (regex.test(html)) {
+          classId = CLASS_MAP[rawName];
+          break;
+        }
+      }
+    }
+    if (!classId) classId = 'forgelance';
+
+    // 3. Sexe
+    let gender = (genderOverride && genderOverride !== 'auto')
+      ? (genderOverride.toLowerCase().startsWith('f') ? 'female' : 'male')
+      : null;
+    if (!gender) {
+      const genderMatch = html.match(/<p class="font-thin text-\[min\(6vw,1\.25rem\)\] text-secondary">\s*(Homme|Femme)\s*<\/p>/i)
+        || html.match(/>\s*(Homme|Femme)\s*</i);
+      if (genderMatch) {
+        gender = genderMatch[1].toLowerCase() === 'femme' ? 'female' : 'male';
+      } else {
+        gender = 'female';
+      }
+    }
+
+    // 4. Visage / Tête
+    let headImage = '';
+    let headName = 'Tête 1';
+    const faceMatch = html.match(/<img[^>]*src="([^"]*faces\/unity\/[^"]+)"/i) || html.match(/<img[^>]*src="([^"]*faces\/[^"]+)"/i);
+    if (faceMatch) {
+      headImage = faceMatch[1].trim();
+      const numMatch = headImage.match(/_(\d+)\.png/i);
+      if (numMatch) {
+        headName = `Tête ${parseInt(numMatch[1], 10)}`;
+      }
+    }
+
+    // 5. Visuel Principal
+    let image = '';
+    const ogMatch = html.match(/<meta property="og:image" content="([^"]+)"/i);
+    if (ogMatch) {
+      image = ogMatch[1].trim();
+    } else {
+      const imgMatch = html.match(/<img[^>]*src="([^"]*\/storage\/images\/skins\/[^"]+)"/i);
+      if (imgMatch) image = imgMatch[1].trim();
+    }
+
+    // 6. Couleurs hexadécimales
+    const colors = {
+      peau: '#A16F4D',
+      cheveux: '#26221A',
+      vetement1: '#EFE8CC',
+      vetement2: '#6B4134',
+      vetement3: '#6D423A',
+      vetement4: '#492C24'
+    };
+    const colorMatches = Array.from(html.matchAll(/color:\s*['"]([0-9a-fA-F]{6})['"]/gi));
+    if (colorMatches.length >= 6) {
+      colors.peau = '#' + colorMatches[0][1].toUpperCase();
+      colors.cheveux = '#' + colorMatches[1][1].toUpperCase();
+      colors.vetement1 = '#' + colorMatches[2][1].toUpperCase();
+      colors.vetement2 = '#' + colorMatches[3][1].toUpperCase();
+      colors.vetement3 = '#' + colorMatches[4][1].toUpperCase();
+      colors.vetement4 = '#' + colorMatches[5][1].toUpperCase();
+    }
+
+    // 7. Cosmétiques (7 slots)
+    const items = {
+      coiffe: 'Aucune',
+      cape: 'Aucune',
+      bouclier: 'Aucun',
+      familier: 'Aucun',
+      epaulieres: 'Aucune',
+      costume: 'Aucun',
+      armes: 'Aucune'
+    };
+
+    for (let i = 1; i <= 7; i++) {
+      const regex = new RegExp(`\\border-${i}\\b(?:(?!\\border-[1-7]\\b)[\\s\\S])*?<p class="[^"]*min-\\[750px\\]:text-lg">([^<]+)<\\/p>`, 'i');
+      const m = html.match(regex);
+      const noneVal = (i === 1 || i === 2 || i === 4) ? 'Aucune' : 'Aucun';
+      items[BARBOFUS_ORDER_MAP[i]] = m ? m[1].trim().replace(/&#039;/g, "'").replace(/&quot;/g, '"') : noneVal;
+    }
+
+    const skinId = `${classId}-${gender === 'female' ? 'f' : 'm'}-${Date.now().toString().slice(-4)}`;
+
+    return {
+      id: skinId,
+      name: name,
+      class: classId,
+      gender: gender,
+      head: headName,
+      headImage: headImage,
+      image: image,
+      imageFull: image,
+      colors: colors,
+      items: items
+    };
+  }
+
+  function openImportBarbofusModal(mainEl) {
+    const existing = document.querySelector('.barbofus-modal-overlay');
+    if (existing) existing.remove();
+
+    const overlay = document.createElement('div');
+    overlay.className = 'skin-modal-overlay barbofus-modal-overlay';
+
+    const classOptionsHtml = DOFUS_CLASSES.map(function(c) {
+      return `<option value="${c.id}">${c.icon} ${c.name}</option>`;
+    }).join('');
+
+    overlay.innerHTML = `
+      <div class="barbofus-modal" role="dialog" aria-modal="true">
+        <div class="skin-modal-head">
+          <div class="skin-modal-head-info">
+            <div class="skin-modal-title-row">
+              <h3 class="skin-modal-title">📥 Importer un skin Barbofus</h3>
+            </div>
+            <div class="skin-modal-subtitle">Ajoutez un skin Unity depuis barbofus.com à votre collection</div>
+          </div>
+          <button class="skin-modal-close" aria-label="Fermer la modale">✕</button>
+        </div>
+
+        <div class="barbofus-form">
+          <div class="barbofus-input-group">
+            <label for="barbofus-url-input">🔗 Lien URL Barbofus</label>
+            <input type="url" id="barbofus-url-input" placeholder="https://barbofus.com/unity-skin/104749" spellcheck="false" autocomplete="off" />
+          </div>
+
+          <div class="barbofus-row">
+            <div class="barbofus-input-group">
+              <label for="barbofus-class-select">🛡️ Classe (optionnel si auto-détecté)</label>
+              <select id="barbofus-class-select">
+                <option value="auto">🤖 Auto-détecter depuis la page</option>
+                ${classOptionsHtml}
+              </select>
+            </div>
+            <div class="barbofus-input-group">
+              <label for="barbofus-gender-select">⚧ Sexe (optionnel si auto-détecté)</label>
+              <select id="barbofus-gender-select">
+                <option value="auto">🤖 Auto-détecter depuis la page</option>
+                <option value="female">♀ Femme</option>
+                <option value="male">♂ Homme</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="barbofus-actions">
+            <button id="barbofus-fetch-btn" class="barbofus-btn-primary" type="button">
+              <span>⚡</span>
+              <span>Analyser & Importer</span>
+            </button>
+            <button id="barbofus-toggle-manual" class="barbofus-btn-secondary" type="button">
+              <span>📝</span>
+              <span>Code source HTML manuel</span>
+            </button>
+          </div>
+
+          <div id="barbofus-status" style="display: none;"></div>
+
+          <div id="barbofus-manual-section" style="display: none; flex-direction: column; gap: 8px; margin-top: 4px;">
+            <div class="barbofus-input-group">
+              <label for="barbofus-html-input">📄 Code source HTML complet (si le serveur local n'est pas actif : Ctrl+U sur Barbofus, copier/coller)</label>
+              <textarea id="barbofus-html-input" placeholder="Collez le code source HTML complet de la page Barbofus ici..."></textarea>
+            </div>
+            <div>
+              <button id="barbofus-parse-html-btn" class="barbofus-btn-primary" type="button" style="padding: 7px 14px; font-size: 12px;">
+                <span>🔍</span>
+                <span>Extraire les données du HTML</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="barbofus-preview" id="barbofus-preview" style="display: none;"></div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+
+    function closeModal() {
+      document.removeEventListener('keydown', onEsc);
+      document.body.style.overflow = '';
+      overlay.remove();
+    }
+
+    function onEsc(e) {
+      if (e.key === 'Escape') closeModal();
+    }
+    document.addEventListener('keydown', onEsc);
+
+    overlay.querySelector('.skin-modal-close').addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeModal();
+    });
+
+    const urlInput = overlay.querySelector('#barbofus-url-input');
+    const classSelect = overlay.querySelector('#barbofus-class-select');
+    const genderSelect = overlay.querySelector('#barbofus-gender-select');
+    const fetchBtn = overlay.querySelector('#barbofus-fetch-btn');
+    const toggleManualBtn = overlay.querySelector('#barbofus-toggle-manual');
+    const manualSection = overlay.querySelector('#barbofus-manual-section');
+    const htmlInput = overlay.querySelector('#barbofus-html-input');
+    const parseHtmlBtn = overlay.querySelector('#barbofus-parse-html-btn');
+    const statusEl = overlay.querySelector('#barbofus-status');
+    const previewEl = overlay.querySelector('#barbofus-preview');
+
+    let currentParsedSkin = null;
+
+    toggleManualBtn.addEventListener('click', function() {
+      const isHidden = manualSection.style.display === 'none';
+      manualSection.style.display = isHidden ? 'flex' : 'none';
+      if (isHidden) htmlInput.focus();
+    });
+
+    function showStatus(msg, type) {
+      statusEl.style.display = 'flex';
+      statusEl.className = 'barbofus-status-msg ' + (type || 'info');
+      statusEl.innerHTML = msg;
+    }
+
+    function renderPreviewCard(skin, isServerSaved) {
+      currentParsedSkin = skin;
+      previewEl.style.display = 'flex';
+      const colors = skin.colors || {};
+      const items = skin.items || {};
+      const genderLabel = skin.gender === 'female' ? '♀ Femme' : '♂ Homme';
+
+      const swatchesHtml = COLOR_ZONES.map(function(z) {
+        const hex = colors[z.id] || '#000000';
+        return `
+          <div class="barbofus-color-chip" title="${z.label}: ${hex}">
+            <span class="barbofus-color-dot" style="background-color:${hex};"></span>
+            <span>${hex}</span>
+          </div>
+        `;
+      }).join('');
+
+      const itemsHtml = COSMETIC_SLOTS.map(function(s) {
+        const val = items[s.id] || '—';
+        return `<div><span>${s.icon} <b>${s.label}:</b> ${val}</span></div>`;
+      }).join('');
+
+      previewEl.innerHTML = `
+        <div class="barbofus-preview-box">
+          <div class="barbofus-preview-img">
+            <img src="${skin.imageFull || skin.image}" alt="${skin.name}">
+          </div>
+          <div class="barbofus-preview-details">
+            <h4 class="barbofus-preview-title">${skin.name}</h4>
+            <div class="barbofus-preview-meta">
+              <span>${getClassIcon(skin.class)} ${getClassName(skin.class)}</span>
+              <span>•</span>
+              <span>${genderLabel}</span>
+              ${skin.head ? `<span>•</span><span>${skin.head}</span>` : ''}
+            </div>
+
+            <div class="barbofus-preview-colors">
+              ${swatchesHtml}
+            </div>
+
+            <div class="barbofus-preview-items">
+              ${itemsHtml}
+            </div>
+
+            <div class="barbofus-preview-footer">
+              <button class="barbofus-btn-primary" id="barbofus-add-to-site-btn">
+                <span>💾</span>
+                <span>${isServerSaved ? '✓ Skin enregistré sur le disque ! Voir dans la galerie' : 'Ajouter au site (Sauvegarde locale)'}</span>
+              </button>
+              <button class="barbofus-btn-secondary" id="barbofus-copy-code-btn">
+                <span>📋</span>
+                <span>Copier le code JS</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      previewEl.querySelector('#barbofus-add-to-site-btn').addEventListener('click', function() {
+        if (!isServerSaved) {
+          saveCustomSkin(currentParsedSkin);
+        }
+        closeModal();
+        if (mainEl) {
+          skinState.selectedClass = currentParsedSkin.class;
+          renderSidebar(mainEl);
+          renderGrid(mainEl);
+        }
+      });
+
+      previewEl.querySelector('#barbofus-copy-code-btn').addEventListener('click', function(e) {
+        const btn = e.currentTarget;
+        const code = JSON.stringify(currentParsedSkin, null, 2);
+        copyToClipboard(code, function() {
+          const orig = btn.textContent;
+          btn.textContent = '✓ Code copié !';
+          setTimeout(function() { btn.textContent = orig; }, 1800);
+        });
+      });
+    }
+
+    // Traitement via le bouton principal "Analyser & Importer"
+    fetchBtn.addEventListener('click', async function() {
+      const url = urlInput.value.trim();
+      if (!url) {
+        showStatus("⚠️ Veuillez saisir l'URL du skin Barbofus (ex: https://barbofus.com/unity-skin/104749)", "error");
+        urlInput.focus();
+        return;
+      }
+      if (!url.includes('barbofus.com')) {
+        showStatus("⚠️ L'URL doit provenir du site barbofus.com.", "error");
+        urlInput.focus();
+        return;
+      }
+
+      fetchBtn.disabled = true;
+      showStatus("⏳ Analyse et téléchargement en cours via le serveur local...", "info");
+
+      const classVal = classSelect.value;
+      const genderVal = genderSelect.value;
+      const apiUrl = (window.location.port === '3000' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? '/api/import-barbofus'
+        : 'http://localhost:3000/api/import-barbofus';
+
+      try {
+        const resp = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            url: url,
+            classId: classVal !== 'auto' ? classVal : null,
+            gender: genderVal !== 'auto' ? genderVal : null
+          })
+        });
+
+        if (!resp.ok) {
+          const errData = await resp.json().catch(function() { return {}; });
+          throw new Error(errData.error || ('Erreur HTTP ' + resp.status));
+        }
+
+        const data = await resp.json();
+        if (!data.success || !data.skin) {
+          throw new Error(data.error || "Erreur lors de l'import du skin.");
+        }
+
+        // Le skin a été téléchargé, converti en webp et enregistré par le serveur !
+        const alreadyInSkins = SKINS.some(function(s) { return s.id === data.skin.id; });
+        if (!alreadyInSkins) {
+          SKINS.unshift(data.skin);
+        }
+
+        showStatus("🎉 Skin importé avec succès ! Images converties en WebP et enregistrées.", "success");
+        renderPreviewCard(data.skin, true);
+      } catch (err) {
+        console.warn("Échec API import :", err);
+        showStatus(`
+          ⚠️ Serveur local non joignable (<code>${err.message}</code>).<br>
+          💡 <b>Option 1 :</b> Démarrez le serveur avec <code>npm run serve</code> ou utilisez la commande CLI <code>npm run import:skin "${url}"</code>.<br>
+          💡 <b>Option 2 :</b> Ouvrez le lien Barbofus, faites <kbd>Ctrl+U</kbd>, copiez tout le HTML et collez-le ci-dessous pour l'ajouter directement !
+        `, "error");
+        manualSection.style.display = 'flex';
+        htmlInput.focus();
+      } finally {
+        fetchBtn.disabled = false;
+      }
+    });
+
+    // Traitement via le bouton d'extraction manuelle HTML
+    parseHtmlBtn.addEventListener('click', function() {
+      const rawHtml = htmlInput.value.trim();
+      if (!rawHtml) {
+        showStatus("⚠️ Veuillez coller le code source HTML de la page Barbofus.", "error");
+        htmlInput.focus();
+        return;
+      }
+
+      try {
+        const classVal = classSelect.value;
+        const genderVal = genderSelect.value;
+        const parsed = parseBarbofusClientHTML(rawHtml, classVal, genderVal);
+
+        showStatus("✅ Données extraites avec succès depuis le code source HTML !", "success");
+        renderPreviewCard(parsed, false);
+      } catch (err) {
+        console.error("Erreur parsing HTML :", err);
+        showStatus("❌ Impossible d'extraire les données : " + err.message, "error");
+      }
+    });
   }
 
   // =========================================================================
@@ -1190,6 +1742,10 @@
     },
     // Expose pour ajout futur programmatique ou tests
     skinsList: SKINS,
+    getAllSkins: getAllSkins,
+    getCustomSkins: getCustomSkins,
+    saveCustomSkin: saveCustomSkin,
+    openImportBarbofusModal: openImportBarbofusModal,
     classesList: DOFUS_CLASSES,
     guidesData: GUIDES_DATA,
     isFavorite: isFavorite,

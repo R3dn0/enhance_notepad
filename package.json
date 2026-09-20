@@ -4,7 +4,9 @@
   "description": "Pense-bête personnel accessible de partout",
   "private": true,
   "scripts": {
-    "build": "tailwindcss -i src/app.scss -o assets/app.css --minify && sass src/scss/_abi.scss themes/abi.css --no-source-map --style=compressed && sass src/scss/_stalzone.scss themes/stalzone.css --no-source-map --style=compressed && sass src/scss/_dofus.scss themes/dofus.css --no-source-map --style=compressed"
+    "build": "tailwindcss -i src/app.scss -o assets/app.css --minify && sass src/scss/_abi.scss themes/abi.css --no-source-map --style=compressed && sass src/scss/_stalzone.scss themes/stalzone.css --no-source-map --style=compressed && sass src/scss/_dofus.scss themes/dofus.css --no-source-map --style=compressed",
+    "serve": "node scripts/server.js",
+    "import:skin": "node scripts/import_barbofus.js"
   },
   "repository": {
     "type": "git",

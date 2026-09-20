@@ -1,0 +1,13 @@
+services:
+  enhance-notepad:
+    image: enhance-notepad:latest
+    container_name: enhance-notepad
+    restart: unless-stopped
+    ports:
+      - "38190:38190"
+    environment:
+      - PORT=38190
+    volumes:
+      - /home/r3dn0/enhance_notepad/data:/app/data
+      - /home/r3dn0/enhance_notepad/assets:/app/assets
+      - /home/r3dn0/enhance_notepad/themes:/app/themes

@@ -1,0 +1,4 @@
+node_modules
+.git
+.tmp_ai_gen
+.github

@@ -182,7 +182,7 @@ function getNextSkinId(classId, gender, skinsDir) {
   return `${cleanClass}-${cleanGender}-${idNum}`;
 }
 
-async function importBarbofusSkin(urlOrId, classOverride, genderOverride) {
+async function importBarbofusSkin(urlOrId, classOverride = null, genderOverride = null, shouldPush = false) {
   let targetUrl = urlOrId.trim();
   if (/^\d+$/.test(targetUrl)) {
     targetUrl = `https://barbofus.com/unity-skin/${targetUrl}`;
@@ -289,20 +289,40 @@ async function importBarbofusSkin(urlOrId, classOverride, genderOverride) {
   }
 
   console.log(`\n🎉 Skin "${finalSkinObject.name}" importé avec succès !`);
+
+  if (shouldPush) {
+    console.log("\n🚀 Préparation du commit et push Git...");
+    try {
+      execSync('git add assets/dofus/skins/ data/dofus.js assets/ themes/', { cwd: rootDir, stdio: 'inherit' });
+      const commitMsg = `feat(dofus): import skin ${finalSkinObject.name} (${skinId})`;
+      execSync(`git commit -m "${commitMsg.replace(/"/g, '\\"')}"`, { cwd: rootDir, stdio: 'inherit' });
+      execSync('git push origin HEAD', { cwd: rootDir, stdio: 'inherit' });
+      console.log(`\n✓ Changements commités et poussés sur GitHub avec succès ! 🚀`);
+    } catch (gitErr) {
+      console.error("\n⚠️ Erreur lors du commit / push Git :", gitErr.message);
+    }
+  }
+
   return finalSkinObject;
 }
 
 if (require.main === module) {
-  const args = process.argv.slice(2);
-  if (args.length === 0) {
-    console.log("Usage: node scripts/import_barbofus.js <url_ou_id_skin> [classe] [sexe]");
-    console.log("Exemple : node scripts/import_barbofus.js https://barbofus.com/unity-skin/104749");
-    console.log("Exemple avec override : node scripts/import_barbofus.js 104749 forgelance female");
+  const rawArgs = process.argv.slice(2);
+  const shouldPush = rawArgs.includes('--push') || rawArgs.includes('-p');
+  const filteredArgs = rawArgs.filter(arg => arg !== '--push' && arg !== '-p');
+
+  if (filteredArgs.length === 0) {
+    console.log("Usage: node scripts/import_barbofus.js <url_ou_id_skin> [classe] [sexe] [--push]");
+    console.log("Exemples :");
+    console.log("  node scripts/import_barbofus.js https://barbofus.com/unity-skin/104749");
+    console.log("  node scripts/import_barbofus.js https://barbofus.com/unity-skin/104749 --push");
+    console.log("  npm run import:skin https://barbofus.com/unity-skin/104749 -- --push");
+    console.log("  npm run import:skin:push https://barbofus.com/unity-skin/104749");
     process.exit(1);
   }
 
-  const [urlInput, classInput, genderInput] = args;
-  importBarbofusSkin(urlInput, classInput, genderInput)
+  const [urlInput, classInput, genderInput] = filteredArgs;
+  importBarbofusSkin(urlInput, classInput, genderInput, shouldPush)
     .then(() => process.exit(0))
     .catch(err => {
       console.error("\n❌ Erreur lors de l'import :", err.message);

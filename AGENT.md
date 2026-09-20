@@ -78,9 +78,11 @@ From the user screenshot(s), extract:
 
 ### 2. Image Processing & File Naming
 * Always name skin files according to the format: `[classe]-[f/m]-[nombre]` (e.g. `sram-f-001`, `cra-m-001`).
-* Run the conversion script:
+* **Manual Conversion:**
   `node scripts/convert_skin.js <path_to_image> <class_id> <gender: f|m> [head_image_path]`
-* Example: `node scripts/convert_skin.js sram.png sram f sram_head.png`
+* **Barbofus Automated Import:**
+  - Standard import: `node scripts/import_barbofus.js <url_or_id> [classe] [sexe]` (or `npm run import:skin <url>`)
+  - Import with automatic git push: `node scripts/import_barbofus.js <url_or_id> --push` (or `npm run import:skin:push <url>`)
 * This automatically generates:
   - Standard vignette: `assets/dofus/skins/<class_id>-<gender>-<num>.webp` (600x750px)
   - High resolution: `assets/dofus/skins/<class_id>-<gender>-<num>-hd.webp` (max 1200px)

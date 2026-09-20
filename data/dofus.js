@@ -50,6 +50,34 @@
   // Base de données des skins Dofus (alimentée par vos ajouts)
   const SKINS = [
     {
+        "id": "forgelance-f-007",
+        "name": "La nonne (Francois-l-Olonnais)",
+        "class": "forgelance",
+        "gender": "female",
+        "head": "Tête 10",
+        "headImage": "assets/dofus/skins/forgelance-f-007-head.webp",
+        "image": "assets/dofus/skins/forgelance-f-007.webp",
+        "imageFull": "assets/dofus/skins/forgelance-f-007-hd.webp",
+        "colors": {
+            "peau": "#BCB0A9",
+            "cheveux": "#000000",
+            "vetement1": "#000000",
+            "vetement2": "#000000",
+            "vetement3": "#BCB0A9",
+            "vetement4": "#000000"
+        },
+        "items": {
+            "coiffe": "Capuche d'Éther",
+            "cape": "Manteau Colorivant 7",
+            "bouclier": "Aucun",
+            "costume": "Costume Chimèrivan 2",
+            "ailes": "Aucune",
+            "epaulieres": "Épaulières Adacetra",
+            "armes": "Aucun",
+            "familier": "Chacha de Voyage"
+        }
+    },
+{
         "id": "forgelance-f-006",
         "name": "blackforg (pain)",
         "class": "forgelance",
@@ -189,6 +217,7 @@
             "familier": "Chiminou"
         }
     }
+  
   
   
   
@@ -1288,7 +1317,7 @@
         <div class="barbofus-form">
           <div class="barbofus-input-group">
             <label for="barbofus-url-input">🔗 Lien URL Barbofus</label>
-            <input type="url" id="barbofus-url-input" placeholder="https://barbofus.com/unity-skin/104749" spellcheck="false" autocomplete="off" />
+            <input type="url" id="barbofus-url-input" placeholder="https://barbofus.com/unity-skin/104749" spellcheck="false" autocomplete="off" autofocus />
           </div>
 
           <div class="barbofus-row">
@@ -1371,6 +1400,20 @@
     const previewEl = overlay.querySelector('#barbofus-preview');
 
     let currentParsedSkin = null;
+
+    if (urlInput) {
+      setTimeout(function() {
+        urlInput.focus();
+        urlInput.select();
+      }, 50);
+
+      urlInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          fetchBtn.click();
+        }
+      });
+    }
 
     toggleManualBtn.addEventListener('click', function() {
       const isHidden = manualSection.style.display === 'none';

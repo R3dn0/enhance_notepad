@@ -227,8 +227,8 @@ async function importBarbofusSkin(urlOrId, classOverride = null, genderOverride 
 
   // 2. Vignette WebP (600x750)
   await sharp(skinImgBuf)
-    .resize({ width: 600, height: 750, fit: 'cover', position: 'center' })
-    .webp({ quality: 84 })
+    .resize({ width: 600, height: 750, fit: 'inside', withoutEnlargement: true })
+    .webp({ quality: 88 })
     .toFile(thumbPath);
 
   // 3. Tête / Visage

@@ -436,11 +436,15 @@ body .wrap {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 12px;
 
   img {
-    width: 65%;
-    height: 65%;
+    max-width: 75%;
+    max-height: 75%;
+    width: auto;
+    height: auto;
     object-fit: contain;
+    object-position: center;
     transition: transform .3s ease;
   }
 }

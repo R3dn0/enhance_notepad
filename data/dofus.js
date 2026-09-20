@@ -49,7 +49,7 @@
 
   // Base de données des skins Dofus (alimentée par vos ajouts)
   const SKINS = [
-    {
+{
         "id": "forgelance-f-001",
         "name": "Forja (Raampardox)",
         "class": "forgelance",
@@ -219,6 +219,7 @@
     }
   
   
+  
   ];
 
   // =========================================================================
@@ -355,9 +356,7 @@
     }
 
     // 5. Demander au serveur local la suppression sur disque si actif
-    const apiUrl = (window.location.port === '3000' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-      ? '/api/delete-skin'
-      : 'http://localhost:3000/api/delete-skin';
+    const apiUrl = '/api/delete-skin';
 
     fetch(apiUrl, {
       method: 'POST',
@@ -1331,9 +1330,7 @@
 
       const classVal = classSelect.value;
       const genderVal = genderSelect.value;
-      const apiUrl = (window.location.port === '3000' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-        ? '/api/import-barbofus'
-        : 'http://localhost:3000/api/import-barbofus';
+      const apiUrl = '/api/import-barbofus';
 
       try {
         const resp = await fetch(apiUrl, {

@@ -523,10 +523,6 @@
         <span class="skin-class-name">⭐ Mes favoris</span>
         <span class="skin-class-count skin-fav-count ${favCount > 0 ? 'has-skins' : ''}">${favCount}</span>
       </button>
-      <button class="skin-class-btn skin-trash-class-btn ${skinState.selectedClass === 'trash' ? 'active' : ''}" data-class="trash">
-        <span class="skin-class-name">🗑️ Corbeille (7j)</span>
-        <span class="skin-class-count skin-trash-count ${trashCount > 0 ? 'has-skins' : ''}">${trashCount}</span>
-      </button>
       <div class="skin-sidebar-divider"></div>
     `;
 
@@ -543,6 +539,14 @@
         </button>
       `;
     });
+
+    html += `
+      <div class="skin-sidebar-divider"></div>
+      <button class="skin-class-btn skin-trash-class-btn ${skinState.selectedClass === 'trash' ? 'active' : ''}" data-class="trash">
+        <span class="skin-class-name">🗑️ Corbeille (7j)</span>
+        <span class="skin-class-count skin-trash-count ${trashCount > 0 ? 'has-skins' : ''}">${trashCount}</span>
+      </button>
+    `;
 
     listEl.innerHTML = html;
 

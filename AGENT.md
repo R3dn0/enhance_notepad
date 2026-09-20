@@ -69,10 +69,11 @@ From the user screenshot(s), extract:
   1. `coiffe`: Coiffe
   2. `cape`: Cape
   3. `bouclier`: Bouclier
-  4. `familier`: Familier ou montilier
-  5. `epaulieres`: Épaulières
-  6. `costume`: Costume
+  4. `costume`: Costume
+  5. `ailes`: Ailes
+  6. `epaulieres`: Épaulière
   7. `armes`: Armes
+  8. `familier`: Familiers - monture - montilier
 * **Class & Gender:** Class identifier (e.g., `sram`, `cra`, `iop`) and gender (`f` for female / `m` for male).
 
 ### 2. Image Processing & File Naming
@@ -109,10 +110,11 @@ From the user screenshot(s), extract:
     coiffe: '...',
     cape: '...',
     bouclier: '...',
-    familier: '...',
-    epaulieres: '...',
     costume: '...',
-    armes: '...'
+    ailes: '...',
+    epaulieres: '...',
+    armes: '...',
+    familier: '...'
   }
 }
 ```

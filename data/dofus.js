@@ -24,16 +24,17 @@
     { id: 'zobal', name: 'Zobal', icon: '🎭' }
   ];
 
-  // Ordre strict des 7 slots cosmétiques demandé :
-  // Coiffe / cape / bouclier / familier ou montilier / epaulieres / costume / armes
+  // Ordre strict des slots cosmétiques demandé :
+  // Coiffe / cape / bouclier / costume / ailes / epauliere / armes / familiers - monture - montilier
   const COSMETIC_SLOTS = [
     { id: 'coiffe', label: 'Coiffe', icon: '🎩' },
     { id: 'cape', label: 'Cape', icon: '🧣' },
     { id: 'bouclier', label: 'Bouclier', icon: '🛡️' },
-    { id: 'familier', label: 'Familier ou montilier', icon: '🐾' },
-    { id: 'epaulieres', label: 'Épaulières', icon: '🥋' },
     { id: 'costume', label: 'Costume', icon: '👘' },
-    { id: 'armes', label: 'Armes', icon: '⚔️' }
+    { id: 'ailes', label: 'Ailes', icon: '🪽' },
+    { id: 'epaulieres', label: 'Épaulière', icon: '🥋' },
+    { id: 'armes', label: 'Armes', icon: '⚔️' },
+    { id: 'familier', label: 'Familiers - monture - montilier', icon: '🐾' }
   ];
 
   // Zones de couleurs (Peau / Cheveux / Vetement 1 / 2 / 3 / 4)
@@ -69,13 +70,14 @@
             "coiffe": "Casque Chimèrivan 10",
             "cape": "Cape du Chtigre",
             "bouclier": "Bouclier Chimèrivan 6",
-            "familier": "Chiminou",
-            "epaulieres": "Épaulières Chimèrivan 6",
             "costume": "Costume Chimèrivan 2",
-            "armes": "Lames ailées Corpo"
+            "ailes": "Aucune",
+            "epaulieres": "Épaulières Chimèrivan 6",
+            "armes": "Lames ailées Corpo",
+            "familier": "Chiminou"
         }
     },
-{
+    {
       id: 'sram-f-001',
       name: 'Sram Krosmoz & Chevalier Noir',
       class: 'sram',
@@ -96,10 +98,11 @@
         coiffe: "Cache-œil des 25 ans du Krosmoz",
         cape: "Cape glorieuse polykrome 2",
         bouclier: "Aucun",
-        familier: "Tofookie",
-        epaulieres: "Aucune",
         costume: "Plastron de Chevalier Noir",
-        armes: "Aucune"
+        ailes: "Aucune",
+        epaulieres: "Aucune",
+        armes: "Aucune",
+        familier: "Tofookie"
       }
     },
     {
@@ -123,10 +126,11 @@
         coiffe: "Masque Brûlâme",
         cape: "Cape diaprée du Démon I",
         bouclier: "Bouclier Chimèrivan 9",
-        familier: "Flâme",
-        epaulieres: "Épaulières diaprées de la Démone II",
         costume: "Costume Chimèrivan 3",
-        armes: "Aucune"
+        ailes: "Aucune",
+        epaulieres: "Épaulières diaprées de la Démone II",
+        armes: "Aucune",
+        familier: "Flâme"
       }
     },
     {
@@ -150,10 +154,11 @@
         coiffe: "Bonnet Spairance",
         cape: "Cape Routh",
         bouclier: "Aucun",
-        familier: "Gekokar",
-        epaulieres: "Épaulières Chimèrivan 6",
         costume: "Aucun",
-        armes: "Dagues Aerdala"
+        ailes: "Aucune",
+        epaulieres: "Épaulières Chimèrivan 6",
+        armes: "Dagues Aerdala",
+        familier: "Gekokar"
       }
     },
     {
@@ -177,10 +182,11 @@
         coiffe: "Oreilles du Chtigre",
         cape: "Cape du Chtigre",
         bouclier: "Aucun",
-        familier: "Aucun",
-        epaulieres: "Brassards du Chtigre",
         costume: "Costume Chimèrivan 3",
-        armes: "Aucune"
+        ailes: "Aucune",
+        epaulieres: "Brassards du Chtigre",
+        armes: "Aucune",
+        familier: "Aucun"
       }
     },
     {
@@ -204,10 +210,11 @@
         coiffe: "Bandeau d'Exécuteur Miséreux",
         cape: "Cape du Sinistrofu",
         bouclier: "Bouclier Invisible",
-        familier: "Flâme",
+        costume: "Aucun",
+        ailes: "Ailes Chimèrivan 1",
         epaulieres: "Épaulières parfumées",
-        costume: "Ailes Chimèrivan 1",
-        armes: "Jugement de Thanatena"
+        armes: "Jugement de Thanatena",
+        familier: "Flâme"
       }
     }
   
@@ -623,7 +630,7 @@
     }).join('');
 
     // 2. Liste des items cosmétiques dans l'ordre strict :
-    // Coiffe / cape / bouclier / familier ou montilier / epaulieres / costume / armes
+    // Coiffe / cape / bouclier / costume / ailes / epauliere / armes / familiers - monture - montilier
     const itemsHtml = COSMETIC_SLOTS.map(function(slot) {
       const val = items[slot.id];
       const isNone = !val || val.toLowerCase() === 'aucun' || val.toLowerCase() === 'aucune' || val === '—';
@@ -949,15 +956,16 @@
       colors.vetement4 = '#' + colorMatches[5][1].toUpperCase();
     }
 
-    // 7. Cosmétiques (7 slots)
+    // 7. Cosmétiques (8 slots : Coiffe, Cape, Bouclier, Costume, Ailes, Épaulière, Armes, Familiers)
     const items = {
       coiffe: 'Aucune',
       cape: 'Aucune',
       bouclier: 'Aucun',
-      familier: 'Aucun',
-      epaulieres: 'Aucune',
       costume: 'Aucun',
-      armes: 'Aucune'
+      ailes: 'Aucune',
+      epaulieres: 'Aucune',
+      armes: 'Aucune',
+      familier: 'Aucun'
     };
 
     for (let i = 1; i <= 7; i++) {
@@ -965,6 +973,12 @@
       const m = html.match(regex);
       const noneVal = (i === 1 || i === 2 || i === 4) ? 'Aucune' : 'Aucun';
       items[BARBOFUS_ORDER_MAP[i]] = m ? m[1].trim().replace(/&#039;/g, "'").replace(/&quot;/g, '"') : noneVal;
+    }
+
+    // Détection automatique des Ailes si placées dans le costume
+    if (items.costume && items.costume.toLowerCase().startsWith('ailes')) {
+      items.ailes = items.costume;
+      items.costume = 'Aucun';
     }
 
     const skinId = `${classId}-${gender === 'female' ? 'f' : 'm'}-${Date.now().toString().slice(-4)}`;

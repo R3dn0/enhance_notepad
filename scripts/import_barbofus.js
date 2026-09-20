@@ -114,15 +114,16 @@ function parseBarbofusHTML(html, classOverride, genderOverride) {
     colors.vetement4 = '#' + colorMatches[5][1].toUpperCase();
   }
 
-  // 7. Items (order-1 to order-7)
+  // 7. Items (8 slots : Coiffe, Cape, Bouclier, Costume, Ailes, Épaulière, Armes, Familiers)
   const items = {
     coiffe: 'Aucune',
     cape: 'Aucune',
     bouclier: 'Aucun',
-    familier: 'Aucun',
-    epaulieres: 'Aucune',
     costume: 'Aucun',
-    armes: 'Aucune'
+    ailes: 'Aucune',
+    epaulieres: 'Aucune',
+    armes: 'Aucune',
+    familier: 'Aucun'
   };
 
   for (let i = 1; i <= 7; i++) {
@@ -130,6 +131,12 @@ function parseBarbofusHTML(html, classOverride, genderOverride) {
     const m = html.match(regex);
     const noneVal = (i === 1 || i === 2 || i === 4) ? 'Aucune' : 'Aucun';
     items[ORDER_MAP[i]] = m ? m[1].trim().replace(/&#039;/g, "'").replace(/&quot;/g, '"') : noneVal;
+  }
+
+  // Détection automatique des Ailes si placées dans le costume
+  if (items.costume && items.costume.toLowerCase().startsWith('ailes')) {
+    items.ailes = items.costume;
+    items.costume = 'Aucun';
   }
 
   return {

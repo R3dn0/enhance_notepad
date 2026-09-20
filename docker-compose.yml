@@ -11,3 +11,5 @@ services:
       - /home/r3dn0/enhance_notepad/data:/app/data
       - /home/r3dn0/enhance_notepad/assets:/app/assets
       - /home/r3dn0/enhance_notepad/themes:/app/themes
+      - /home/r3dn0/enhance_notepad/src:/app/src
+      - /home/r3dn0/enhance_notepad/scripts:/app/scripts

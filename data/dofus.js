@@ -50,6 +50,90 @@
   // Base de données des skins Dofus (alimentée par vos ajouts)
   const SKINS = [
     {
+        "id": "forgelance-f-006",
+        "name": "blackforg (pain)",
+        "class": "forgelance",
+        "gender": "female",
+        "head": "Tête 18",
+        "headImage": "assets/dofus/skins/forgelance-f-006-head.webp",
+        "image": "assets/dofus/skins/forgelance-f-006.webp",
+        "imageFull": "assets/dofus/skins/forgelance-f-006-hd.webp",
+        "colors": {
+            "peau": "#030202",
+            "cheveux": "#3C1F45",
+            "vetement1": "#8E8C8F",
+            "vetement2": "#3C393B",
+            "vetement3": "#3C1F45",
+            "vetement4": "#403D3F"
+        },
+        "items": {
+            "coiffe": "Pointe du Crépuscule",
+            "cape": "Manteau Colorivant 7",
+            "bouclier": "Aucun",
+            "costume": "Costume Chimèrivan 3",
+            "ailes": "Aucune",
+            "epaulieres": "Épaulières Chimèrivan 5",
+            "armes": "Aucun",
+            "familier": "Carpé"
+        }
+    },
+{
+        "id": "forgelance-f-005",
+        "name": " (Tiwab)",
+        "class": "forgelance",
+        "gender": "female",
+        "head": "Tête 17",
+        "headImage": "assets/dofus/skins/forgelance-f-005-head.webp",
+        "image": "assets/dofus/skins/forgelance-f-005.webp",
+        "imageFull": "assets/dofus/skins/forgelance-f-005-hd.webp",
+        "colors": {
+            "peau": "#A36C48",
+            "cheveux": "#C5B6A0",
+            "vetement1": "#4E3B4B",
+            "vetement2": "#D3BE92",
+            "vetement3": "#897958",
+            "vetement4": "#703861"
+        },
+        "items": {
+            "coiffe": "Aucune",
+            "cape": "Cape de Chevalier Noir",
+            "bouclier": "Gant d'Elely",
+            "costume": "Aucun",
+            "ailes": "Aucune",
+            "epaulieres": "Aucune",
+            "armes": "Ailes Chimèrivan 3",
+            "familier": "Minimou"
+        }
+    },
+{
+        "id": "forgelance-f-004",
+        "name": "Lyvs (Lyvs)",
+        "class": "forgelance",
+        "gender": "female",
+        "head": "Tête 3",
+        "headImage": "assets/dofus/skins/forgelance-f-004-head.webp",
+        "image": "assets/dofus/skins/forgelance-f-004.webp",
+        "imageFull": "assets/dofus/skins/forgelance-f-004-hd.webp",
+        "colors": {
+            "peau": "#DA9566",
+            "cheveux": "#EADEC0",
+            "vetement1": "#383838",
+            "vetement2": "#B68825",
+            "vetement3": "#C08D21",
+            "vetement4": "#333333"
+        },
+        "items": {
+            "coiffe": "Tignasse du Maudit",
+            "cape": "Voile du Maudit",
+            "bouclier": "Aucun",
+            "costume": "Costume du Maudit",
+            "ailes": "Aucune",
+            "epaulieres": "Épaulières du Corbeau Noir",
+            "armes": "Aucun",
+            "familier": "« L'Épée »"
+        }
+    },
+{
         "id": "forgelance-f-003",
         "name": "Chtigre (R3dn0)",
         "class": "forgelance",
@@ -105,6 +189,9 @@
             "familier": "Chiminou"
         }
     }
+  
+  
+  
   ];
 
   // =========================================================================
@@ -652,15 +739,15 @@
 
       return `
         <div class="skin-card ${isFav && !isTrashView ? 'is-favorite' : ''}" data-skin-id="${skin.id}">
-          <div class="skin-card-visual">
-            <div class="skin-card-badges">
-              <div class="skin-badge-tags">
-                <span class="skin-badge-tag">${getClassIcon(skin.class)} ${getClassName(skin.class)}</span>
-                <span class="skin-badge-tag ${genderClass}">${genderLabel}</span>
-                ${trashBadgeHtml}
-              </div>
-              ${actionBtnHtml}
+          <div class="skin-card-badge skin-card-badges">
+            <div class="skin-badge-tags">
+              <span class="skin-badge-tag">${getClassIcon(skin.class)} ${getClassName(skin.class)}</span>
+              <span class="skin-badge-tag ${genderClass}">${genderLabel}</span>
+              ${trashBadgeHtml}
             </div>
+            ${actionBtnHtml}
+          </div>
+          <div class="skin-card-visual">
             <img src="${skin.image}" alt="${skin.name}" loading="lazy">
           </div>
           <div class="skin-card-info">

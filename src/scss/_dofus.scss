@@ -427,6 +427,25 @@ body .wrap {
   }
 }
 
+.skin-card-badges,
+.skin-card-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid var(--color-line-soft);
+  z-index: 2;
+  gap: 8px;
+}
+
+.skin-badge-tags {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
 .skin-card-visual {
   position: relative;
   width: 100%;
@@ -436,36 +455,16 @@ body .wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 10%;
+  box-sizing: border-box;
 
   img {
-    max-width: 75%;
-    max-height: 75%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     object-position: center;
     transition: transform .3s ease;
   }
-}
-
-.skin-card-badges {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.skin-badge-tags {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: flex-start;
 }
 
 .skin-fav-btn {

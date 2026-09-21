@@ -2723,8 +2723,7 @@
             <!-- Input 3 : Vitesse par activation (10, 20, 30 / 10s) -->
             <div class="elevage-field field-full">
               <label>
-                <span>Vitesse de Gain (par activation de 10s)</span>
-                <span class="field-hint">Objets d'élevage</span>
+                <span>Vitesse de Gain</span>
               </label>
               <div class="elevage-speed-pills">
                 <button class="elevage-speed-btn ${enc.speed === 10 ? 'active' : ''}" data-speed="10">⚡ 10 / 10s</button>
@@ -2737,11 +2736,11 @@
           <!-- Boîte de calcul live -->
           <div class="elevage-calc-box">
             <div class="elevage-calc-item">
-              <span class="elevage-calc-label">Différence (Δ)</span>
+              <span class="elevage-calc-label">Différence</span>
               <span class="elevage-calc-val val-diff">${diff} pts</span>
             </div>
             <div class="elevage-calc-item">
-              <span class="elevage-calc-label">Activations (10s)</span>
+              <span class="elevage-calc-label">Activations</span>
               <span class="elevage-calc-val val-ticks">${ticks} ticks</span>
             </div>
             <div class="elevage-calc-item">

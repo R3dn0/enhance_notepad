@@ -2390,17 +2390,12 @@
       const rawVol = settings.volume !== undefined ? settings.volume : 70;
       const masterVol = Math.max(0.1, Math.min(1.0, rawVol / 100));
 
-      // Carillon mélodique en cascade pentatonique (Do5 -> Mi5 -> Sol5 -> La5 -> Sol5 -> Mi5 -> Ré5 -> Do5)
-      // Fluide, harmonieux, sans saut d'octave brutal et naturellement résolu
+      // Carillon mélodique chaud, doux et harmonieux (Do5, Mi5, Sol5, La5)
       const notes = [
         { freq: 523.25, start: 0.00, dur: 0.22, vol: 0.35 * masterVol },   // Do 5
         { freq: 659.25, start: 0.16, dur: 0.22, vol: 0.38 * masterVol },   // Mi 5
-        { freq: 783.99, start: 0.32, dur: 0.24, vol: 0.40 * masterVol },   // Sol 5
-        { freq: 880.00, start: 0.48, dur: 0.26, vol: 0.42 * masterVol },   // La 5
-        { freq: 783.99, start: 0.66, dur: 0.24, vol: 0.40 * masterVol },   // Sol 5 (descente douce)
-        { freq: 659.25, start: 0.84, dur: 0.24, vol: 0.38 * masterVol },   // Mi 5
-        { freq: 587.33, start: 1.02, dur: 0.26, vol: 0.36 * masterVol },   // Ré 5
-        { freq: 523.25, start: 1.22, dur: 0.70, vol: 0.45 * masterVol }    // Do 5 (résolution finale tenue)
+        { freq: 783.99, start: 0.32, dur: 0.26, vol: 0.40 * masterVol },   // Sol 5
+        { freq: 880.00, start: 0.50, dur: 0.60, vol: 0.45 * masterVol }    // La 5 (rond et chaleureux)
       ];
 
       notes.forEach(function(n) {

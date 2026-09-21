@@ -2367,6 +2367,8 @@
   const ENCLOS_GRID_ORDER = [3, 2, 1, 4, 5, 6];
 
   let audioCtxInstance = null;
+  let lastAlarmSoundTimestamp = 0;
+
   function getAudioCtx() {
     if (!audioCtxInstance) {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -2379,27 +2381,29 @@
   }
 
   function playSynthesizerAlarm() {
+    const settings = getElevageSettings();
+    if (settings.soundEnabled === false) return;
     try {
       const ctx = getAudioCtx();
       if (!ctx) return;
       const now = ctx.currentTime;
-      // Séquence de carillon mélodique agréable et dynamique (D5, F#5, A5, D6)
+      // Carillon mélodique cristallin et dynamique (Sol5, Si5, Ré6, Sol6)
       const notes = [
-        { freq: 587.33, start: 0, dur: 0.14 },     // D5
-        { freq: 739.99, start: 0.14, dur: 0.14 },  // F#5
-        { freq: 880.00, start: 0.28, dur: 0.16 },  // A5
-        { freq: 1174.66, start: 0.44, dur: 0.40 }  // D6
+        { freq: 783.99, start: 0, dur: 0.18, vol: 0.35 },    // G5
+        { freq: 987.77, start: 0.14, dur: 0.18, vol: 0.38 },   // B5
+        { freq: 1174.66, start: 0.28, dur: 0.22, vol: 0.40 },  // D6
+        { freq: 1567.98, start: 0.44, dur: 0.60, vol: 0.45 }   // G6
       ];
 
       notes.forEach(function(n) {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.type = 'triangle';
+        osc.type = 'sine';
         osc.frequency.setValueAtTime(n.freq, now + n.start);
 
-        gain.gain.setValueAtTime(0.001, now + n.start);
-        gain.gain.exponentialRampToValueAtTime(0.35, now + n.start + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + n.start + n.dur);
+        gain.gain.setValueAtTime(0.0001, now + n.start);
+        gain.gain.exponentialRampToValueAtTime(n.vol, now + n.start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + n.start + n.dur);
 
         osc.connect(gain);
         gain.connect(ctx.destination);
@@ -2411,36 +2415,8 @@
     }
   }
 
-  function speakTTSMessage(text) {
-    if (!('speechSynthesis' in window)) return;
-    try {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'fr-FR';
-      utterance.rate = 1.05;
-      utterance.pitch = 1.05;
-      utterance.volume = 1.0;
-
-      const voices = window.speechSynthesis.getVoices();
-      const frVoice = voices.find(function(v) { return v.lang && (v.lang.startsWith('fr') || v.lang.includes('FR')); });
-      if (frVoice) utterance.voice = frVoice;
-
-      window.speechSynthesis.speak(utterance);
-    } catch (err) {
-      console.warn("Erreur TTS :", err);
-    }
-  }
-
-  function triggerEnclosAlarm(enclos) {
+  function triggerEnclosNotification(enclos) {
     const settings = getElevageSettings();
-    if (settings.soundMode === 'sound' || settings.soundMode === 'both') {
-      playSynthesizerAlarm();
-    }
-    if (settings.soundMode === 'tts' || settings.soundMode === 'both') {
-      const customName = enclos.name && enclos.name !== ('Enclos #' + enclos.id) ? " " + enclos.name : "";
-      const msg = "Alerte ! L'enclos numéro " + enclos.id + customName + " est terminé !";
-      speakTTSMessage(msg);
-    }
     if (settings.notificationsEnabled && 'Notification' in window && Notification.permission === 'granted') {
       try {
         new Notification("Enclos #" + enclos.id + " Terminé !", {
@@ -2456,7 +2432,7 @@
   function getDefaultEnclosData() {
     return {
       settings: {
-        soundMode: 'both', // 'sound', 'tts', 'both', 'none'
+        soundEnabled: true,
         notificationsEnabled: false
       },
       enclos: {
@@ -2520,7 +2496,10 @@
   }
 
   function getElevageSettings() {
-    return elevageState.settings || { soundMode: 'both', notificationsEnabled: false };
+    if (!elevageState.settings) {
+      elevageState.settings = { soundEnabled: true, notificationsEnabled: false };
+    }
+    return elevageState.settings;
   }
 
   function calculateEnclosDurationMs(enc) {
@@ -2560,22 +2539,39 @@
     elevageTickerInterval = setInterval(function() {
       let stateChanged = false;
       const now = Date.now();
+      let hasActiveAlarm = false;
 
       ENCLOS_GRID_ORDER.forEach(function(id) {
         const enc = elevageState.enclos[id];
-        if (enc && enc.running && enc.endTimestamp) {
-          const left = enc.endTimestamp - now;
-          if (left <= 0) {
-            enc.remainingMs = 0;
-            enc.running = false;
-            enc.alarm = true;
-            stateChanged = true;
-            triggerEnclosAlarm(enc);
-          } else {
-            enc.remainingMs = left;
+        if (enc) {
+          if (enc.running && enc.endTimestamp) {
+            const left = enc.endTimestamp - now;
+            if (left <= 0) {
+              enc.remainingMs = 0;
+              enc.running = false;
+              enc.alarm = true;
+              stateChanged = true;
+              hasActiveAlarm = true;
+              playSynthesizerAlarm();
+              lastAlarmSoundTimestamp = now;
+              triggerEnclosNotification(enc);
+            } else {
+              enc.remainingMs = left;
+            }
+          }
+          if (enc.alarm) {
+            hasActiveAlarm = true;
           }
         }
       });
+
+      // Si une ou plusieurs alarmes sont actives, répète le carillon toutes les 10 secondes tant qu'elles ne sont pas stoppées !
+      if (hasActiveAlarm) {
+        if (now - lastAlarmSoundTimestamp >= 10000) { // 10 secondes
+          playSynthesizerAlarm();
+          lastAlarmSoundTimestamp = now;
+        }
+      }
 
       if (stateChanged) {
         saveElevageState();
@@ -2591,9 +2587,13 @@
   startGlobalTicker();
 
   function updateElevageDOM(container) {
+    let anyAlarmActive = false;
+
     ENCLOS_GRID_ORDER.forEach(function(id) {
       const enc = elevageState.enclos[id];
       if (!enc) return;
+      if (enc.alarm) anyAlarmActive = true;
+
       const card = container.querySelector(`[data-enclos-id="${id}"]`);
       if (!card) return;
 
@@ -2631,7 +2631,7 @@
       const etaEl = card.querySelector('.elevage-eta');
       if (etaEl) {
         if (enc.alarm) {
-          etaEl.textContent = '🎉 Minuteur écoulé !';
+          etaEl.textContent = '🔔 Alarme active (sonne toutes les 10s)';
         } else if (enc.running) {
           etaEl.textContent = formatEtaTime(enc.remainingMs);
         } else {
@@ -2663,6 +2663,12 @@
         }
       }
     });
+
+    // Bouton d'arrêt d'urgence global si au moins une alarme retentit
+    const stopAllAlarmsBtn = container.querySelector('#elevage-stop-alarms-btn');
+    if (stopAllAlarmsBtn) {
+      stopAllAlarmsBtn.style.display = anyAlarmActive ? 'inline-flex' : 'none';
+    }
   }
 
   function renderElevageCardHTML(enc) {
@@ -2757,7 +2763,7 @@
               ${formatTimeHMS(enc.remainingMs)}
             </div>
             <div class="elevage-eta">
-              ${enc.alarm ? '🎉 Minuteur écoulé !' : enc.running ? formatEtaTime(enc.remainingMs) : 'Durée : ' + formatTimeHMS(enc.remainingMs)}
+              ${enc.alarm ? '🔔 Alarme active (sonne toutes les 10s)' : enc.running ? formatEtaTime(enc.remainingMs) : 'Durée : ' + formatTimeHMS(enc.remainingMs)}
             </div>
             <div class="elevage-progress-track">
               <div class="elevage-progress-bar ${enc.alarm ? 'is-alarm' : ''}" style="width: ${enc.alarm ? '100%' : '0%'}"></div>
@@ -2795,28 +2801,27 @@
           <div class="elevage-toolbar-left">
             <h2 class="elevage-toolbar-title">🐴 Minuteurs d'Élevage Dofus</h2>
             <div class="elevage-toolbar-desc">
-              6 enclos interactifs configurés en disposition <b>[3 2 1 / 4 5 6]</b> avec calcul automatique de ticks (10s), alertes sonores et synthèse vocale TTS.
+              6 enclos interactifs configurés en disposition <b>[3 2 1 / 4 5 6]</b> avec calcul automatique de ticks (10s), alertes carillon répétées et notifications.
             </div>
           </div>
 
           <div class="elevage-toolbar-actions">
-            <!-- Mode Son / TTS -->
-            <div class="elevage-settings-row">
-              <span>🔊 Alarme :</span>
-              <select id="elevage-sound-mode" class="barbofus-input" style="padding: 4px 8px; font-size: 11px; background: var(--color-panel-2); color: var(--color-text); border: 1px solid var(--color-line); border-radius: 2px;">
-                <option value="both" ${settings.soundMode === 'both' ? 'selected' : ''}>🔔 Carillon + Synthèse Vocale (TTS)</option>
-                <option value="sound" ${settings.soundMode === 'sound' ? 'selected' : ''}>🔊 Carillon synthétiseur seul</option>
-                <option value="tts" ${settings.soundMode === 'tts' ? 'selected' : ''}>🗣️ Synthèse Vocale (TTS) seule</option>
-                <option value="none" ${settings.soundMode === 'none' ? 'selected' : ''}>🔇 Silencieux (visuel uniquement)</option>
-              </select>
-            </div>
+            <!-- Bouton Son Actif / Muet -->
+            <button class="elevage-btn ${settings.soundEnabled ? 'active' : ''}" id="elevage-sound-toggle-btn" title="Activer ou couper l'alarme sonore">
+              ${settings.soundEnabled ? '🔊 Carillon Activé' : '🔇 Carillon Coupé'}
+            </button>
 
-            <button class="elevage-btn btn-gold" id="elevage-test-sound-btn" title="Tester le carillon et la voix TTS">
-              🧪 Tester Alarme
+            <button class="elevage-btn btn-gold" id="elevage-test-sound-btn" title="Tester le carillon">
+              🧪 Tester Carillon
             </button>
 
             <button class="elevage-btn ${notifGranted ? 'active' : ''}" id="elevage-notif-btn" title="Activer les notifications du bureau pour être alerté en jeu">
-              ${notifGranted ? '🔔 Notifs Activées' : '🔔 Activer Notifs Bureau'}
+              ${notifGranted ? '🔔 Notifs Bureau Activées' : '🔔 Activer Notifs Bureau'}
+            </button>
+
+            <!-- Bouton Couper Toutes les Alarmes (visible quand au moins 1 sonne) -->
+            <button class="elevage-btn btn-danger" id="elevage-stop-alarms-btn" style="display: none; font-weight: 700;">
+              ⏹️ Couper Toutes les Alarmes
             </button>
 
             <!-- Actions globales -->
@@ -2838,6 +2843,7 @@
           <div class="elevage-memo-title">💡 Mémo Pratique — Règles d'Élevage & Ticks d'Objets</div>
           <p style="margin: 0; color: var(--color-muted);">
             • <b>Fréquence d'activation :</b> Dans un enclos, une monture déclenche l'effet des objets d'élevage toutes les <b>10 secondes</b> lorsqu'elle se déplace.<br>
+            • <b>Répétition de l'alarme :</b> Dès qu'un enclos atteint son objectif, le carillon retentit <b>toutes les 10 secondes</b> jusqu'à ce que vous cliquiez sur <b>Arrêter Alarme</b>.<br>
             • <b>Formule de durée :</b> <code>Temps = ⌈ |Valeur Souhaitée - Valeur Actuelle| / Vitesse ⌉ × 10 secondes</code>.<br>
             • <b>Sérénité & Orientation :</b>
             <b>[-5000 à -2000]</b> = Baffeurs (baisse sérénité) ➔ autorise le gain d'<b>Endurance</b> (Foudroyeurs).<br>
@@ -2852,12 +2858,19 @@
   }
 
   function bindElevageEvents(container) {
-    // Sound mode change
-    const soundModeSelect = container.querySelector('#elevage-sound-mode');
-    if (soundModeSelect) {
-      soundModeSelect.addEventListener('change', function() {
-        elevageState.settings.soundMode = this.value;
+    // Sound toggle button
+    const soundToggleBtn = container.querySelector('#elevage-sound-toggle-btn');
+    if (soundToggleBtn) {
+      soundToggleBtn.addEventListener('click', function() {
+        getAudioCtx();
+        const settings = getElevageSettings();
+        settings.soundEnabled = !settings.soundEnabled;
         saveElevageState();
+        this.classList.toggle('active', settings.soundEnabled);
+        this.innerHTML = settings.soundEnabled ? '🔊 Carillon Activé' : '🔇 Carillon Coupé';
+        if (settings.soundEnabled) {
+          playSynthesizerAlarm();
+        }
       });
     }
 
@@ -2867,7 +2880,6 @@
       testSoundBtn.addEventListener('click', function() {
         getAudioCtx();
         playSynthesizerAlarm();
-        speakTTSMessage("Test du minuteur d'élevage réussi. Vos alarmes sont prêtes !");
       });
     }
 
@@ -2884,13 +2896,31 @@
             elevageState.settings.notificationsEnabled = true;
             saveElevageState();
             notifBtn.classList.add('active');
-            notifBtn.innerHTML = '🔔 Notifs Activées';
+            notifBtn.innerHTML = '🔔 Notifs Bureau Activées';
             new Notification("Notifications Dofus Élevage Activées !", {
               body: "Vous recevrez des alertes quand vos dragodindes auront fini leur cycle en enclos.",
               icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🐴</text></svg>'
             });
           }
         });
+      });
+    }
+
+    // Stop all active alarms
+    const stopAllAlarmsBtn = container.querySelector('#elevage-stop-alarms-btn');
+    if (stopAllAlarmsBtn) {
+      stopAllAlarmsBtn.addEventListener('click', function() {
+        ENCLOS_GRID_ORDER.forEach(function(id) {
+          const enc = elevageState.enclos[id];
+          if (enc && enc.alarm) {
+            enc.alarm = false;
+            enc.remainingMs = calculateEnclosDurationMs(enc);
+            enc.totalMs = enc.remainingMs;
+            enc.running = false;
+          }
+        });
+        saveElevageState();
+        updateElevageDOM(container);
       });
     }
 
@@ -3195,5 +3225,6 @@
   });
 
 })();
+
 
 

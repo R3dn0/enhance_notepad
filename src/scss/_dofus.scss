@@ -1631,3 +1631,621 @@ body .wrap {
   padding-top: 12px;
   border-top: 1px solid var(--color-line-soft);
 }
+
+// =========================================================================
+// SECTION TOOLS : ÉLEVAGE MINUTEURS
+// =========================================================================
+.elevage-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 20px;
+}
+
+.elevage-toolbar {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.elevage-toolbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.elevage-toolbar-title {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--color-text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.elevage-toolbar-desc {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-muted);
+}
+
+.elevage-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.elevage-btn {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 8px 14px;
+  background: var(--color-panel-2);
+  border: 1px solid var(--color-line);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 3px;
+
+  &:hover {
+    border-color: var(--dofus-emerald);
+    color: var(--dofus-emerald);
+    background: rgba(46, 196, 134, 0.08);
+  }
+
+  &.btn-primary {
+    background: var(--dofus-emerald);
+    color: #090e0c;
+    font-weight: 700;
+    border-color: var(--dofus-emerald);
+
+    &:hover {
+      filter: brightness(1.15);
+      box-shadow: 0 0 14px rgba(46, 196, 134, 0.4);
+    }
+  }
+
+  &.btn-danger {
+    background: rgba(224, 75, 75, 0.12);
+    border-color: rgba(224, 75, 75, 0.35);
+    color: var(--dofus-crimson);
+
+    &:hover {
+      background: var(--dofus-crimson);
+      color: #fff;
+      box-shadow: 0 0 10px rgba(224, 75, 75, 0.4);
+    }
+  }
+
+  &.btn-gold {
+    background: rgba(229, 178, 45, 0.12);
+    border-color: rgba(229, 178, 45, 0.35);
+    color: var(--dofus-gold);
+
+    &:hover {
+      background: var(--dofus-gold);
+      color: #090e0c;
+      box-shadow: 0 0 10px rgba(229, 178, 45, 0.4);
+    }
+  }
+
+  &.active {
+    background: rgba(46, 196, 134, 0.2);
+    border-color: var(--dofus-emerald);
+    color: var(--dofus-emerald);
+  }
+}
+
+.elevage-settings-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-line-soft);
+  padding: 6px 12px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-muted);
+}
+
+// 6 ENCLOS GRID : 3 2 1 en haut, 4 5 6 en bas
+.elevage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  @media (max-width: 1080px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.elevage-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: all .2s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    border-color: rgba(46, 196, 134, 0.4);
+  }
+
+  &.is-running {
+    border-color: var(--dofus-emerald);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 14px rgba(46, 196, 134, 0.15);
+  }
+
+  &.is-paused {
+    border-color: var(--dofus-gold);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 14px rgba(229, 178, 45, 0.15);
+  }
+
+  &.is-alarm {
+    border-color: var(--dofus-crimson);
+    animation: elevageAlarmPulse 0.9s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 25px rgba(224, 75, 75, 0.6);
+  }
+}
+
+@keyframes elevageAlarmPulse {
+  0% {
+    border-color: var(--dofus-crimson);
+    box-shadow: 0 0 15px rgba(224, 75, 75, 0.4);
+    background: var(--color-panel);
+  }
+  100% {
+    border-color: #ff5555;
+    box-shadow: 0 0 35px rgba(224, 75, 75, 0.9);
+    background: rgba(224, 75, 75, 0.12);
+  }
+}
+
+.elevage-card-head {
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid var(--color-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.elevage-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.elevage-card-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  padding: 3px 8px;
+  background: rgba(46, 196, 134, 0.14);
+  border: 1px solid rgba(46, 196, 134, 0.3);
+  color: var(--dofus-emerald);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.elevage-card-name-input {
+  background: transparent;
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text);
+  padding: 2px 6px;
+  border-radius: 2px;
+  width: 100%;
+  transition: all .15s ease;
+
+  &:hover {
+    border-color: var(--color-line);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--dofus-emerald);
+    background: var(--color-panel-2);
+  }
+}
+
+.elevage-card-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 3px 7px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+
+  &.status-idle {
+    color: var(--color-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-line-soft);
+  }
+  &.status-running {
+    color: var(--dofus-emerald);
+    background: rgba(46, 196, 134, 0.12);
+    border: 1px solid rgba(46, 196, 134, 0.3);
+  }
+  &.status-paused {
+    color: var(--dofus-gold);
+    background: rgba(229, 178, 45, 0.12);
+    border: 1px solid rgba(229, 178, 45, 0.3);
+  }
+  &.status-alarm {
+    color: #fff;
+    background: var(--dofus-crimson);
+    border: 1px solid #ff7777;
+    animation: elevagePulseBadge 0.6s infinite alternate;
+  }
+}
+
+@keyframes elevagePulseBadge {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.elevage-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.elevage-inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.elevage-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &.field-full {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--color-muted);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .field-hint {
+    font-size: 9.5px;
+    color: var(--color-faint);
+    text-transform: none;
+  }
+}
+
+.elevage-num-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input[type="number"] {
+    background: var(--color-panel-2);
+    border: 1px solid var(--color-line);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 10px;
+    width: 100%;
+    border-radius: 2px;
+    transition: all .15s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--dofus-emerald);
+      box-shadow: 0 0 8px rgba(46, 196, 134, 0.25);
+    }
+  }
+}
+
+.elevage-speed-pills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.elevage-speed-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 6px 4px;
+  background: var(--color-panel-2);
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  cursor: pointer;
+  border-radius: 2px;
+  text-align: center;
+  transition: all .15s ease;
+
+  &:hover {
+    color: var(--color-text);
+    border-color: var(--color-muted);
+  }
+
+  &.active {
+    background: rgba(46, 196, 134, 0.16);
+    border-color: var(--dofus-emerald);
+    color: var(--dofus-emerald);
+    font-weight: 700;
+  }
+}
+
+.elevage-presets-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.elevage-preset-chip {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-line-soft);
+  color: var(--color-muted);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .15s ease;
+
+  &:hover {
+    color: var(--dofus-gold);
+    border-color: rgba(229, 178, 45, 0.4);
+    background: rgba(229, 178, 45, 0.08);
+  }
+}
+
+.elevage-calc-box {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--color-line-soft);
+  padding: 10px 12px;
+  border-radius: 2px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  text-align: center;
+}
+
+.elevage-calc-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.elevage-calc-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  color: var(--color-faint);
+  letter-spacing: .04em;
+}
+
+.elevage-calc-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dofus-teal);
+}
+
+.elevage-timer-display {
+  background: radial-gradient(circle at center, rgba(46, 196, 134, 0.06) 0%, rgba(0, 0, 0, 0.5) 100%);
+  border: 1px solid var(--color-line);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.elevage-digits {
+  font-family: var(--font-mono);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--color-text);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+  line-height: 1;
+
+  &.is-running {
+    color: var(--dofus-emerald);
+    text-shadow: 0 0 16px rgba(46, 196, 134, 0.45);
+  }
+
+  &.is-alarm {
+    color: #ff5555;
+    text-shadow: 0 0 20px rgba(224, 75, 75, 0.8);
+    animation: elevagePulseDigits 0.5s infinite alternate;
+  }
+}
+
+.elevage-eta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+.elevage-progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.elevage-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--dofus-teal), var(--dofus-emerald));
+  width: 0%;
+  transition: width 0.3s ease;
+
+  &.is-alarm {
+    background: var(--dofus-crimson);
+  }
+}
+
+.elevage-controls {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 8px;
+}
+
+.elevage-btn-toggle {
+  padding: 10px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  background: var(--dofus-emerald);
+  color: #090e0c;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 2px;
+  transition: all .15s ease;
+
+  &:hover {
+    filter: brightness(1.15);
+    box-shadow: 0 0 12px rgba(46, 196, 134, 0.35);
+  }
+
+  &.is-running {
+    background: var(--dofus-gold);
+    color: #090e0c;
+  }
+
+  &.is-alarm {
+    background: var(--dofus-crimson);
+    color: #fff;
+    animation: elevagePulseBadge 0.6s infinite alternate;
+  }
+}
+
+.elevage-btn-reset {
+  padding: 10px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: var(--color-panel-2);
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 2px;
+  transition: all .15s ease;
+
+  &:hover {
+    color: var(--color-text);
+    border-color: var(--color-muted);
+  }
+}
+
+.elevage-adjust-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.elevage-adj-btn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-line-soft);
+  color: var(--color-muted);
+  cursor: pointer;
+  border-radius: 2px;
+  text-align: center;
+  transition: all .15s ease;
+
+  &:hover {
+    color: var(--dofus-emerald);
+    border-color: rgba(46, 196, 134, 0.4);
+    background: rgba(46, 196, 134, 0.08);
+  }
+}
+
+.elevage-memo-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.elevage-memo-title {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--dofus-gold);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+

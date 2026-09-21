@@ -2361,6 +2361,748 @@
   };
 
   // =========================================================================
+  // MODULE TOOLS : ÉLEVAGE MINUTEURS (6 ENCLOS : 3 2 1 / 4 5 6)
+  // =========================================================================
+  const STORAGE_KEY_ELEVAGE = 'dofus_elevage_timers_v2';
+  const ENCLOS_GRID_ORDER = [3, 2, 1, 4, 5, 6];
+
+  let audioCtxInstance = null;
+  function getAudioCtx() {
+    if (!audioCtxInstance) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) audioCtxInstance = new AudioCtx();
+    }
+    if (audioCtxInstance && audioCtxInstance.state === 'suspended') {
+      audioCtxInstance.resume();
+    }
+    return audioCtxInstance;
+  }
+
+  function playSynthesizerAlarm() {
+    try {
+      const ctx = getAudioCtx();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      // Séquence de carillon mélodique agréable et dynamique (D5, F#5, A5, D6)
+      const notes = [
+        { freq: 587.33, start: 0, dur: 0.14 },     // D5
+        { freq: 739.99, start: 0.14, dur: 0.14 },  // F#5
+        { freq: 880.00, start: 0.28, dur: 0.16 },  // A5
+        { freq: 1174.66, start: 0.44, dur: 0.40 }  // D6
+      ];
+
+      notes.forEach(function(n) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(n.freq, now + n.start);
+
+        gain.gain.setValueAtTime(0.001, now + n.start);
+        gain.gain.exponentialRampToValueAtTime(0.35, now + n.start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + n.start + n.dur);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + n.start);
+        osc.stop(now + n.start + n.dur);
+      });
+    } catch (err) {
+      console.warn("Erreur AudioContext :", err);
+    }
+  }
+
+  function speakTTSMessage(text) {
+    if (!('speechSynthesis' in window)) return;
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'fr-FR';
+      utterance.rate = 1.05;
+      utterance.pitch = 1.05;
+      utterance.volume = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      const frVoice = voices.find(function(v) { return v.lang && (v.lang.startsWith('fr') || v.lang.includes('FR')); });
+      if (frVoice) utterance.voice = frVoice;
+
+      window.speechSynthesis.speak(utterance);
+    } catch (err) {
+      console.warn("Erreur TTS :", err);
+    }
+  }
+
+  function triggerEnclosAlarm(enclos) {
+    const settings = getElevageSettings();
+    if (settings.soundMode === 'sound' || settings.soundMode === 'both') {
+      playSynthesizerAlarm();
+    }
+    if (settings.soundMode === 'tts' || settings.soundMode === 'both') {
+      const customName = enclos.name && enclos.name !== ('Enclos #' + enclos.id) ? " " + enclos.name : "";
+      const msg = "Alerte ! L'enclos numéro " + enclos.id + customName + " est terminé !";
+      speakTTSMessage(msg);
+    }
+    if (settings.notificationsEnabled && 'Notification' in window && Notification.permission === 'granted') {
+      try {
+        new Notification("Enclos #" + enclos.id + " Terminé !", {
+          body: "L'élevage dans l'enclos " + enclos.id + " (" + (enclos.name || 'Enclos #' + enclos.id) + ") a atteint la valeur souhaitée.",
+          icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🐴</text></svg>'
+        });
+      } catch (e) {
+        console.warn("Notification error :", e);
+      }
+    }
+  }
+
+  function getDefaultEnclosData() {
+    return {
+      settings: {
+        soundMode: 'both', // 'sound', 'tts', 'both', 'none'
+        notificationsEnabled: false
+      },
+      enclos: {
+        3: { id: 3, name: 'Enclos #3', currentVal: -2500, targetVal: 0, speed: 20, remainingMs: 0, totalMs: 0, running: false, endTimestamp: null, alarm: false },
+        2: { id: 2, name: 'Enclos #2', currentVal: 0, targetVal: 2000, speed: 20, remainingMs: 0, totalMs: 0, running: false, endTimestamp: null, alarm: false },
+        1: { id: 1, name: 'Enclos #1', currentVal: 2000, targetVal: 0, speed: 20, remainingMs: 0, totalMs: 0, running: false, endTimestamp: null, alarm: false },
+        4: { id: 4, name: 'Enclos #4', currentVal: -2000, targetVal: 0, speed: 20, remainingMs: 0, totalMs: 0, running: false, endTimestamp: null, alarm: false },
+        5: { id: 5, name: 'Enclos #5', currentVal: 0, targetVal: -2000, speed: 20, remainingMs: 0, totalMs: 0, running: false, endTimestamp: null, alarm: false },
+        6: { id: 6, name: 'Enclos #6', currentVal: 0, targetVal: 5000, speed: 20, remainingMs: 0, totalMs: 0, running: false, endTimestamp: null, alarm: false }
+      }
+    };
+  }
+
+  function loadElevageState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_ELEVAGE);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.enclos) {
+          const now = Date.now();
+          ENCLOS_GRID_ORDER.forEach(function(id) {
+            const enc = parsed.enclos[id];
+            if (enc) {
+              if (enc.running && enc.endTimestamp) {
+                const left = enc.endTimestamp - now;
+                if (left <= 0) {
+                  enc.remainingMs = 0;
+                  enc.running = false;
+                  enc.alarm = true;
+                } else {
+                  enc.remainingMs = left;
+                }
+              } else if (!enc.running && (enc.remainingMs === undefined || enc.remainingMs === null || enc.remainingMs <= 0)) {
+                enc.remainingMs = calculateEnclosDurationMs(enc);
+                enc.totalMs = enc.remainingMs;
+              }
+            }
+          });
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn("Échec chargement timers élevage :", e);
+    }
+    const def = getDefaultEnclosData();
+    ENCLOS_GRID_ORDER.forEach(function(id) {
+      def.enclos[id].remainingMs = calculateEnclosDurationMs(def.enclos[id]);
+      def.enclos[id].totalMs = def.enclos[id].remainingMs;
+    });
+    return def;
+  }
+
+  let elevageState = loadElevageState();
+
+  function saveElevageState() {
+    try {
+      localStorage.setItem(STORAGE_KEY_ELEVAGE, JSON.stringify(elevageState));
+    } catch (e) {
+      console.warn("Échec sauvegarde timers élevage :", e);
+    }
+  }
+
+  function getElevageSettings() {
+    return elevageState.settings || { soundMode: 'both', notificationsEnabled: false };
+  }
+
+  function calculateEnclosDurationMs(enc) {
+    const cur = Number(enc.currentVal) || 0;
+    const tgt = Number(enc.targetVal) || 0;
+    const diff = Math.abs(tgt - cur);
+    const spd = Number(enc.speed) || 20;
+    if (spd <= 0 || diff <= 0) return 0;
+    const ticks = Math.ceil(diff / spd);
+    return ticks * 10 * 1000; // 10 secondes par activation/tick
+  }
+
+  function formatTimeHMS(ms) {
+    if (ms <= 0) return "00:00";
+    const totalSec = Math.ceil(ms / 1000);
+    const h = Math.floor(totalSec / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    const pad = function(n) { return String(n).padStart(2, '0'); };
+    if (h > 0) {
+      return pad(h) + ":" + pad(m) + ":" + pad(s);
+    }
+    return pad(m) + ":" + pad(s);
+  }
+
+  function formatEtaTime(ms) {
+    if (ms <= 0) return "Prêt !";
+    const targetDate = new Date(Date.now() + ms);
+    const pad = function(n) { return String(n).padStart(2, '0'); };
+    return "Fin à " + pad(targetDate.getHours()) + ":" + pad(targetDate.getMinutes()) + ":" + pad(targetDate.getSeconds());
+  }
+
+  // Ticker global actif en tâche de fond (toutes les 250ms)
+  let elevageTickerInterval = null;
+  function startGlobalTicker() {
+    if (elevageTickerInterval) return;
+    elevageTickerInterval = setInterval(function() {
+      let stateChanged = false;
+      const now = Date.now();
+
+      ENCLOS_GRID_ORDER.forEach(function(id) {
+        const enc = elevageState.enclos[id];
+        if (enc && enc.running && enc.endTimestamp) {
+          const left = enc.endTimestamp - now;
+          if (left <= 0) {
+            enc.remainingMs = 0;
+            enc.running = false;
+            enc.alarm = true;
+            stateChanged = true;
+            triggerEnclosAlarm(enc);
+          } else {
+            enc.remainingMs = left;
+          }
+        }
+      });
+
+      if (stateChanged) {
+        saveElevageState();
+      }
+
+      // Mise à jour fluide du DOM si la page élevage est affichée
+      const container = document.getElementById('elevage-app-container');
+      if (container) {
+        updateElevageDOM(container);
+      }
+    }, 250);
+  }
+  startGlobalTicker();
+
+  function updateElevageDOM(container) {
+    ENCLOS_GRID_ORDER.forEach(function(id) {
+      const enc = elevageState.enclos[id];
+      if (!enc) return;
+      const card = container.querySelector(`[data-enclos-id="${id}"]`);
+      if (!card) return;
+
+      // Classes de la carte
+      card.classList.toggle('is-running', enc.running);
+      card.classList.toggle('is-paused', !enc.running && enc.remainingMs > 0 && enc.remainingMs < (enc.totalMs || 1));
+      card.classList.toggle('is-alarm', enc.alarm);
+
+      // Statut Badge
+      const statusEl = card.querySelector('.elevage-card-status');
+      if (statusEl) {
+        if (enc.alarm) {
+          statusEl.className = 'elevage-card-status status-alarm';
+          statusEl.innerHTML = '🔔 TERMINÉ !';
+        } else if (enc.running) {
+          statusEl.className = 'elevage-card-status status-running';
+          statusEl.innerHTML = '▶ EN COURS';
+        } else if (enc.remainingMs > 0 && enc.remainingMs < (enc.totalMs || 1)) {
+          statusEl.className = 'elevage-card-status status-paused';
+          statusEl.innerHTML = '⏸ EN PAUSE';
+        } else {
+          statusEl.className = 'elevage-card-status status-idle';
+          statusEl.innerHTML = '⏸ EN ATTENTE';
+        }
+      }
+
+      // Digits & ETA
+      const digitsEl = card.querySelector('.elevage-digits');
+      if (digitsEl) {
+        digitsEl.textContent = formatTimeHMS(enc.remainingMs);
+        digitsEl.classList.toggle('is-running', enc.running);
+        digitsEl.classList.toggle('is-alarm', enc.alarm);
+      }
+
+      const etaEl = card.querySelector('.elevage-eta');
+      if (etaEl) {
+        if (enc.alarm) {
+          etaEl.textContent = '🎉 Minuteur écoulé !';
+        } else if (enc.running) {
+          etaEl.textContent = formatEtaTime(enc.remainingMs);
+        } else {
+          etaEl.textContent = enc.remainingMs > 0 ? 'Durée : ' + formatTimeHMS(enc.remainingMs) : 'Prêt à démarrer';
+        }
+      }
+
+      // Barre de progression
+      const barEl = card.querySelector('.elevage-progress-bar');
+      if (barEl) {
+        barEl.classList.toggle('is-alarm', enc.alarm);
+        const total = enc.totalMs || enc.remainingMs || 1;
+        const elapsed = Math.max(0, total - enc.remainingMs);
+        const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+        barEl.style.width = (enc.alarm ? 100 : pct) + '%';
+      }
+
+      // Bouton Toggle
+      const toggleBtn = card.querySelector('.elevage-btn-toggle');
+      if (toggleBtn) {
+        toggleBtn.classList.toggle('is-running', enc.running);
+        toggleBtn.classList.toggle('is-alarm', enc.alarm);
+        if (enc.alarm) {
+          toggleBtn.innerHTML = '⏹️ ARRÊTER ALARME';
+        } else if (enc.running) {
+          toggleBtn.innerHTML = '⏸ PAUSE';
+        } else {
+          toggleBtn.innerHTML = '▶ DÉMARRER';
+        }
+      }
+    });
+  }
+
+  function renderElevageCardHTML(enc) {
+    const diff = Math.abs((Number(enc.targetVal) || 0) - (Number(enc.currentVal) || 0));
+    const ticks = enc.speed > 0 ? Math.ceil(diff / enc.speed) : 0;
+    const calcDurationSec = ticks * 10;
+
+    return `
+      <div class="elevage-card ${enc.running ? 'is-running' : ''} ${enc.alarm ? 'is-alarm' : ''}" data-enclos-id="${enc.id}">
+        <div class="elevage-card-head">
+          <div class="elevage-card-title-group">
+            <span class="elevage-card-badge">Enclos #${enc.id}</span>
+            <input type="text" class="elevage-card-name-input" value="${enc.name || 'Enclos #' + enc.id}" placeholder="Nom / Dragodinde..." title="Renommer l'enclos" />
+          </div>
+          <span class="elevage-card-status ${enc.alarm ? 'status-alarm' : enc.running ? 'status-running' : 'status-idle'}">
+            ${enc.alarm ? '🔔 TERMINÉ !' : enc.running ? '▶ EN COURS' : '⏸ EN ATTENTE'}
+          </span>
+        </div>
+
+        <div class="elevage-card-body">
+          <div class="elevage-inputs-grid">
+            <!-- Input 1 : Valeur Actuelle -->
+            <div class="elevage-field">
+              <label>
+                <span>Valeur Actuelle</span>
+                <span class="field-hint">-5000 à 5000</span>
+              </label>
+              <div class="elevage-num-input-wrap">
+                <input type="number" class="input-current" min="-10000" max="10000" step="100" value="${enc.currentVal}" />
+              </div>
+            </div>
+
+            <!-- Input 2 : Valeur Souhaitée -->
+            <div class="elevage-field">
+              <label>
+                <span>Valeur Souhaitée</span>
+                <span class="field-hint">-5000 à 5000</span>
+              </label>
+              <div class="elevage-num-input-wrap">
+                <input type="number" class="input-target" min="-10000" max="10000" step="100" value="${enc.targetVal}" />
+              </div>
+            </div>
+
+            <!-- Raccourcis Cibles Dofus -->
+            <div class="elevage-field field-full">
+              <label>
+                <span>Raccourcis Cible (Sérénité / Stats)</span>
+              </label>
+              <div class="elevage-presets-row">
+                <button class="elevage-preset-chip" data-set-target="0" title="Neutralité Sérénité pour Maturité">🎯 0 (Maturité)</button>
+                <button class="elevage-preset-chip" data-set-target="2000" title="Sérénité positive pour Amour">+2000 (Amour)</button>
+                <button class="elevage-preset-chip" data-set-target="-2000" title="Sérénité négative pour Endurance">-2000 (Endurance)</button>
+                <button class="elevage-preset-chip" data-set-target="5000" title="Cap sérénité max">+5000</button>
+                <button class="elevage-preset-chip" data-set-target="-5000" title="Cap sérénité min">-5000</button>
+                <button class="elevage-preset-chip" data-action="invert-sign" title="Inverser le signe de la valeur actuelle">± Inverser</button>
+              </div>
+            </div>
+
+            <!-- Input 3 : Vitesse par activation (10, 20, 30 / 10s) -->
+            <div class="elevage-field field-full">
+              <label>
+                <span>Vitesse de Gain (par activation de 10s)</span>
+                <span class="field-hint">Objets d'élevage</span>
+              </label>
+              <div class="elevage-speed-pills">
+                <button class="elevage-speed-btn ${enc.speed === 10 ? 'active' : ''}" data-speed="10">⚡ 10 / 10s</button>
+                <button class="elevage-speed-btn ${enc.speed === 20 ? 'active' : ''}" data-speed="20">⚡ 20 / 10s</button>
+                <button class="elevage-speed-btn ${enc.speed === 30 ? 'active' : ''}" data-speed="30">⚡ 30 / 10s</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boîte de calcul live -->
+          <div class="elevage-calc-box">
+            <div class="elevage-calc-item">
+              <span class="elevage-calc-label">Différence (Δ)</span>
+              <span class="elevage-calc-val val-diff">${diff} pts</span>
+            </div>
+            <div class="elevage-calc-item">
+              <span class="elevage-calc-label">Activations (10s)</span>
+              <span class="elevage-calc-val val-ticks">${ticks} ticks</span>
+            </div>
+            <div class="elevage-calc-item">
+              <span class="elevage-calc-label">Durée Estimée</span>
+              <span class="elevage-calc-val val-duration">${formatTimeHMS(calcDurationSec * 1000)}</span>
+            </div>
+          </div>
+
+          <!-- Affichage du Minuteur Digital & Progress -->
+          <div class="elevage-timer-display">
+            <div class="elevage-digits ${enc.running ? 'is-running' : ''} ${enc.alarm ? 'is-alarm' : ''}">
+              ${formatTimeHMS(enc.remainingMs)}
+            </div>
+            <div class="elevage-eta">
+              ${enc.alarm ? '🎉 Minuteur écoulé !' : enc.running ? formatEtaTime(enc.remainingMs) : 'Durée : ' + formatTimeHMS(enc.remainingMs)}
+            </div>
+            <div class="elevage-progress-track">
+              <div class="elevage-progress-bar ${enc.alarm ? 'is-alarm' : ''}" style="width: ${enc.alarm ? '100%' : '0%'}"></div>
+            </div>
+          </div>
+
+          <!-- Contrôles du Minuteur -->
+          <div class="elevage-controls">
+            <button class="elevage-btn-toggle ${enc.running ? 'is-running' : ''} ${enc.alarm ? 'is-alarm' : ''}">
+              ${enc.alarm ? '⏹️ ARRÊTER ALARME' : enc.running ? '⏸ PAUSE' : '▶ DÉMARRER'}
+            </button>
+            <button class="elevage-btn-reset">↺ RESET</button>
+          </div>
+
+          <!-- Ajustements rapides -->
+          <div class="elevage-adjust-row">
+            <button class="elevage-adj-btn" data-adj="-300">-5 min</button>
+            <button class="elevage-adj-btn" data-adj="-60">-1 min</button>
+            <button class="elevage-adj-btn" data-adj="60">+1 min</button>
+            <button class="elevage-adj-btn" data-adj="300">+5 min</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderElevageTimersApp(main) {
+    const settings = getElevageSettings();
+    const notifGranted = 'Notification' in window && Notification.permission === 'granted';
+
+    main.innerHTML = `
+      <div class="elevage-wrap" id="elevage-app-container">
+        <!-- Barre d'outils supérieure -->
+        <div class="elevage-toolbar">
+          <div class="elevage-toolbar-left">
+            <h2 class="elevage-toolbar-title">🐴 Minuteurs d'Élevage Dofus</h2>
+            <div class="elevage-toolbar-desc">
+              6 enclos interactifs configurés en disposition <b>[3 2 1 / 4 5 6]</b> avec calcul automatique de ticks (10s), alertes sonores et synthèse vocale TTS.
+            </div>
+          </div>
+
+          <div class="elevage-toolbar-actions">
+            <!-- Mode Son / TTS -->
+            <div class="elevage-settings-row">
+              <span>🔊 Alarme :</span>
+              <select id="elevage-sound-mode" class="barbofus-input" style="padding: 4px 8px; font-size: 11px; background: var(--color-panel-2); color: var(--color-text); border: 1px solid var(--color-line); border-radius: 2px;">
+                <option value="both" ${settings.soundMode === 'both' ? 'selected' : ''}>🔔 Carillon + Synthèse Vocale (TTS)</option>
+                <option value="sound" ${settings.soundMode === 'sound' ? 'selected' : ''}>🔊 Carillon synthétiseur seul</option>
+                <option value="tts" ${settings.soundMode === 'tts' ? 'selected' : ''}>🗣️ Synthèse Vocale (TTS) seule</option>
+                <option value="none" ${settings.soundMode === 'none' ? 'selected' : ''}>🔇 Silencieux (visuel uniquement)</option>
+              </select>
+            </div>
+
+            <button class="elevage-btn btn-gold" id="elevage-test-sound-btn" title="Tester le carillon et la voix TTS">
+              🧪 Tester Alarme
+            </button>
+
+            <button class="elevage-btn ${notifGranted ? 'active' : ''}" id="elevage-notif-btn" title="Activer les notifications du bureau pour être alerté en jeu">
+              ${notifGranted ? '🔔 Notifs Activées' : '🔔 Activer Notifs Bureau'}
+            </button>
+
+            <!-- Actions globales -->
+            <button class="elevage-btn btn-primary" id="elevage-start-all-btn">▶ Tout Lancer</button>
+            <button class="elevage-btn" id="elevage-pause-all-btn">⏸ Tout Pause</button>
+            <button class="elevage-btn btn-danger" id="elevage-reset-all-btn">↺ Tout Reset</button>
+          </div>
+        </div>
+
+        <!-- Grille des 6 Enclos (3 2 1 / 4 5 6) -->
+        <div class="elevage-grid" id="elevage-grid">
+          ${ENCLOS_GRID_ORDER.map(function(id) {
+            return renderElevageCardHTML(elevageState.enclos[id]);
+          }).join('')}
+        </div>
+
+        <!-- Mémo & Rappel Règles Élevage -->
+        <div class="elevage-memo-card">
+          <div class="elevage-memo-title">💡 Mémo Pratique — Règles d'Élevage & Ticks d'Objets</div>
+          <p style="margin: 0; color: var(--color-muted);">
+            • <b>Fréquence d'activation :</b> Dans un enclos, une monture déclenche l'effet des objets d'élevage toutes les <b>10 secondes</b> lorsqu'elle se déplace.<br>
+            • <b>Formule de durée :</b> <code>Temps = ⌈ |Valeur Souhaitée - Valeur Actuelle| / Vitesse ⌉ × 10 secondes</code>.<br>
+            • <b>Sérénité & Orientation :</b>
+            <b>[-5000 à -2000]</b> = Baffeurs (baisse sérénité) ➔ autorise le gain d'<b>Endurance</b> (Foudroyeurs).<br>
+            <b>[-2000 à +2000]</b> = Sérénité moyenne ➔ autorise le gain de <b>Maturité</b> (Abreuvoirs).<br>
+            <b>[+2000 à +5000]</b> = Caresseurs (augmente sérénité) ➔ autorise le gain d'<b>Amour</b> (Dragofesses).
+          </p>
+        </div>
+      </div>
+    `;
+
+    bindElevageEvents(main);
+  }
+
+  function bindElevageEvents(container) {
+    // Sound mode change
+    const soundModeSelect = container.querySelector('#elevage-sound-mode');
+    if (soundModeSelect) {
+      soundModeSelect.addEventListener('change', function() {
+        elevageState.settings.soundMode = this.value;
+        saveElevageState();
+      });
+    }
+
+    // Test alarm button
+    const testSoundBtn = container.querySelector('#elevage-test-sound-btn');
+    if (testSoundBtn) {
+      testSoundBtn.addEventListener('click', function() {
+        getAudioCtx();
+        playSynthesizerAlarm();
+        speakTTSMessage("Test du minuteur d'élevage réussi. Vos alarmes sont prêtes !");
+      });
+    }
+
+    // Notifications permission button
+    const notifBtn = container.querySelector('#elevage-notif-btn');
+    if (notifBtn) {
+      notifBtn.addEventListener('click', function() {
+        if (!('Notification' in window)) {
+          alert("Votre navigateur ne prend pas en charge les notifications de bureau.");
+          return;
+        }
+        Notification.requestPermission().then(function(permission) {
+          if (permission === 'granted') {
+            elevageState.settings.notificationsEnabled = true;
+            saveElevageState();
+            notifBtn.classList.add('active');
+            notifBtn.innerHTML = '🔔 Notifs Activées';
+            new Notification("Notifications Dofus Élevage Activées !", {
+              body: "Vous recevrez des alertes quand vos dragodindes auront fini leur cycle en enclos.",
+              icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🐴</text></svg>'
+            });
+          }
+        });
+      });
+    }
+
+    // Global Actions (Start All, Pause All, Reset All)
+    const startAllBtn = container.querySelector('#elevage-start-all-btn');
+    if (startAllBtn) {
+      startAllBtn.addEventListener('click', function() {
+        getAudioCtx();
+        const now = Date.now();
+        ENCLOS_GRID_ORDER.forEach(function(id) {
+          const enc = elevageState.enclos[id];
+          if (enc && !enc.running) {
+            if (enc.remainingMs <= 0 || enc.alarm) {
+              enc.remainingMs = calculateEnclosDurationMs(enc);
+              enc.totalMs = enc.remainingMs;
+            }
+            if (enc.remainingMs > 0) {
+              enc.endTimestamp = now + enc.remainingMs;
+              enc.running = true;
+              enc.alarm = false;
+            }
+          }
+        });
+        saveElevageState();
+        updateElevageDOM(container);
+      });
+    }
+
+    const pauseAllBtn = container.querySelector('#elevage-pause-all-btn');
+    if (pauseAllBtn) {
+      pauseAllBtn.addEventListener('click', function() {
+        const now = Date.now();
+        ENCLOS_GRID_ORDER.forEach(function(id) {
+          const enc = elevageState.enclos[id];
+          if (enc && enc.running) {
+            enc.remainingMs = Math.max(0, enc.endTimestamp - now);
+            enc.running = false;
+          }
+        });
+        saveElevageState();
+        updateElevageDOM(container);
+      });
+    }
+
+    const resetAllBtn = container.querySelector('#elevage-reset-all-btn');
+    if (resetAllBtn) {
+      resetAllBtn.addEventListener('click', function() {
+        ENCLOS_GRID_ORDER.forEach(function(id) {
+          const enc = elevageState.enclos[id];
+          if (enc) {
+            enc.running = false;
+            enc.alarm = false;
+            enc.remainingMs = calculateEnclosDurationMs(enc);
+            enc.totalMs = enc.remainingMs;
+          }
+        });
+        saveElevageState();
+        updateElevageDOM(container);
+      });
+    }
+
+    // Events on each card
+    ENCLOS_GRID_ORDER.forEach(function(id) {
+      const card = container.querySelector(`[data-enclos-id="${id}"]`);
+      if (!card) return;
+      const enc = elevageState.enclos[id];
+
+      function syncCalcAndDisplay() {
+        const diff = Math.abs((Number(enc.targetVal) || 0) - (Number(enc.currentVal) || 0));
+        const ticks = enc.speed > 0 ? Math.ceil(diff / enc.speed) : 0;
+        const durSec = ticks * 10;
+        const durMs = durSec * 1000;
+
+        const diffEl = card.querySelector('.val-diff');
+        if (diffEl) diffEl.textContent = diff + ' pts';
+
+        const ticksEl = card.querySelector('.val-ticks');
+        if (ticksEl) ticksEl.textContent = ticks + ' ticks';
+
+        const durEl = card.querySelector('.val-duration');
+        if (durEl) durEl.textContent = formatTimeHMS(durMs);
+
+        if (!enc.running && !enc.alarm) {
+          enc.remainingMs = durMs;
+          enc.totalMs = durMs;
+          const digitsEl = card.querySelector('.elevage-digits');
+          if (digitsEl) digitsEl.textContent = formatTimeHMS(durMs);
+          const etaEl = card.querySelector('.elevage-eta');
+          if (etaEl) etaEl.textContent = 'Durée : ' + formatTimeHMS(durMs);
+        }
+        saveElevageState();
+      }
+
+      // Name change
+      const nameInput = card.querySelector('.elevage-card-name-input');
+      if (nameInput) {
+        nameInput.addEventListener('change', function() {
+          enc.name = this.value.trim() || ('Enclos #' + enc.id);
+          saveElevageState();
+        });
+      }
+
+      // Input Current
+      const curInput = card.querySelector('.input-current');
+      if (curInput) {
+        curInput.addEventListener('input', function() {
+          enc.currentVal = Number(this.value) || 0;
+          syncCalcAndDisplay();
+        });
+      }
+
+      // Input Target
+      const tgtInput = card.querySelector('.input-target');
+      if (tgtInput) {
+        tgtInput.addEventListener('input', function() {
+          enc.targetVal = Number(this.value) || 0;
+          syncCalcAndDisplay();
+        });
+      }
+
+      // Target Preset Buttons
+      card.querySelectorAll('[data-set-target]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const val = Number(this.dataset.setTarget);
+          enc.targetVal = val;
+          if (tgtInput) tgtInput.value = val;
+          syncCalcAndDisplay();
+        });
+      });
+
+      // Invert Sign Button
+      const invertBtn = card.querySelector('[data-action="invert-sign"]');
+      if (invertBtn) {
+        invertBtn.addEventListener('click', function() {
+          enc.currentVal = -enc.currentVal;
+          if (curInput) curInput.value = enc.currentVal;
+          syncCalcAndDisplay();
+        });
+      }
+
+      // Speed Pill Buttons
+      card.querySelectorAll('.elevage-speed-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const spd = Number(this.dataset.speed);
+          enc.speed = spd;
+          card.querySelectorAll('.elevage-speed-btn').forEach(function(b) {
+            b.classList.toggle('active', Number(b.dataset.speed) === spd);
+          });
+          syncCalcAndDisplay();
+        });
+      });
+
+      // Toggle Start / Pause / Stop Alarm
+      const toggleBtn = card.querySelector('.elevage-btn-toggle');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          getAudioCtx();
+          if (enc.alarm) {
+            enc.alarm = false;
+            enc.remainingMs = calculateEnclosDurationMs(enc);
+            enc.totalMs = enc.remainingMs;
+            enc.running = false;
+          } else if (enc.running) {
+            enc.remainingMs = Math.max(0, enc.endTimestamp - Date.now());
+            enc.running = false;
+          } else {
+            if (enc.remainingMs <= 0) {
+              enc.remainingMs = calculateEnclosDurationMs(enc);
+              enc.totalMs = enc.remainingMs;
+            }
+            if (enc.remainingMs > 0) {
+              enc.endTimestamp = Date.now() + enc.remainingMs;
+              enc.running = true;
+              enc.alarm = false;
+            }
+          }
+          saveElevageState();
+          updateElevageDOM(container);
+        });
+      }
+
+      // Reset Button
+      const resetBtn = card.querySelector('.elevage-btn-reset');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+          enc.running = false;
+          enc.alarm = false;
+          enc.remainingMs = calculateEnclosDurationMs(enc);
+          enc.totalMs = enc.remainingMs;
+          saveElevageState();
+          updateElevageDOM(container);
+        });
+      }
+
+      // Adjust Buttons
+      card.querySelectorAll('.elevage-adj-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const adjSec = Number(this.dataset.adj);
+          const adjMs = adjSec * 1000;
+          enc.remainingMs = Math.max(0, enc.remainingMs + adjMs);
+          if (enc.running) {
+            enc.endTimestamp = Date.now() + enc.remainingMs;
+          }
+          enc.totalMs = Math.max(enc.totalMs || 0, enc.remainingMs);
+          saveElevageState();
+          updateElevageDOM(container);
+        });
+      });
+    });
+  }
+
+  // =========================================================================
   // ENREGISTREMENT DU THÈME DOFUS AUPRÈS DE STASHAPP
   // =========================================================================
   window.StashApp.register('dofus', {
@@ -2368,19 +3110,24 @@
       theme: 'dofus',
       eyebrow: "📦 Stash // Personal memo",
       title: "<span>R3dn0</span>'s Notes",
-      sub: "Galerie de skins, guides d'optimisation et mémos pour Dofus.",
-      footer: "R3dn0 — Dofus skins & guides · mis à jour au fil des aventures dans le Monde des Douze"
+      sub: "Galerie de skins, guides d'optimisation et outils d'élevage pour Dofus.",
+      footer: "R3dn0 — Dofus skins, guides & tools · mis à jour au fil des aventures dans le Monde des Douze"
     },
     tabs: [
       { id: 'skins', label: '🎨 Skins' },
-      { id: 'guides', label: '📖 Guides' }
+      { id: 'guides', label: '📖 Guides' },
+      { id: 'tools', label: '🛠️ Tools' }
     ],
     data: {
       skins: {
         filters: [{ id: 'all', label: 'All' }],
         categories: []
       },
-      guides: GUIDES_DATA
+      guides: GUIDES_DATA,
+      tools: {
+        filters: [{ id: 'elevage', label: '🐴 Élevage Minuteurs' }],
+        categories: []
+      }
     },
     tagLabels: {
       opti: 'Opti',
@@ -2410,6 +3157,18 @@
           filterbar.innerHTML = '';
         }
         renderSkinsApp(main);
+      } else if (state.tab === 'tools') {
+        if (subtabs) {
+          subtabs.style.display = '';
+          subtabs.innerHTML = `
+            <button class="subtab active" data-tool="elevage">🐴 Élevage Minuteurs</button>
+          `;
+        }
+        if (filterbar) {
+          filterbar.style.display = 'none';
+          filterbar.innerHTML = '';
+        }
+        renderElevageTimersApp(main);
       } else {
         if (filterbar) {
           filterbar.style.display = '';
@@ -2430,8 +3189,11 @@
     classesList: DOFUS_CLASSES,
     guidesData: GUIDES_DATA,
     isFavorite: isFavorite,
-    toggleFavorite: toggleFavorite
+    toggleFavorite: toggleFavorite,
+    elevageState: elevageState,
+    renderElevageTimersApp: renderElevageTimersApp
   });
 
 })();
+
 

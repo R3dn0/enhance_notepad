@@ -2093,8 +2093,16 @@ body .wrap {
 .elevage-presets-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: space-between;
+  gap: 6px;
   flex-wrap: wrap;
+
+  .elevage-presets-left {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
 }
 
 .elevage-preset-chip {
@@ -2112,6 +2120,20 @@ body .wrap {
     color: var(--dofus-gold);
     border-color: rgba(229, 178, 45, 0.4);
     background: rgba(229, 178, 45, 0.08);
+  }
+
+  &.elevage-preset-chip-cap {
+    background: rgba(229, 178, 45, 0.1);
+    border-color: rgba(229, 178, 45, 0.35);
+    color: var(--dofus-gold);
+    font-weight: 700;
+
+    &:hover {
+      background: var(--dofus-gold);
+      color: #090e0c;
+      border-color: var(--dofus-gold);
+      box-shadow: 0 0 8px rgba(229, 178, 45, 0.35);
+    }
   }
 }
 

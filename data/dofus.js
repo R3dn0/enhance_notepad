@@ -2703,19 +2703,20 @@
               </div>
             </div>
 
-            <!-- Raccourcis Cibles Dofus (-1950 / -50 / 50 / 1950 / 20 000) -->
+            <!-- Raccourcis Cibles Dofus (-1950 / -50 / 50 / 1950 à gauche, 20 000 à droite) -->
             <div class="elevage-field field-full">
               <label>
                 <span>Raccourcis Cibles</span>
-                <span class="field-hint">Seuils Sérénité & Cap 20k</span>
+                <span class="field-hint">Sérénité & Cap 20k</span>
               </label>
               <div class="elevage-presets-row">
-                <button class="elevage-preset-chip" data-set-target="-1950" title="Seuil Baffeurs / Endurance (-1950)">-1950</button>
-                <button class="elevage-preset-chip" data-set-target="-50" title="Seuil bas Maturité (-50)">-50</button>
-                <button class="elevage-preset-chip" data-set-target="50" title="Seuil haut Maturité (50)">50</button>
-                <button class="elevage-preset-chip" data-set-target="1950" title="Seuil Caresseurs / Amour (1950)">1950</button>
-                <button class="elevage-preset-chip" data-set-target="20000" title="Cap Max Stats (Endurance / Maturité / Amour : 20 000)">20 000</button>
-                <button class="elevage-preset-chip" data-action="invert-sign" title="Inverser le signe de la valeur actuelle">± Inverser</button>
+                <div class="elevage-presets-left">
+                  <button class="elevage-preset-chip" data-set-target="-1950" title="Seuil Baffeurs / Endurance (-1950)">-1950</button>
+                  <button class="elevage-preset-chip" data-set-target="-50" title="Seuil bas Maturité (-50)">-50</button>
+                  <button class="elevage-preset-chip" data-set-target="50" title="Seuil haut Maturité (50)">50</button>
+                  <button class="elevage-preset-chip" data-set-target="1950" title="Seuil Caresseurs / Amour (1950)">1950</button>
+                </div>
+                <button class="elevage-preset-chip elevage-preset-chip-cap" data-set-target="20000" title="Cap Max Caractéristiques (Endurance / Maturité / Amour : 20 000)">20 000</button>
               </div>
             </div>
 

@@ -2390,12 +2390,17 @@
       const rawVol = settings.volume !== undefined ? settings.volume : 70;
       const masterVol = Math.max(0.1, Math.min(1.0, rawVol / 100));
 
-      // Carillon mélodique chaud, doux et harmonieux (Do5, Mi5, Sol5, La5)
+      // Carillon mélodique étendu (8 notes) : doux, harmonieux, chaleureux et jamais criard
+      // Motif en 2 phrases (Do5 -> Mi5 -> Sol5 -> Ré5 | Sol4 -> Do5 -> Mi5 -> Do5)
       const notes = [
-        { freq: 523.25, start: 0, dur: 0.22, vol: 0.35 * masterVol },    // Do 5
-        { freq: 659.25, start: 0.16, dur: 0.22, vol: 0.38 * masterVol },  // Mi 5
-        { freq: 783.99, start: 0.32, dur: 0.26, vol: 0.40 * masterVol },  // Sol 5 (moins aigu)
-        { freq: 880.00, start: 0.50, dur: 0.55, vol: 0.45 * masterVol }   // La 5 (rond et chaleureux)
+        { freq: 523.25, start: 0.00, dur: 0.22, vol: 0.35 * masterVol },   // Do 5
+        { freq: 659.25, start: 0.16, dur: 0.22, vol: 0.38 * masterVol },   // Mi 5
+        { freq: 783.99, start: 0.32, dur: 0.25, vol: 0.40 * masterVol },   // Sol 5
+        { freq: 587.33, start: 0.50, dur: 0.26, vol: 0.38 * masterVol },   // Ré 5
+        { freq: 392.00, start: 0.74, dur: 0.24, vol: 0.36 * masterVol },   // Sol 4
+        { freq: 523.25, start: 0.92, dur: 0.24, vol: 0.38 * masterVol },   // Do 5
+        { freq: 659.25, start: 1.10, dur: 0.26, vol: 0.40 * masterVol },   // Mi 5
+        { freq: 523.25, start: 1.30, dur: 0.70, vol: 0.45 * masterVol }    // Do 5 (résolution finale douce)
       ];
 
       notes.forEach(function(n) {

@@ -2387,12 +2387,15 @@
       const ctx = getAudioCtx();
       if (!ctx) return;
       const now = ctx.currentTime;
-      // Carillon mélodique cristallin et dynamique (Sol5, Si5, Ré6, Sol6)
+      const rawVol = settings.volume !== undefined ? settings.volume : 70;
+      const masterVol = Math.max(0.1, Math.min(1.0, rawVol / 100));
+
+      // Carillon mélodique chaud, doux et harmonieux (Do5, Mi5, Sol5, La5)
       const notes = [
-        { freq: 783.99, start: 0, dur: 0.18, vol: 0.35 },    // G5
-        { freq: 987.77, start: 0.14, dur: 0.18, vol: 0.38 },   // B5
-        { freq: 1174.66, start: 0.28, dur: 0.22, vol: 0.40 },  // D6
-        { freq: 1567.98, start: 0.44, dur: 0.60, vol: 0.45 }   // G6
+        { freq: 523.25, start: 0, dur: 0.22, vol: 0.35 * masterVol },    // Do 5
+        { freq: 659.25, start: 0.16, dur: 0.22, vol: 0.38 * masterVol },  // Mi 5
+        { freq: 783.99, start: 0.32, dur: 0.26, vol: 0.40 * masterVol },  // Sol 5 (moins aigu)
+        { freq: 880.00, start: 0.50, dur: 0.55, vol: 0.45 * masterVol }   // La 5 (rond et chaleureux)
       ];
 
       notes.forEach(function(n) {
@@ -2402,7 +2405,7 @@
         osc.frequency.setValueAtTime(n.freq, now + n.start);
 
         gain.gain.setValueAtTime(0.0001, now + n.start);
-        gain.gain.exponentialRampToValueAtTime(n.vol, now + n.start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(n.vol, now + n.start + 0.025);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + n.start + n.dur);
 
         osc.connect(gain);
@@ -2415,25 +2418,11 @@
     }
   }
 
-  function triggerEnclosNotification(enclos) {
-    const settings = getElevageSettings();
-    if (settings.notificationsEnabled && 'Notification' in window && Notification.permission === 'granted') {
-      try {
-        new Notification("Enclos #" + enclos.id + " Terminé !", {
-          body: "L'élevage dans l'enclos " + enclos.id + " (" + (enclos.name || 'Enclos #' + enclos.id) + ") a atteint la valeur souhaitée.",
-          icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🐴</text></svg>'
-        });
-      } catch (e) {
-        console.warn("Notification error :", e);
-      }
-    }
-  }
-
   function getDefaultEnclosData() {
     return {
       settings: {
         soundEnabled: true,
-        notificationsEnabled: false
+        volume: 70
       },
       enclos: {
         3: { id: 3, name: 'Enclos #3', currentVal: -2500, targetVal: 0, speed: 20, remainingMs: 0, totalMs: 0, running: false, endTimestamp: null, alarm: false },
@@ -2497,7 +2486,10 @@
 
   function getElevageSettings() {
     if (!elevageState.settings) {
-      elevageState.settings = { soundEnabled: true, notificationsEnabled: false };
+      elevageState.settings = { soundEnabled: true, volume: 70 };
+    }
+    if (elevageState.settings.volume === undefined) {
+      elevageState.settings.volume = 70;
     }
     return elevageState.settings;
   }
@@ -2554,7 +2546,6 @@
               hasActiveAlarm = true;
               playSynthesizerAlarm();
               lastAlarmSoundTimestamp = now;
-              triggerEnclosNotification(enc);
             } else {
               enc.remainingMs = left;
             }
@@ -2792,7 +2783,7 @@
 
   function renderElevageTimersApp(main) {
     const settings = getElevageSettings();
-    const notifGranted = 'Notification' in window && Notification.permission === 'granted';
+    const currentVol = settings.volume !== undefined ? settings.volume : 70;
 
     main.innerHTML = `
       <div class="elevage-wrap" id="elevage-app-container">
@@ -2801,22 +2792,25 @@
           <div class="elevage-toolbar-left">
             <h2 class="elevage-toolbar-title">🐴 Minuteurs d'Élevage Dofus</h2>
             <div class="elevage-toolbar-desc">
-              6 enclos interactifs configurés en disposition <b>[3 2 1 / 4 5 6]</b> avec calcul automatique de ticks (10s), alertes carillon répétées et notifications.
+              6 enclos interactifs configurés en disposition <b>[3 2 1 / 4 5 6]</b> avec calcul automatique de ticks (10s) et carillon répété toutes les 10 secondes.
             </div>
           </div>
 
           <div class="elevage-toolbar-actions">
             <!-- Bouton Son Actif / Muet -->
             <button class="elevage-btn ${settings.soundEnabled ? 'active' : ''}" id="elevage-sound-toggle-btn" title="Activer ou couper l'alarme sonore">
-              ${settings.soundEnabled ? '🔊 Carillon Activé' : '🔇 Carillon Coupé'}
+              ${settings.soundEnabled ? '🔊 Son Activé' : '🔇 Son Coupé'}
             </button>
 
-            <button class="elevage-btn btn-gold" id="elevage-test-sound-btn" title="Tester le carillon">
+            <!-- Slider de volume sonore (0 à 100%, bloqué à 10% minimum) -->
+            <div class="elevage-volume-wrap" title="Volume sonore du carillon (minimum 10%)">
+              <span class="elevage-volume-label">🔊 Vol :</span>
+              <input type="range" id="elevage-volume-slider" min="0" max="100" step="1" value="${currentVol}" />
+              <span class="elevage-volume-val" id="elevage-volume-display">${currentVol}%</span>
+            </div>
+
+            <button class="elevage-btn btn-gold" id="elevage-test-sound-btn" title="Tester le carillon au volume réglé">
               🧪 Tester Carillon
-            </button>
-
-            <button class="elevage-btn ${notifGranted ? 'active' : ''}" id="elevage-notif-btn" title="Activer les notifications du bureau pour être alerté en jeu">
-              ${notifGranted ? '🔔 Notifs Bureau Activées' : '🔔 Activer Notifs Bureau'}
             </button>
 
             <!-- Bouton Couper Toutes les Alarmes (visible quand au moins 1 sonne) -->
@@ -2867,10 +2861,37 @@
         settings.soundEnabled = !settings.soundEnabled;
         saveElevageState();
         this.classList.toggle('active', settings.soundEnabled);
-        this.innerHTML = settings.soundEnabled ? '🔊 Carillon Activé' : '🔇 Carillon Coupé';
+        this.innerHTML = settings.soundEnabled ? '🔊 Son Activé' : '🔇 Son Coupé';
         if (settings.soundEnabled) {
           playSynthesizerAlarm();
         }
+      });
+    }
+
+    // Volume Slider (min 10% locked, display 0 to 100)
+    const volumeSlider = container.querySelector('#elevage-volume-slider');
+    const volumeDisplay = container.querySelector('#elevage-volume-display');
+    if (volumeSlider && volumeDisplay) {
+      function updateVolumeFromSlider(sliderEl) {
+        let val = Number(sliderEl.value);
+        if (val < 10) {
+          val = 10;
+          sliderEl.value = 10;
+        }
+        const settings = getElevageSettings();
+        settings.volume = val;
+        volumeDisplay.textContent = val + '%';
+        saveElevageState();
+      }
+
+      volumeSlider.addEventListener('input', function() {
+        updateVolumeFromSlider(this);
+      });
+
+      volumeSlider.addEventListener('change', function() {
+        updateVolumeFromSlider(this);
+        getAudioCtx();
+        playSynthesizerAlarm();
       });
     }
 
@@ -2880,29 +2901,6 @@
       testSoundBtn.addEventListener('click', function() {
         getAudioCtx();
         playSynthesizerAlarm();
-      });
-    }
-
-    // Notifications permission button
-    const notifBtn = container.querySelector('#elevage-notif-btn');
-    if (notifBtn) {
-      notifBtn.addEventListener('click', function() {
-        if (!('Notification' in window)) {
-          alert("Votre navigateur ne prend pas en charge les notifications de bureau.");
-          return;
-        }
-        Notification.requestPermission().then(function(permission) {
-          if (permission === 'granted') {
-            elevageState.settings.notificationsEnabled = true;
-            saveElevageState();
-            notifBtn.classList.add('active');
-            notifBtn.innerHTML = '🔔 Notifs Bureau Activées';
-            new Notification("Notifications Dofus Élevage Activées !", {
-              body: "Vous recevrez des alertes quand vos dragodindes auront fini leur cycle en enclos.",
-              icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🐴</text></svg>'
-            });
-          }
-        });
       });
     }
 

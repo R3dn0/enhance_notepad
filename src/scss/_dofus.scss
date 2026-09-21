@@ -1765,6 +1765,75 @@ body .wrap {
   color: var(--color-muted);
 }
 
+.elevage-volume-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-panel-2);
+  border: 1px solid var(--color-line);
+  padding: 6px 14px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-text);
+
+  .elevage-volume-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--color-muted);
+    user-select: none;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 110px;
+    height: 5px;
+    background: var(--color-line);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--dofus-emerald);
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(46, 196, 134, 0.6);
+      transition: transform .15s ease, background-color .15s ease;
+
+      &:hover {
+        transform: scale(1.25);
+        background: var(--color-accent-strong);
+      }
+    }
+
+    &::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--dofus-emerald);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 8px rgba(46, 196, 134, 0.6);
+    }
+  }
+
+  .elevage-volume-val {
+    color: var(--dofus-emerald);
+    font-weight: 700;
+    min-width: 36px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+
 // 6 ENCLOS GRID : 3 2 1 en haut, 4 5 6 en bas
 .elevage-grid {
   display: grid;

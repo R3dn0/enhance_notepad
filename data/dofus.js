@@ -2685,10 +2685,10 @@
             <div class="elevage-field">
               <label>
                 <span>Valeur Actuelle</span>
-                <span class="field-hint">-5000 à 5000</span>
+                <span class="field-hint">-20 000 à 20 000</span>
               </label>
               <div class="elevage-num-input-wrap">
-                <input type="number" class="input-current" min="-10000" max="10000" step="100" value="${enc.currentVal}" />
+                <input type="number" class="input-current" min="-20000" max="20000" step="50" value="${enc.currentVal}" />
               </div>
             </div>
 
@@ -2696,24 +2696,25 @@
             <div class="elevage-field">
               <label>
                 <span>Valeur Souhaitée</span>
-                <span class="field-hint">-5000 à 5000</span>
+                <span class="field-hint">-20 000 à 20 000</span>
               </label>
               <div class="elevage-num-input-wrap">
-                <input type="number" class="input-target" min="-10000" max="10000" step="100" value="${enc.targetVal}" />
+                <input type="number" class="input-target" min="-20000" max="20000" step="50" value="${enc.targetVal}" />
               </div>
             </div>
 
-            <!-- Raccourcis Cibles Dofus -->
+            <!-- Raccourcis Cibles Dofus (-1950 / -50 / 50 / 1950 / 20 000) -->
             <div class="elevage-field field-full">
               <label>
-                <span>Raccourcis Cible (Sérénité / Stats)</span>
+                <span>Raccourcis Cibles</span>
+                <span class="field-hint">Seuils Sérénité & Cap 20k</span>
               </label>
               <div class="elevage-presets-row">
-                <button class="elevage-preset-chip" data-set-target="0" title="Neutralité Sérénité pour Maturité">🎯 0 (Maturité)</button>
-                <button class="elevage-preset-chip" data-set-target="2000" title="Sérénité positive pour Amour">+2000 (Amour)</button>
-                <button class="elevage-preset-chip" data-set-target="-2000" title="Sérénité négative pour Endurance">-2000 (Endurance)</button>
-                <button class="elevage-preset-chip" data-set-target="5000" title="Cap sérénité max">+5000</button>
-                <button class="elevage-preset-chip" data-set-target="-5000" title="Cap sérénité min">-5000</button>
+                <button class="elevage-preset-chip" data-set-target="-1950" title="Seuil Baffeurs / Endurance (-1950)">-1950</button>
+                <button class="elevage-preset-chip" data-set-target="-50" title="Seuil bas Maturité (-50)">-50</button>
+                <button class="elevage-preset-chip" data-set-target="50" title="Seuil haut Maturité (50)">50</button>
+                <button class="elevage-preset-chip" data-set-target="1950" title="Seuil Caresseurs / Amour (1950)">1950</button>
+                <button class="elevage-preset-chip" data-set-target="20000" title="Cap Max Stats (Endurance / Maturité / Amour : 20 000)">20 000</button>
                 <button class="elevage-preset-chip" data-action="invert-sign" title="Inverser le signe de la valeur actuelle">± Inverser</button>
               </div>
             </div>
@@ -2839,10 +2840,11 @@
             • <b>Fréquence d'activation :</b> Dans un enclos, une monture déclenche l'effet des objets d'élevage toutes les <b>10 secondes</b> lorsqu'elle se déplace.<br>
             • <b>Répétition de l'alarme :</b> Dès qu'un enclos atteint son objectif, le carillon retentit <b>toutes les 10 secondes</b> jusqu'à ce que vous cliquiez sur <b>Arrêter Alarme</b>.<br>
             • <b>Formule de durée :</b> <code>Temps = ⌈ |Valeur Souhaitée - Valeur Actuelle| / Vitesse ⌉ × 10 secondes</code>.<br>
-            • <b>Sérénité & Orientation :</b>
-            <b>[-5000 à -2000]</b> = Baffeurs (baisse sérénité) ➔ autorise le gain d'<b>Endurance</b> (Foudroyeurs).<br>
-            <b>[-2000 à +2000]</b> = Sérénité moyenne ➔ autorise le gain de <b>Maturité</b> (Abreuvoirs).<br>
-            <b>[+2000 à +5000]</b> = Caresseurs (augmente sérénité) ➔ autorise le gain d'<b>Amour</b> (Dragofesses).
+            • <b>Seuils & Orientation :</b><br>
+            &nbsp;&nbsp;• <b>[-10 000 à -2 000]</b> : Baffeurs (baisse sérénité) ➔ autorise ensuite le gain d'<b>Endurance</b> (Foudroyeurs).<br>
+            &nbsp;&nbsp;• <b>[-2 000 à +2 000]</b> (Zone neutre [-50 à 50]) : autorise le gain de <b>Maturité</b> (Abreuvoirs).<br>
+            &nbsp;&nbsp;• <b>[+2 000 à +10 000]</b> : Caresseurs (augmente sérénité) ➔ autorise ensuite le gain d'<b>Amour</b> (Dragofesses).<br>
+            &nbsp;&nbsp;• <b>Cap max des caractéristiques :</b> <b>20 000</b> (Endurance / Maturité / Amour).
           </p>
         </div>
       </div>

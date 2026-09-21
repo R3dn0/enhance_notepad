@@ -2150,6 +2150,212 @@
           { label: 'Tier D — Faible rentabilité horaire / secondaire', color: 'var(--dofus-crimson)' },
           { label: 'Opti / Kamas — Leviers financiers et rentes', color: 'var(--dofus-gold)' }
         ]
+      },
+      {
+        id: 'mineur-200',
+        label: '⛏️ Mineur 1 à 200 — Chemins & Mines Secrètes (Mercato)',
+        filters: [
+          { id: 'all', label: 'Tout voir' },
+          { id: 'boucle1-80', label: '⛏️ Boucle Niv. 1 à 80' },
+          { id: 'boucle80-200', label: '🌋 Chemin Niv. 80 à 200' },
+          { id: 'thl', label: '❄️ Rush THL (Albuera & Sakaï)' },
+          { id: 'secretes', label: '🤫 Mines Secrètes & Raccourcis' },
+          { id: 'conseils', label: '💡 Astuces & Économie' }
+        ],
+        categories: [
+          {
+            id: 'guide-header',
+            label: 'Guide Mineur 1 à 200 — Chemins Optimisés & Mines Secrètes',
+            subcats: [
+              {
+                label: 'Atteindre le niveau 200 en 1 semaine et dominer le marché des minerais THL',
+                recap: "Retour d'expérience et chemins ultra-optimisés par <b>Mercato</b>, membre du <b>Top 10 Mineur</b> en début de serveur ayant atteint le <b>niveau 200 en 1 semaine</b>.<br><br>Ce guide détaille les circuits de récolte en boucle fermée, la localisation exacte des filons stratégiques, les passages secrets méconnus et les raccourcis clés pour devancer la concurrence et générer des millions de kamas en début de serveur.<br><br>🎬 <a href='https://www.youtube.com/watch?v=zkQIW31S00M'>Voir la vidéo originale sur YouTube — Monter le Métier Mineur 200 en 1 Semaine (Mercato)</a>",
+                items: []
+              }
+            ]
+          },
+          {
+            id: 'boucle1-80',
+            label: '⛏️ Boucle Optimisée Niv. 1 à 80 (Le Circuit des 10 Mines)',
+            subcats: [
+              {
+                label: 'Stratégie de la Phase 1 à 80 : Rythme & Vélocité',
+                recap: "La tranche 1 à 80 est la plus longue et compétitive en début de serveur. Pour maximiser votre XP et vos récoltes :<br><br>• <b>Ne jamais camper sur les respawns :</b> Enchaînez les 10 mines du circuit en continu. Si une mine est déjà squattée, sautez-la directement pour conserver votre tempo.<br>• <b>Rotation d'inventaire :</b> À chaque tour complet des 10 mines, videz en banque ou transformez vos minerais en <b>alliages</b> pour accumuler un gros bonus d'XP métier.<br>• <b>Pods maximum :</b> Équipez-vous dès le départ avec des sacs à pods, ceintures pods et stats adaptées.",
+                items: []
+              },
+              {
+                label: 'La Route des 10 Mines (Coordonnées & Minerais)',
+                recap: "<table><thead><tr><th>#</th><th>Zone & Coordonnées</th><th>Minerais principaux</th><th>Conseils & Spécificités</th></tr></thead><tbody><tr><td><b>1</b></td><td><b>Mine d'Amakna</b> <code>[0, 3]</code></td><td>Fer exclusif (100 %)</td><td>Spot de base pour up 1 à 20. Idéal pour stationner un perso secondaire.</td></tr><tr><td><b>2</b></td><td><b>Mine Donjon Larves</b> <code>[-2, -5]</code></td><td>Fer, Cuivre, Bronze, Manganèse, Cobalt</td><td>Contestez le manganèse aux joueurs AFK sur la map.</td></tr><tr><td><b>3</b></td><td><b>Mine Secrète Abraknydes</b> <code>[-14, -9]</code></td><td>Cuivre, Bronze, Cobalt, Manganèse</td><td><b>Cliquer derrière le rocher</b>. Très souvent pleine la nuit et tôt le matin.</td></tr><tr><td><b>4</b></td><td><b>Mine du Lac de Cania</b> <code>[-1, -42]</code></td><td>Fer, Cuivre, Bronze, Cobalt, Manganèse</td><td>Très fréquentée mais très dense en filons variés.</td></tr><tr><td><b>5</b></td><td><b>Mine des Canigs</b> <code>[1, -54]</code></td><td>Tous minerais (1 à 200)</td><td><b>L'incontournable absolue</b> : vous y reviendrez du niveau 1 au niveau 200.</td></tr><tr><td><b>6</b></td><td><b>Mine Dopeuls Nord</b> <code>[-32, -8]</code></td><td>Fer, Cuivre, Bronze, Cobalt</td><td>Gros gisement de Cobalt souvent disponible.</td></tr><tr><td><b>7</b></td><td><b>Mine Dopeuls Sud</b> <code>[-29, -11]</code></td><td>Fer, Cuivre, Bronze, Cobalt</td><td>Deuxième mine Dopeuls pour blinder les réserves de Cobalt.</td></tr><tr><td><b>8</b></td><td><b>Landes de Sidimote</b> <code>[-23, 21]</code></td><td>Bronze, Cobalt</td><td>Gisement massif de Bronze et Cobalt pour vos alliages.</td></tr><tr><td><b>9</b></td><td><b>Mine Secrète de Lave</b> <code>[-28, 28]</code></td><td>Bronze massif (100 %)</td><td><b>Cliquer derrière le lac de lave</b>. Rasez tout le Bronze sans exception.</td></tr><tr><td><b>10</b></td><td><b>Tunnel Carton-Pâte & Donjon DC</b> <code>[1, 32]</code></td><td>Bronze, Cuivre, Fer, Cobalt</td><td>Vider le tunnel vers Carton-Pâte puis la mine du Donjon Dragon Cochon.</td></tr></tbody></table>",
+                items: [
+                  {
+                    tag: 'farming',
+                    name: 'Mine d\'Amakna [0, 3] — Rush Fer 1-20',
+                    desc: "Mine composée exclusivement de Fer. Essentielle pour franchir les 20 premiers niveaux d'une traite."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Mine Secrète Abraknydes [-14, -9]',
+                    desc: "Entrée cachée derrière le rocher. Filon très riche en Cuivre, Bronze, Cobalt et Manganèse aux heures calmes."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Mine des Canigs [1, -54] — Le Pilier 1 à 200',
+                    desc: "La mine la plus complète du jeu. Elle abrite l'ensemble des minerais indispensables tout au long de votre leveling."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Mines Dopeuls [-32, -8] & [-29, -11]',
+                    desc: "Parfaites pour accumuler un stock massif de Cobalt, composant critique et très convoité."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Mine Secrète du Lac de Lave [-28, 28]',
+                    desc: "Accès dissimulé derrière le lac de lave. Véritable réserve géante de Bronze à récolter intégralement."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'boucle80-200',
+            label: '🌋 Progression & Chemin Niv. 80 à 200',
+            subcats: [
+              {
+                label: 'Principe d\'Évolution : Transition & Nouveaux Minerais',
+                recap: "À partir du niveau 80, la formule s'adapte :<br><br>1. <b>Conservation des anciens minerais :</b> Continuez à ramasser les minerais BL/ML qui composent les alliages de votre tranche de niveau.<br>2. <b>Rush systématique des nouveaux minerais :</b> Dès qu'un minerai est débloqué (Étain, Argent, Bauxite, Or, Silicate, Dolomite), intégrez immédiatement son spot dans votre boucle.<br>3. <b>Exploitation des heures creuses :</b> Les mines d'étain et de bauxite étant très disputées, privilégiez le farm tôt le matin ou tard dans la nuit.",
+                items: []
+              },
+              {
+                label: 'La Grande Boucle 80-200 Étape par Étape',
+                recap: "<table><thead><tr><th>Étape</th><th>Zone & Coordonnées</th><th>Minerais ciblés</th><th>Recommandations</th></tr></thead><tbody><tr><td><b>1</b></td><td><b>Mine des Canigs</b> <code>[1, -54]</code></td><td>Mix complet</td><td>Point de départ classique : récoltez anciens et nouveaux minerais.</td></tr><tr><td><b>2</b></td><td><b>Massif de Cania</b> <code>[-20, -20]</code></td><td>Argent, Bauxite</td><td>Mine clé très prisée. À faire de préférence aux heures creuses.</td></tr><tr><td><b>3</b></td><td><b>Mines des Dopeuls</b> <code>[-32, -8] & [-29, -11]</code></td><td>Fer, Cuivre, Bronze, Cobalt, Manganèse</td><td>Maintien régulier du stock de minerais indispensables aux alliages.</td></tr><tr><td><b>4</b></td><td><b>Massif de Cania</b> <code>[-21, -7]</code></td><td>Étain massif</td><td>Gros gisement d'Étain, composant phare de cette tranche.</td></tr><tr><td><b>5</b></td><td><b>Landes de Sidimote</b> <code>[-26, 5]</code></td><td>Étain, Manganèse</td><td>Ajout indispensable à la boucle Sidimote pour l'Étain et le Manganèse.</td></tr><tr><td><b>6</b></td><td><b>Territoire des Gisgoules</b> <code>[17, 21]</code></td><td>Argent, Bauxite</td><td>Excellent spot pour consolider les stocks d'Argent et de Bauxite.</td></tr><tr><td><b>7</b></td><td><b>Carton-Pâte & Saharach</b> <code>[-16, 60]</code></td><td>Or, Bronze</td><td>Traverser le chemin de Carton-Pâte puis miner l'Or dans la mine de Saharach.</td></tr><tr><td><b>8</b></td><td><b>Île des Wabbits</b> <code>[23, -4]</code></td><td>Argent, Cobalt, Manganèse</td><td>Située à 2 maps à gauche du Zaap principal. Souvent pleine et très rentable.</td></tr><tr><td><b>9</b></td><td><b>Terredala (Pandala)</b></td><td>Silicate, Dolomite</td><td>Minerais nobles très rares : à miner absolument dès que vous les croisez.</td></tr></tbody></table>",
+                items: [
+                  {
+                    tag: 'farming',
+                    name: 'Massif de Cania [-20, -20] — Argent & Bauxite',
+                    desc: "La référence pour l'Argent et la Bauxite. Crucial pour tous vos alliages intermédiaires et HL."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Massif de Cania [-21, -7] — Gisement d\'Étain',
+                    desc: "Mine saturée en Étain. Fréquentation très élevée : ciblez les créneaux matinaux ou nocturnes."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Saharach [-16, 60] — Filon d\'Or',
+                    desc: "Mine principale pour l'Or, complétée par la récolte tout le long du chemin de Carton-Pâte."
+                  },
+                  {
+                    tag: 'farming',
+                    name: 'Île des Wabbits [23, -4] — Argent & Manganèse',
+                    desc: "Mine rapide d'accès (2 maps à gauche du Zaap) fournissant de l'Argent, du Cobalt et du Manganèse en quantité."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Terredala (Pandala) — Silicate & Dolomite',
+                    desc: "Ressources rares et chères. Même si vous n'en avez pas l'utilité immédiate, récoltez-les sans hésiter pour la suite."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'thl',
+            label: '❄️ Rush THL (Niveaux 170 à 200 : Albuera & Sakaï)',
+            subcats: [
+              {
+                label: 'Les 3 Mines Stratégiques des Niveaux 170-200',
+                recap: "Dans les 30 derniers niveaux, 3 mines dédiées aux minerais THL permettent d'achever le leveling 200 tout en s'assurant le monopole des minerais les plus chers :<br><br>• <b>Île d'Albuera <code>[33, -70]</code> (Archipel de Valonia) :</b> Prendre le bateau vers Albuera. Récoltez tout le <b>Cendre-pierre</b> présent.<br>• <b>Île de Sakaï (Mine Nord) <code>[-50, -45]</code> :</b> <span class='guide-badge-pill opti'>Ordre Crucial</span> À faire <b>en premier</b> car la téléportation vers le Havresac y est bloquée.<br>• <b>Île de Sakaï (Mine Sud) <code>[-51, -44]</code> :</b> À faire <b>en second</b> pour terminer la tournée, car le TP Havresac y est autorisé pour repartir immédiatement.",
+                items: [
+                  {
+                    tag: 'farming',
+                    name: 'Albuera [33, -70] — Cendre-Pierre',
+                    desc: "Accès par bateau depuis Valonia. Filon incontournable pour récolter le Cendre-pierre THL."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Sakaï Nord [-50, -45] — Étape 1 (Havresac Bloqué)',
+                    desc: "Commencez impérativement par cette mine car la téléportation vers le Havresac y est impossible."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Sakaï Sud [-51, -44] — Étape 2 (Sortie Havresac)',
+                    desc: "Terminez votre run Sakaï par cette mine : le TP Havresac fonctionne, permettant un retour instantané en banque."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'secretes',
+            label: '🤫 Mines Secrètes & Raccourcis Clés',
+            subcats: [
+              {
+                label: 'Les Passages Secrets Méconnus',
+                recap: "L'avantage concurrentiel d'un mineur repose sur sa connaissance des accès cachés et des raccourcis de transport pour devancer les autres joueurs :",
+                items: [
+                  {
+                    tag: 'opti',
+                    name: 'Mine Secrète d\'Abraknydes [-14, -9]',
+                    desc: "Cliquer derrière le gros rocher de la map pour entrer dans une mine généreuse en Cuivre, Bronze, Cobalt et Manganèse."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Mine Secrète de Lave [-28, 28]',
+                    desc: "Cliquer directement derrière le lac de lave dans les Landes de Sidimote pour accéder à une mine 100% Bronze."
+                  },
+                  {
+                    tag: 'opti',
+                    name: '2 Mines Secrètes du Nord Wabbit',
+                    desc: "Situées tout au nord de l'île Wabbit. Débloquez le Zaap <i>Laboratoire abandonné</i> pour y accéder rapidement."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Raccourci Consommable Cokawotte',
+                    desc: "Utilisez le consommable Cokawotte (prérequis Dofus Cawotte) pour vous téléporter directement au nord de l'île et farmer ces mines souvent pleines avec étoiles."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'conseils',
+            label: '💡 Astuces d\'Optimisation & Économie',
+            subcats: [
+              {
+                label: 'Conseils Pratiques du Top 10 Mineur',
+                recap: "Monter 200 en une semaine exige une discipline stricte sur le temps passé et la rentabilité horaire :",
+                items: [
+                  {
+                    tag: 'opti',
+                    name: 'Règle du non-stop (Zéro camp)',
+                    desc: "Ne perdez jamais de temps à attendre le repop d'un minerai. Tournez en boucle continue sur votre circuit de mines."
+                  },
+                  {
+                    tag: 'opti',
+                    name: 'Astuce Multi-Compte (Mine d\'Amakna)',
+                    desc: "En multi-compte, laissez un personnage secondaire stationné dans la mine 100% Fer [0, 3] pour vider les repops pendant que votre personnage principal parcourt la grande boucle."
+                  },
+                  {
+                    tag: 'kamas',
+                    name: 'Monopole des Minerais THL',
+                    desc: "Faire partie des premiers mineurs 200 du serveur permet de vendre les minerais nobles (Silicate, Dolomite, Cendre-pierre) à prix d'or pendant le rush initial des artisans."
+                  },
+                  {
+                    tag: 'metier',
+                    name: 'Craft d\'Alliages en Fin de Tournée',
+                    desc: "Convertissez directement vos minerais en alliages à la fin de chaque boucle pour libérer vos pods tout en maximisant votre gain d'XP par rotation."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        legend: [
+          { label: 'Farm — Gisement majeur & récolte intensive', color: 'var(--dofus-emerald)' },
+          { label: 'Opti — Passages secrets, ordres de visite & raccourcis', color: 'var(--dofus-gold)' },
+          { label: 'Kamas — Monopole & ventes lucratives THL', color: 'var(--dofus-gold)' },
+          { label: 'Métier — Synergies et crafts d\'alliages', color: 'var(--dofus-purple)' }
+        ]
       }
     ]
   };
